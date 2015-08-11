@@ -1,0 +1,34 @@
+<ol class="breadcrumb">
+  <li><%= link_to 'Home', root_path %></li>
+  <li><%= link_to @student.homeroom.name, @student.homeroom %></li>
+</ol>
+
+<div class="page-header">
+  <h2><%= @student.name %></h2>
+  <p>Homeroom: <%= @student.homeroom.name %></p>
+</div>
+
+<ul class="nav nav-tabs">
+  <li>
+    <%= link_to 'Demographics', @student %>
+  </li>
+  <li class="active"><a>Internet Accounts</a></li>
+</ul>
+
+<table class="table table-striped">
+  <tr>
+    <th>Service</th>
+    <th>Username</th>
+    <th>Password</th>
+    <th>Sync'd at</th>
+  </tr>
+
+  <% @personas.each do |persona| %>
+    <tr>
+      <td><%= persona.handler %></td>
+      <td><%= persona.username %></td>
+      <td><%= persona.password %></td>
+      <td><%= persona.synced_at %></td>
+    </tr>
+  <% end %>
+</table>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Libertysis</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+</head>
+<body>
+
+  <div class="app">
+    <%= render 'layouts/side' %>
+    <div id="main">
+      <header class="main-header">
+        <a href="#" class="side-trigger" data-behavior="off_canvas_toggle" data-target="side">
+          <span class="glyphicon glyphicon-menu-hamburger"></span>
+        </a>
+      </header>
+      <div class="container-fluid">
+        <%= render 'layouts/flash' %>
+        <%= yield %>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

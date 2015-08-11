@@ -1,0 +1,40 @@
+<div id="side" class="nav_area" data-behavior="off_canvas">
+  <header class="nav_area-header">
+    <h1 class="nav_area-title">LibertySIS</h1>
+    <a href="#" class="nav_area-close" data-behavior="off_canvas_toggle" data-target="side">
+      <span class="glyphicon glyphicon-remove"></span>
+    </a>
+  </header>
+
+  <% if signed_in? %>
+  <div class="nav_area-user">
+    <article class="user">
+      <div class="user-avatar">
+        <% if current_user.image_url.present? %>
+          <%= image_tag current_user.image_url, class: 'avatar-sm' %>
+        <% end %>
+      </div>
+      <div class="user-name">
+        <%= current_user.name %><br>
+        <%= link_to 'Sign-out', destroy_user_session_path, method: :delete %>
+      </div>
+    </article>
+  </div>
+  <% end %>
+
+  <div class="nav_area-content">
+    <ul class="nav">
+      <li>
+        <%= link_to root_path do %>
+          <i class="fa fa-home"></i>Home
+        <% end %>
+      </li>
+      <li>
+        <%= link_to classrooms_path do %>
+          <i class="fa fa-child"></i>Students
+        <% end %>
+      </li>
+    </ul>
+  </div>
+
+</div>

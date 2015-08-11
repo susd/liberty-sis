@@ -1,0 +1,23 @@
+# == Schema Information
+#
+# Table name: grades
+#
+#  id         :integer          not null, primary key
+#  name       :text
+#  position   :float
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  legacy_id  :integer          default(0), not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyText
+  position: 1.5
+  gid: MyText
+
+two:
+  name: MyText
+  position: 1.5
+  gid: MyText

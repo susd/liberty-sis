@@ -1,0 +1,20 @@
+# == Schema Information
+#
+# Table name: roles
+#
+#  id          :integer          not null, primary key
+#  name        :text
+#  permissions :jsonb            default({}), not null
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyText
+  permissions: 
+
+two:
+  name: MyText
+  permissions: 

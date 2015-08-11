@@ -1,0 +1,16 @@
+<div class="page-header">
+  <h1>Classrooms</h1>
+</div>
+
+<table class="table table-striped">
+  <tr>
+    <th>Name</th>
+    <th>Site</th>
+  </tr>
+  <% @classrooms.each do |classroom| %>
+    <tr>
+      <td><%= link_to classroom.name, classroom %></td>
+      <td><%= classroom.site.name %></td>
+    </tr>
+  <% end %>
+</table>

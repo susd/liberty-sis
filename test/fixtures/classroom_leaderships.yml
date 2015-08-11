@@ -1,0 +1,20 @@
+# == Schema Information
+#
+# Table name: classroom_leaderships
+#
+#  id           :integer          not null, primary key
+#  employee_id  :integer
+#  classroom_id :integer
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  employee_id: 
+  classroom_id: 
+
+two:
+  employee_id: 
+  classroom_id: 

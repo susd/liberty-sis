@@ -1,0 +1,25 @@
+.nav_area-header{
+  display: flex;
+  justify-content: space-between;
+  padding: $nav_area-padding;
+  // border-bottom: 1px solid lighten($brand-primary, 15%);
+  border-bottom: 1px solid #E2E0E0;
+}
+
+.nav_area-title{
+  font-size: $font-size-base;
+  line-height: 1;
+  margin: 0;
+}
+
+.nav_area-user{
+  padding: ($nav_area-padding * 2) $nav_area-padding;
+}
+
+.nav_area-content{
+  // background-color: $c-prime-b;
+  .fa{
+    width: 2em;
+    text-align: center;
+  }
+}

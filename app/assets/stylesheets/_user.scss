@@ -1,0 +1,14 @@
+.user{
+  display: flex;
+}
+
+.user-avatar{
+  width: 50px;
+  max-width: 100%;
+  border-radius: 100%;
+  overflow: hidden;
+  border: 1px solid #fff;
+  margin-right: $font-size-base;
+}
+
+.user-name{}

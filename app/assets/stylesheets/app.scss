@@ -1,0 +1,123 @@
+
+@import "bootstrap-sprockets";
+
+// @import "bootswatch/flatly/variables";
+
+@import "bootstrap";
+
+// Bootstrap body padding for fixed navbar
+// body { padding-top: 60px; }
+
+// @import "bootswatch/flatly/bootswatch";
+
+@import "font-awesome-sprockets";
+@import "font-awesome";
+
+@mixin std-transition(){
+  @include transition(all 0.3s ease)
+}
+
+$c-prime-d: darken($brand-primary, 10%);
+$c-prime: $brand-primary;
+$c-prime-b: lighten($brand-primary, 5%);
+$c-prime-bb: lighten($brand-primary, 15%);
+
+$app-side-width: 18em;
+
+$nav_area-padding: $font-size-base + 1;
+
+@import 'user';
+@import 'nav_area';
+
+
+
+body{
+  padding: 0;
+  margin: 0;
+  // background: $c-prime;
+  background: $gray-lighter;
+}
+
+img{
+  max-width: 100%;
+  height: auto;
+}
+
+.app{
+  height: 100vh;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.alert-notice{
+  @extend .alert-success;
+}
+
+.alert-alert{
+  @extend .alert-danger;
+}
+
+#side{
+  position: absolute;
+  z-index: 2;
+  width: $app-side-width;
+  height: 100vh;
+  // background-color: $brand-primary;
+  // color: #fff;
+  overflow: hidden;
+  transform: translate(-$app-side-width, 0);
+  @include std-transition;
+}
+
+#main{
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 0;
+  background-color: #fff;
+  @include std-transition;
+}
+
+.js-off_canvas-open{
+  #side{
+    transform: translate(0, 0);
+  }
+  #main{
+    opacity: 0.75;
+  }
+}
+
+.main-header{
+  padding: $font-size-base;
+  border-bottom: 1px solid $gray-lighter;
+  margin-bottom: $font-size-base;
+  line-height: 1;
+}
+
+@media (min-width: $screen-md-min){
+  .app{
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: stretch;
+  }
+  #side{
+    position: static;
+    width: $app-side-width;
+    height: auto;
+    transform: translate(0, 0);
+    .nav_area-close{ display: none; }
+  }
+
+  #main{
+    flex: 1;
+    height: auto;
+  }
+
+  .js-off_canvas-open{
+    #main{
+      opacity: 1;
+    }
+    #side{
+      flex: 0;
+    }
+  }
+}

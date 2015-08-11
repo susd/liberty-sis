@@ -1,0 +1,26 @@
+# == Schema Information
+#
+# Table name: languages
+#
+#  id           :integer          not null, primary key
+#  name         :text
+#  calpads_name :text
+#  calpads_code :integer
+#  aeries_code  :integer
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyText
+  calpads_name: MyText
+  calpads_code: 1
+  aeries_code: 1
+
+two:
+  name: MyText
+  calpads_name: MyText
+  calpads_code: 1
+  aeries_code: 1
