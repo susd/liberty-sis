@@ -13,8 +13,8 @@
 
 one:
   name: MyText
-  permissions: 
+  permissions: '{}'
 
 two:
   name: MyText
-  permissions: 
+  permissions: '{}'

@@ -14,13 +14,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  student_id: 
-  handler: MyString
-  username: MyString
+  student_id:
+  handler: gapps
+  username: dood23@example.com
   password: MyString
 
-two:
-  student_id: 
-  handler: MyString
-  username: MyString
-  password: MyString
+# two:
+#   student_id:
+#   handler: MyString
+#   username: MyString
+#   password: MyString

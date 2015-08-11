@@ -15,9 +15,7 @@
 one:
   name: MyText
   position: 1.5
-  gid: MyText
 
 two:
   name: MyText
   position: 1.5
-  gid: MyText

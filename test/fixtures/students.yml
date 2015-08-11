@@ -26,19 +26,19 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  site_id: 
+  site_id:
   homeroom_id: 1
   legacy_id: 1
   home_lang_id: 1
   first_name: MyString
   last_name: MyString
-  grade_id: 
+  grade_id:
 
 two:
-  site_id: 
+  site_id:
   homeroom_id: 1
-  legacy_id: 1
+  legacy_id: 2
   home_lang_id: 1
   first_name: MyString
   last_name: MyString
-  grade_id: 
+  grade_id:
