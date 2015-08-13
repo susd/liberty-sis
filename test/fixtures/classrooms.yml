@@ -19,3 +19,18 @@
 # two:
 #   name: MyString
 #   site_id:
+
+std_classroom:
+  name: 'Standard Classroom'
+  import_details: '{}'
+  site: west_creek
+
+ashleys_class:
+  name: "Ashley Doe's Class"
+  import_details: '{}'
+  site: west_creek
+
+alices_class:
+  name: "Alice Doe's Class"
+  import_details: '{}'
+  site: west_creek

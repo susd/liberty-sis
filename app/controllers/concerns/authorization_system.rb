@@ -25,7 +25,7 @@ module AuthorizationSystem
 
   def authorize_for_classroom!(classroom)
     authorize! do
-      current_user.admin? || classroom.users.include?( current_user )
+      current_user.admin? || current_user.can?(:view, classroom)
     end
   end
 

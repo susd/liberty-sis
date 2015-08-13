@@ -25,15 +25,29 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  type: 
+  type:
   first_name: MyString
   last_name: MyString
   legacy_id: 1
-  site_id: 
+  site_id:
 
 two:
-  type: 
+  type:
   first_name: MyString
   last_name: MyString
   legacy_id: 1
-  site_id: 
+  site_id:
+
+teacher:
+  type: Teacher
+  first_name: Mrs
+  last_name: Teacher
+  user: teacher
+
+ashley_doe:
+  type: Teacher
+  first_name: Ashley
+  last_name: Doe
+  user: ashley_doe
+  site: west_creek
+  classrooms: ashleys_class

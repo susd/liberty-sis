@@ -12,10 +12,12 @@
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyText
-  position: 1.5
+4th_grade:
+  position: 4.0
+  name: "4th Grade"
+  legacy_id: 4
 
-two:
-  name: MyText
-  position: 1.5
+5th_grade:
+  position: 5.0
+  name: "5th Grade"
+  legacy_id: 5

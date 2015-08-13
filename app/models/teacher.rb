@@ -25,6 +25,7 @@
 class Teacher < Employee
   has_many :classroom_leaderships, foreign_key: 'employee_id'
   has_many :classrooms, through: :classroom_leaderships
+  has_many :students, through: :classrooms
 
   def add_classroom(new_classroom)
     unless classrooms.include? new_classroom

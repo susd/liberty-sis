@@ -23,5 +23,7 @@
 #
 
 class Employee < ActiveRecord::Base
-  belongs_to :site
+  # belongs_to :site
+  has_and_belongs_to_many :sites
+  belongs_to :user
 end

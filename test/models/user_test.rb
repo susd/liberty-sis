@@ -23,7 +23,25 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+
+  setup do
+    @teacher = users(:ashley_doe)
+    @office = users(:office)
+  end
+
+  test "Teacher can view classroom" do
+    assert @teacher.can?(:view, :classrooms, classrooms(:ashleys_class))
+  end
+
+  test "Teacher can view student in her classroom" do
+    assert @teacher.can?(:view, :students, students(:alfred))
+  end
+
+  test "Teacher can not view another student" do
+    assert_not @teacher.can?(:view, :students, students(:jill))
+  end
+
+  test "Office manager can view classrooms for her school" do
+    assert @office.can?(:view, :classrooms, classrooms(:ashleys_class))
+  end
 end
