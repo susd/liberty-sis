@@ -28,6 +28,7 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :roles
 
   has_one :employee
+  has_many :sites, through: :employee
 
   def self.from_omniauth(auth)
     pass = Devise.friendly_token
@@ -56,29 +57,8 @@ class User < ActiveRecord::Base
     roles.where(name: 'admin').exists?
   end
 
-  def can?(action, resource, target = nil)
-    @cached_perms ||= roles.pluck(:permissions)
-    # if target.is_a? Symbol
-    #   match_general_permission(action, resource, target)
-    # else
-    #   match_specific_permission(action, resource, target)
-    # end
-
-    # if has_general_permission?
-    # when :all, true
-    # when :site, is target associated with site?
-    # when :own, is target associated with user?
-    # when :self, is target equal to user's employee record?
-    matched_roles = roles.where("permissions ? :action", action: action)
-    # maybe this would be better as a normal table
-  end
-
-  def match_site_permission(action, resource, target)
-    false
-  end
-
-  def match_specific_permission(action, resource, target)
-    employee && employee.send(resource).include?(target)
+  def can?(action, target)
+    PermissionMatcher.new(self, action, target).match?
   end
 
 end

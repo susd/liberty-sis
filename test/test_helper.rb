@@ -21,7 +21,7 @@ module ActiveRecord
           column_type = association.primary_key_type
           lhs_key     = association.lhs_key
           rhs_key     = association.rhs_key
-          join_class  = table_name.classify.constantize
+          join_class  = table_name.classify.constantize if Module.const_defined?(table_name.classify)
 
           targets = targets.is_a?(Array) ? targets : targets.split(/\s*,\s*/)
 
@@ -30,7 +30,7 @@ module ActiveRecord
               lhs_key => row[primary_key_name],
               rhs_key => ActiveRecord::FixtureSet.identify(target, column_type)
             }
-            if join_class.record_timestamps
+            if join_class && join_class.record_timestamps
               now = config.default_timezone == :utc ? Time.now.utc : Time.now
               now = now.to_s(:db)
               timestamp_column_names.each do |c_name|

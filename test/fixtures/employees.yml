@@ -15,7 +15,6 @@
 #  title          :string
 #  status         :integer          default(0), not null
 #  legacy_id      :integer
-#  site_id        :integer
 #  user_id        :integer
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
@@ -29,14 +28,12 @@ one:
   first_name: MyString
   last_name: MyString
   legacy_id: 1
-  site_id:
 
 two:
   type:
   first_name: MyString
   last_name: MyString
   legacy_id: 1
-  site_id:
 
 teacher:
   type: Teacher
@@ -49,5 +46,10 @@ ashley_doe:
   first_name: Ashley
   last_name: Doe
   user: ashley_doe
-  site: west_creek
+  sites: west_creek
   classrooms: ashleys_class
+
+office:
+  type: Employee
+  user: office
+  sites: west_creek

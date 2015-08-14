@@ -14,11 +14,21 @@
 teacher:
   name: Teacher
   permissions:
-    :view:
-      :classrooms: :own
+    classrooms:
+      edit: own
 
 office:
   name: Office
   permissions:
-    :view:
-      :classrooms: :site
+    classrooms:
+      manage: site
+
+admin:
+  name: Admin
+  permissions:
+    classrooms:
+      manage: all
+    sites:
+      manage: all
+    employees:
+      manage: all

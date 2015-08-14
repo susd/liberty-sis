@@ -15,7 +15,6 @@
 #  title          :string
 #  status         :integer          default(0), not null
 #  legacy_id      :integer
-#  site_id        :integer
 #  user_id        :integer
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
@@ -23,7 +22,6 @@
 #
 
 class Employee < ActiveRecord::Base
-  # belongs_to :site
   has_and_belongs_to_many :sites
   belongs_to :user
 end
