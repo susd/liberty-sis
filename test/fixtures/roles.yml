@@ -16,6 +16,8 @@ teacher:
   permissions:
     classrooms:
       edit: own
+    students:
+      edit: own
 
 office:
   name: Office

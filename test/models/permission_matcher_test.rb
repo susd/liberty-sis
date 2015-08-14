@@ -3,6 +3,7 @@ require 'test_helper'
 class PermissionMatcherTest < ActiveSupport::TestCase
 
   setup do
+    @ashley = users(:ashley_doe)
     @matcher = PermissionMatcher.new(users(:admin), :manage, Classroom.new)
   end
 
@@ -78,7 +79,7 @@ class PermissionMatcherTest < ActiveSupport::TestCase
   end
 
   test "Match self scope" do
-    matcher = PermissionMatcher.new(users(:ashley_doe), :view, employees(:ashley_doe))
+    matcher = PermissionMatcher.new(@ashley, :view, employees(:ashley_doe))
     assert matcher.match_self_scope
   end
 
@@ -93,6 +94,11 @@ class PermissionMatcherTest < ActiveSupport::TestCase
 
   test "Able to view own classroom" do
     matcher = room_matcher_from_syms(:ashley_doe)
+    assert matcher.match?
+  end
+
+  test "Able to view student in related classroom" do
+    matcher = PermissionMatcher.new(@ashley, :view, students(:cindy))
     assert matcher.match?
   end
 
