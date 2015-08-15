@@ -38,6 +38,7 @@ long_name:
   last_name: <%= SecureRandom.urlsafe_base64(8) %>
   grade: 4th_grade
   classrooms: ashleys_class
+  homeroom: ashleys_class
 <% end %>
 
 
@@ -47,4 +48,5 @@ long_name:
   last_name: <%= SecureRandom.urlsafe_base64(8) %>
   grade: 5th_grade
   classrooms: alices_class
+  homeroom: alices_class
 <% end %>

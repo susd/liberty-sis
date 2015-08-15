@@ -17,15 +17,9 @@ module AuthorizationSystem
     authorize! { current_user.admin? }
   end
 
-  def authorize_for_student_teacher!(student)
+  def authorize_to(action, target)
     authorize! do
-      current_user.admin? || student.classroom.users.include?( current_user )
-    end
-  end
-
-  def authorize_for_classroom!(classroom)
-    authorize! do
-      current_user.admin? || current_user.can?(:view, classroom)
+      current_user.can?(action, target)
     end
   end
 
