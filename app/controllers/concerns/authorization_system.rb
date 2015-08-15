@@ -1,6 +1,12 @@
 module AuthorizationSystem
+  extend ActiveSupport::Concern
+
   NotAuthorized = Class.new(StandardError)
   AuthorizationNotChecked = Class.new(StandardError)
+
+  included do
+    rescue_from NotAuthorized, with: :deny_access
+  end
 
   protected
 
@@ -26,6 +32,10 @@ module AuthorizationSystem
   def validate_authorization_checked
     return if @authorization_checked
     raise AuthorizationNotChecked
+  end
+
+  def deny_access
+    redirect_to forbidden_path, status: 403
   end
 end
 
