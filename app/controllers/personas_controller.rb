@@ -3,7 +3,7 @@ class PersonasController < ApplicationController
 
   def index
     @personas = @student.personas
-    authorize_for_student_teacher!(@student)
+    authorize_to(:view, @student)
   end
 
   private

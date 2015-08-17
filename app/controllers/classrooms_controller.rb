@@ -9,7 +9,7 @@ class ClassroomsController < ApplicationController
     @classroom = Classroom.find(params[:id])
     @students = @classroom.students.order(:last_name)
 
-    authorize_for_classroom!(@classroom)
+    authorize_to(:view, @classroom)
   end
 
 end
