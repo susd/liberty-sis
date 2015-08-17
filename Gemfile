@@ -39,6 +39,8 @@ gem 'omniauth-google-oauth2'
 gem 'puma'
 gem 'google-api-client', '0.9.pre2'
 gem 'aasm'
+gem 'daemons'
+gem 'delayed_job_active_record'
 
 # For Aeries
 gem 'tiny_tds', '~> 0.6.3.rc1'
