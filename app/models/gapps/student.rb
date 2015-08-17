@@ -6,7 +6,7 @@ module Gapps
       service.get_user(email)
     end
 
-    # FIXME: Batch requests do not update persona, and generate quota errors
+    # FIXME: Batch requests do not update persona and generate quota errors
     # def self.batch_upsert!(student_relation)
     #   student_relation.includes(:personas, :site, :grade).find_in_batches do |group|
     #     service.batch do |service|
