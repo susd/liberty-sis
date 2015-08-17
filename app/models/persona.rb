@@ -35,4 +35,5 @@ class Persona < ActiveRecord::Base
       transitions to: :disabled
     end
   end
+  
 end

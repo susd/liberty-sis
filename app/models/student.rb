@@ -29,7 +29,7 @@ class Student < ActiveRecord::Base
   belongs_to :home_lang, foreign_key: 'home_lang_id', class_name: 'Language'
   belongs_to :homeroom, foreign_key: 'homeroom_id', class_name: 'Classroom'
 
-  has_many :classroom_memberships
+  has_many :classroom_memberships, dependent: :destroy
   has_many :classrooms, through: :classroom_memberships
 
   has_many :personas

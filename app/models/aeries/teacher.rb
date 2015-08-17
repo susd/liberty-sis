@@ -59,7 +59,7 @@ module Aeries
     self.primary_keys = [:sc, :tn]
 
     def self.active
-      where("tn < 899").where.not(tg: 'I')
+      where("tn BETWEEN 1 AND 899").where.not(tg: 'I')
     end
 
     def self.active_by_site(school_code)

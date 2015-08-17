@@ -13,10 +13,10 @@
 class Classroom < ActiveRecord::Base
   belongs_to :site
 
-  has_many :classroom_leaderships
+  has_many :classroom_leaderships, dependent: :destroy
   has_many :teachers, through: :classroom_leaderships, source: :employee
 
-  has_many :classroom_memberships
+  has_many :classroom_memberships, dependent: :destroy
   has_many :students, through: :classroom_memberships
 
   def reimport!

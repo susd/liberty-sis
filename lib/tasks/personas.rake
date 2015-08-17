@@ -6,10 +6,6 @@ def progress(i)
   end
 end
 
-def default_persona(student, handler)
-
-end
-
 namespace :personas do
 
   task gapps: :environment do

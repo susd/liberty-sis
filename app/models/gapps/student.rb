@@ -6,13 +6,20 @@ module Gapps
       service.get_user(email)
     end
 
-    def self.batch_upsert(student_relation)
-      student_relation.includes(:personas, :site, :grade).find_in_batches do |group|
-        service.batch do |service|
-          group.each do |student|
-            new(student).upsert!
-          end
-        end
+    # FIXME: Batch requests do not update persona, and generate quota errors
+    # def self.batch_upsert!(student_relation)
+    #   student_relation.includes(:personas, :site, :grade).find_in_batches do |group|
+    #     service.batch do |service|
+    #       group.each do |student|
+    #         new(student).upsert!
+    #       end
+    #     end
+    #   end
+    # end
+
+    def self.upsert_all!(student_relation)
+      student_relation.find_each do |student|
+        SyncGappsPersonaJob.perform_later(student)
       end
     end
 

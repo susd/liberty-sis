@@ -47,7 +47,7 @@ module Aeries
       # end
       teacher = TeacherImporter.new(aeries_teacher).create_or_update_teacher
       teacher.add_classroom @classroom
-      teacher.site = @site
+      teacher.sites << @site
       teacher.save
     end
 
