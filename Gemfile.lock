@@ -122,7 +122,7 @@ GEM
     git-version-bump (0.15.1)
     globalid (0.3.5)
       activesupport (>= 4.1.0)
-    google-api-client (0.9.pre2)
+    google-api-client (0.9.pre3)
       activesupport (>= 3.2)
       addressable (~> 2.3)
       googleauth (~> 0.2)
@@ -308,7 +308,7 @@ GEM
       coffee-rails
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
-    uber (0.0.13)
+    uber (0.0.14)
     uglifier (2.7.1)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
@@ -342,7 +342,7 @@ DEPENDENCIES
   delayed_job_active_record
   devise
   font-awesome-sass
-  google-api-client (= 0.9.pre2)
+  google-api-client (= 0.9.pre3)
   guard
   guard-minitest
   jbuilder (~> 2.0)
