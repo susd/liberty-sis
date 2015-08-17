@@ -17,9 +17,9 @@ module Aeries
     end
 
     def import!(additional_attrs = {})
-      attrs = stu.to_student.merge(additional_attrs)
+      attrs = student.to_student.merge(additional_attrs)
       if liberty_student = ::Student.find_by("import_details -> 'import_id' = ?", student.attributes['id'].to_s)
-        student.update(attrs)
+        liberty_student.update(attrs)
       else
         liberty_student = ::Student.create(attrs)
       end
