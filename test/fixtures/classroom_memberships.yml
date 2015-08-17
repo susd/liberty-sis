@@ -11,10 +11,32 @@
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  student_id: 
-  classroom_id: 
+# one:
+#   student_id:
+#   classroom_id:
+#
+# two:
+#   student_id:
+#   classroom_id:
 
-two:
-  student_id: 
-  classroom_id: 
+# long_name:
+#   student: long_name
+#   classroom: std_classroom
+#   created_at: <%= DateTime.now %>
+#   updated_at: <%= DateTime.now %>
+#
+# <% %w{alfred bobby cindy denise erin frank}.each do |name| %>
+# <%= name %>:
+#   student: <%= name %>
+#   classroom: ashleys_class
+#   created_at: <%= DateTime.now %>
+#   updated_at: <%= DateTime.now %>
+# <% end %>
+#
+# <% %w{gertrude hector irene jill kevin linda}.each do |name| %>
+# <%= name %>:
+#   student: <%= name %>
+#   classroom: alices_class
+#   created_at: <%= DateTime.now %>
+#   updated_at: <%= DateTime.now %>
+# <% end %>

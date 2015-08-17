@@ -1,6 +1,12 @@
 module AuthorizationSystem
+  extend ActiveSupport::Concern
+
   NotAuthorized = Class.new(StandardError)
   AuthorizationNotChecked = Class.new(StandardError)
+
+  included do
+    rescue_from NotAuthorized, with: :deny_access
+  end
 
   protected
 
@@ -17,21 +23,19 @@ module AuthorizationSystem
     authorize! { current_user.admin? }
   end
 
-  def authorize_for_student_teacher!(student)
+  def authorize_to(action, target)
     authorize! do
-      current_user.admin? || student.classroom.users.include?( current_user )
-    end
-  end
-
-  def authorize_for_classroom!(classroom)
-    authorize! do
-      current_user.admin? || classroom.users.include?( current_user )
+      current_user.can?(action, target)
     end
   end
 
   def validate_authorization_checked
     return if @authorization_checked
     raise AuthorizationNotChecked
+  end
+
+  def deny_access
+    redirect_to forbidden_path, status: 403
   end
 end
 

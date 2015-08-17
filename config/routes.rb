@@ -2,6 +2,8 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: { omniauth_callbacks: "omniauth_callbacks", sessions: 'sessions' }
 
+  get 'forbidden', to: 'pages#forbidden', as: :forbidden
+
   resources :sites
   resources :classrooms
 

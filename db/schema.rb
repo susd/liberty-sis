@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150811162009) do
+ActiveRecord::Schema.define(version: 20150813024758) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,7 +59,6 @@ ActiveRecord::Schema.define(version: 20150811162009) do
     t.string   "title"
     t.integer  "status",         default: 0,  null: false
     t.integer  "legacy_id"
-    t.integer  "site_id"
     t.integer  "user_id"
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
@@ -70,8 +69,15 @@ ActiveRecord::Schema.define(version: 20150811162009) do
   add_index "employees", ["email"], name: "index_employees_on_email", using: :btree
   add_index "employees", ["last_name"], name: "index_employees_on_last_name", using: :btree
   add_index "employees", ["legacy_id"], name: "index_employees_on_legacy_id", using: :btree
-  add_index "employees", ["site_id"], name: "index_employees_on_site_id", using: :btree
   add_index "employees", ["type"], name: "index_employees_on_type", using: :btree
+
+  create_table "employees_sites", id: false, force: :cascade do |t|
+    t.integer "employee_id"
+    t.integer "site_id"
+  end
+
+  add_index "employees_sites", ["employee_id"], name: "index_employees_sites_on_employee_id", using: :btree
+  add_index "employees_sites", ["site_id"], name: "index_employees_sites_on_site_id", using: :btree
 
   create_table "grades", force: :cascade do |t|
     t.text     "name"
@@ -121,6 +127,8 @@ ActiveRecord::Schema.define(version: 20150811162009) do
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
   end
+
+  add_index "roles", ["permissions"], name: "index_roles_on_permissions", using: :gin
 
   create_table "roles_users", id: false, force: :cascade do |t|
     t.integer "role_id"
@@ -214,7 +222,6 @@ ActiveRecord::Schema.define(version: 20150811162009) do
   add_foreign_key "classroom_memberships", "classrooms"
   add_foreign_key "classroom_memberships", "students"
   add_foreign_key "classrooms", "sites"
-  add_foreign_key "employees", "sites"
   add_foreign_key "personas", "students"
   add_foreign_key "students", "grades"
   add_foreign_key "students", "sites"

@@ -1,10 +1,7 @@
 class StudentsController < ApplicationController
-  def index
-  end
-
   def show
     load_student
-    authorize_for_student_teacher!(@student)
+    authorize_to(:view, @student)
   end
 
   private

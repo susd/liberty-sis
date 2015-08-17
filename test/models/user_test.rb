@@ -23,7 +23,13 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+
+  setup do
+    @teacher = users(:ashley_doe)
+    @office = users(:office)
+  end
+
+  test "Permissions API" do
+    assert @teacher.can?(:view, classrooms(:ashleys_class))
+  end
 end

@@ -27,6 +27,9 @@ class User < ActiveRecord::Base
 
   has_and_belongs_to_many :roles
 
+  has_one :employee
+  has_many :sites, through: :employee
+
   def self.from_omniauth(auth)
     pass = Devise.friendly_token
     user = find_or_create_by(auth.slice('provider', 'uid')) do |u|
@@ -51,6 +54,11 @@ class User < ActiveRecord::Base
   end
 
   def admin?
-    true
+    roles.where(name: 'admin').exists?
   end
+
+  def can?(action, target)
+    PermissionMatcher.new(self, action, target).match?
+  end
+
 end

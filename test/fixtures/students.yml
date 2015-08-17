@@ -25,20 +25,28 @@
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  site_id:
-  homeroom_id: 1
-  legacy_id: 1
-  home_lang_id: 1
-  first_name: MyString
-  last_name: MyString
-  grade_id:
+long_name:
+  first_name: Marcus Christian David
+  middle_name: G
+  last_name: Salvador
+  grade: 5th_grade
+  classrooms: std_classroom
 
-two:
-  site_id:
-  homeroom_id: 1
-  legacy_id: 2
-  home_lang_id: 1
-  first_name: MyString
-  last_name: MyString
-  grade_id:
+<% %w{alfred bobby cindy denise erin frank}.each do |name| %>
+<%= name %>:
+  first_name: <%= name %>
+  last_name: <%= SecureRandom.urlsafe_base64(8) %>
+  grade: 4th_grade
+  classrooms: ashleys_class
+  homeroom: ashleys_class
+<% end %>
+
+
+<% %w{gertrude hector irene jill kevin linda}.each do |name| %>
+<%= name %>:
+  first_name: <%= name %>
+  last_name: <%= SecureRandom.urlsafe_base64(8) %>
+  grade: 5th_grade
+  classrooms: alices_class
+  homeroom: alices_class
+<% end %>

@@ -11,10 +11,26 @@
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyText
-  permissions: '{}'
+teacher:
+  name: Teacher
+  permissions:
+    classrooms:
+      edit: own
+    students:
+      edit: own
 
-two:
-  name: MyText
-  permissions: '{}'
+office:
+  name: Office
+  permissions:
+    classrooms:
+      manage: site
+
+admin:
+  name: Admin
+  permissions:
+    classrooms:
+      manage: all
+    sites:
+      manage: all
+    employees:
+      manage: all
