@@ -28,5 +28,4 @@ class PermissionMerger
     end
   end
 
-
 end
