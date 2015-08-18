@@ -1,7 +1,7 @@
 class ClassroomsController < ApplicationController
 
   def index
-    @classrooms = Classroom.all
+    load_classrooms
     authorize_signed_in_user!
   end
 
@@ -10,6 +10,17 @@ class ClassroomsController < ApplicationController
     @students = @classroom.students.order(:last_name)
 
     authorize_to(:view, @classroom)
+  end
+
+  private
+
+  def load_classrooms(site_id = nil)
+    if site_id
+      @site = Site.find(site_id)
+      @classrooms = @site.classrooms
+    else
+      @classrooms = Classroom.all
+    end
   end
 
 end
