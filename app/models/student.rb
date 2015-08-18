@@ -44,7 +44,7 @@ class Student < ActiveRecord::Base
       str << "#{middle_name[0]}"
     end
     str << "#{last_name}#{grad_year}"
-    str.downcase.gsub(/\s/,'')
+    str.downcase.gsub(/(\s|-)/,'')
   end
 
   def persona_domain
