@@ -23,6 +23,12 @@ module Gapps
       end
     end
 
+    def self.verify_all!(student_relation)
+      student_relation.find_each do |student|
+        VerifyGappsPersonaJob.perform_later(student)
+      end
+    end
+
     def initialize(student)
       @student = student
       @persona = student.personas.find_by(handler: 'gapps')
