@@ -18,6 +18,14 @@ module Permissions
       end
     end
 
+    def has_resource_ability?(resource)
+      permissions[resource].keys.any?
+    end
+
+    def resource_level(resource)
+      permissions[resource].values[0]
+    end
+
     def has_ability_over?(target)
       find_resource(target)
       permissions[resource].present?
@@ -32,8 +40,10 @@ module Permissions
       self.send("match_#{level}_scope", target)
     end
 
-    # def match_all_scope
-    #   true
+    # def match_all_scope(target)
+    #   find_resource(target)
+    #   binding.pry
+    #   Level.new(:all) == resource_ability(resource)
     # end
     #
     # def match_site_scope
