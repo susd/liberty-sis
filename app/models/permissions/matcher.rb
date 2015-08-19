@@ -1,6 +1,6 @@
 module Permissions
   class Matcher
-    attr_reader :user
+    attr_reader :user, :resource
 
     def initialize(user)
       @user = user
@@ -18,8 +18,18 @@ module Permissions
       end
     end
 
+    def has_ability_over?(target)
+      find_resource(target)
+      permissions[resource].present?
+    end
+
     def target_ability(target)
-      # if permissions
+      find_resource(target)
+      Ability.new permissions[resource].keys[0]
+    end
+
+    def target_level_match?(level, target)
+      self.send("match_#{level}_scope", target)
     end
 
     # def match_all_scope
@@ -31,14 +41,19 @@ module Permissions
     #     site.send(resource.to_sym).include? target
     #   end
     # end
-    #
-    # def match_own_scope
-    #   @user.employee && @user.employee.send(resource.to_sym).include?(target)
-    # end
-    #
+
+    def match_own_scope(target)
+      resource = find_resource(target)
+      @user.employee && @user.employee.send(resource.to_sym).include?(target)
+    end
+
     # def match_self_scope
     #   @user == target || @user.employee == target
     # end
+
+    def find_resource(target)
+      @resource ||= target.class.table_name
+    end
 
   end
 end

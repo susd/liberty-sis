@@ -5,6 +5,7 @@ class Permissions::MatcherTest < ActiveSupport::TestCase
   setup do
     @user = users(:ashley_doe)
     @matcher = Permissions::Matcher.new(@user)
+    @classroom = classrooms(:ashleys_class)
 
     @edit = Permissions::Ability.new(:edit)
 
@@ -16,11 +17,15 @@ class Permissions::MatcherTest < ActiveSupport::TestCase
   end
 
   test "Level match" do
-    assert_equal @own, @matcher.scope_match?(@own, classrooms(:ashley_doe))
+    assert @matcher.target_level_match?(:own, @classroom)
   end
 
-  # test "Finds target ability" do
-  #   assert_equal @edit, @matcher.target_ability(classrooms(:ashleys_class))
-  # end
+  test "has ability over target" do
+    assert @matcher.has_ability_over?(@classroom)
+  end
+
+  test "Finds target ability" do
+    assert_equal @edit, @matcher.target_ability(@classroom)
+  end
 
 end
