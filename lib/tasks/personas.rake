@@ -34,6 +34,16 @@ namespace :personas do
     end
   end
 
+  task update: :environment do
+    Student.find_each.with_index do |student, idx|
+      p = student.personas.find_by(handler: "gapps")
+      if p && p.username != student.persona_email
+        p.update(username: student.persona_email)
+      end
+      progress(idx)
+    end
+  end
+
   task export: :environment do
 
     fields = [
@@ -70,6 +80,21 @@ namespace :personas do
       end
       count += 1
       progress(count)
+    end
+  end
+
+  task verify: :environment do
+    Student.where(grade: Grade.where("position > 1.0")).find_each.with_index do |student, idx|
+      VerifyGappsPersonaJob.perform_later(student)
+      progress(idx)
+    end
+  end
+
+  task cleanup: :environment do
+    crit = Student.where(grade: Grade.where("position > 1.0")).where("length(first_name) > 5")
+    crit.find_each.with_index do |student, idx|
+      CleanGappsPersonaJob.perform_later(student)
+      progress(idx)
     end
   end
 

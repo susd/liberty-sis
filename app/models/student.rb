@@ -24,6 +24,8 @@
 #
 
 class Student < ActiveRecord::Base
+  NAME_LENGTH = 5
+
   belongs_to :site
   belongs_to :grade
   belongs_to :home_lang, foreign_key: 'home_lang_id', class_name: 'Language'
@@ -39,12 +41,12 @@ class Student < ActiveRecord::Base
   end
 
   def persona_name
-    str = "#{first_name}"
+    str = "#{first_name[0..NAME_LENGTH]}"
     unless middle_name.blank?
       str << "#{middle_name[0]}"
     end
     str << "#{last_name}#{grad_year}"
-    str.downcase.gsub(/(\s|-)/,'')
+    str.downcase.gsub(/(\s|-|\'|\")/,'')
   end
 
   def persona_domain
