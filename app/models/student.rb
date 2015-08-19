@@ -63,7 +63,7 @@ class Student < ActiveRecord::Base
 
   def grad_year
     current_year = Time.now.year
-    g_year = (12 - self.grade.position.floor) + current_year
+    g_year = (12 - self.grade.position.floor + 1) + current_year
     g_year.to_s[-2, 2]
   end
 

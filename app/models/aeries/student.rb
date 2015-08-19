@@ -235,6 +235,7 @@ module Aeries
         first_name:   attributes['fn'],
         middle_name:  attributes['mn'],
         last_name:    attributes['ln'],
+        birthdate:    convert_birthdate,
         home_lang:    find_home_lang,
         grade:        find_liberty_grade,
         import_details: {source: 'aeries', import_class: self.class.to_s, import_id: attributes['id']}
@@ -251,6 +252,10 @@ module Aeries
 
     def find_home_lang
       Language.find_by(aeries_code: attributes['hl'].to_i)
+    end
+
+    def convert_birthdate
+      bd && read_attribute_before_type_cast('bd').to_date
     end
 
   end

@@ -36,7 +36,7 @@ class StudentTest < ActiveSupport::TestCase
   end
 
   test "Graduation year calculation" do
-    assert_equal '22', @student.grad_year
+    assert_equal '23', @student.grad_year
   end
 
   test "Adding classrooms idempotently" do
