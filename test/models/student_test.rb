@@ -36,7 +36,12 @@ class StudentTest < ActiveSupport::TestCase
   end
 
   test "Graduation year calculation" do
-    assert_equal '23', @student.grad_year
+    Timecop.travel(Date.new(2015,8,19)) do
+      assert_equal '23', @student.grad_year
+    end
+    Timecop.travel(Date.new(2016,2,1)) do
+      assert_equal '23', @student.grad_year
+    end
   end
 
   test "Adding classrooms idempotently" do

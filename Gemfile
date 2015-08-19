@@ -56,6 +56,7 @@ group :test do
   gem 'guard'
   gem 'guard-minitest'
   gem 'minitest-reporters'
+  gem 'timecop'
 end
 
 group :development, :test do

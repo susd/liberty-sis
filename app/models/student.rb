@@ -50,7 +50,7 @@ class Student < ActiveRecord::Base
   end
 
   def persona_domain
-    "#{site.abbr}.saugususd.org"
+    "saugususd.org"
   end
 
   def persona_email
@@ -62,8 +62,13 @@ class Student < ActiveRecord::Base
   end
 
   def grad_year
-    current_year = Time.now.year
-    g_year = (12 - self.grade.position.floor + 1) + current_year
+    now = Time.now
+    if now.month < 7
+      current_year = now.year
+    else
+      current_year = now.year + 1
+    end
+    g_year = (12 - self.grade.position.floor) + current_year
     g_year.to_s[-2, 2]
   end
 
