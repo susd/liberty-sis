@@ -17,35 +17,37 @@ class Permissions::MatcherTest < ActiveSupport::TestCase
     assert_equal @edit, @matcher.resource_ability(:classrooms)
   end
 
-  test "Finds resource level" do
-    assert_equal @own, @matcher.resource_level(:classrooms)
-  end
-
   test "Level match" do
-    assert @matcher.target_level_match?(:own, @classroom)
-  end
-
-  test "has ability over target" do
-    assert @matcher.has_ability_over?(@classroom)
+    assert @matcher.target_in_level?(:own, @classroom)
   end
 
   test "Finds target ability" do
-    assert_equal @edit, @matcher.target_ability(@classroom)
+    assert_equal @edit, @matcher.ability_for(@classroom)
   end
 
-  test "Matches all scope" do
+  test "Match all scope" do
     matcher = Permissions::Matcher.new(users(:admin))
-    assert matcher.match_all_scope(Classroom.new)
+    assert matcher.match_all_scope(@classroom)
   end
 
-  # test "Matches site scope" do
-  #   matcher = Permissions::Matcher.new(users(:office))
-  #   assert matcher.match_site_scope(Classroom.new)
-  # end
+  test "General matching" do
+    assert @matcher.match_general?(:view, :own, :classrooms)
+  end
 
-  test "Match general" do
-    matcher = Permissions::Matcher.new(users(:admin))
-    assert matcher.match_general?(:view, :own, :classrooms)
+  test "Target matching" do
+    assert @matcher.match_target?(:view, @classroom)
+  end
+
+  test "Cannot view classroom" do
+    assert_not @matcher.match_target?(:view, classrooms(:alices_class))
+  end
+
+  test "Cannot manage sites" do
+    assert_not @matcher.match_general?(:manage, :all, :sites)
+  end
+
+  test "Cannot manage all classrooms" do
+    assert_not @matcher.match_general?(:manage, :all, :classrooms)
   end
 
 end

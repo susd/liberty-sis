@@ -58,11 +58,11 @@ class User < ActiveRecord::Base
   end
 
   def can?(action, target)
-    PermissionMatcher.new(self, action, target).match?
+    Permissions::Matcher.new(self).match_target?(action, target)
   end
 
-  def can_generally?(action, scope)
-    
+  def can_generally?(action, level, resource)
+    Permissions::Matcher.new(self).match_general?(action, level, resource)
   end
 
 end

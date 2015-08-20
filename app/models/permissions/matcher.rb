@@ -11,9 +11,30 @@ module Permissions
     end
 
     def match_general?(ability, level, resource)
-      # what does user have for resource?
-      # is ability >= ?
-      # is level >= ?
+      user_ability = resource_ability(resource)
+      if user_ability >= Ability.new(ability)
+        Level.new(permissions[resource.to_s][user_ability.to_s]) >= Level.new(level)
+      else
+        false
+      end
+    end
+
+    def match_target?(ability, target)
+      if permissions.empty?
+        false
+      else
+        has_ability_over?(target)
+      end
+    end
+
+    def has_ability_over?(target)
+      resource_from_target(target)
+      if permissions[resource].nil?
+        false
+      else
+        level = permissions[resource][resource_ability(resource).to_s]
+        self.send("match_#{level}_scope", target)
+      end
     end
 
     def resource_ability(resource)
@@ -24,53 +45,45 @@ module Permissions
       end
     end
 
-    def has_resource_ability?(resource)
-      permissions[resource.to_s].keys.any?
-    end
-
     def resource_level(resource)
-      if has_resource_ability?(resource)
-        Level.new permissions[resource.to_s].values[0]
+      ability = resource_ability(resource)
+      if permissions[resource.to_s] && permissions[resource.to_s][ability.to_s]
+        Level.new(permissions[resource.to_s][ability.to_s])
       else
         Level.new
       end
     end
 
-    def has_ability_over?(target)
-      find_resource(target)
-      permissions[resource].present?
-    end
-
-    def target_ability(target)
-      find_resource(target)
+    def ability_for(target)
+      resource_from_target(target)
       Ability.new permissions[resource].keys[0]
     end
 
-    def target_level_match?(level, target)
+    def target_in_level?(level, target)
       self.send("match_#{level}_scope", target)
     end
 
     def match_all_scope(target)
-      find_resource(target)
+      resource_from_target(target)
       Level.new(:all) == resource_level(resource)
     end
-    #
-    # def match_site_scope
-    #   @user.sites.any? do |site|
-    #     site.send(resource.to_sym).include? target
-    #   end
-    # end
+
+    def match_site_scope(target)
+      @user.sites.any? do |site|
+        site.send(resource.to_sym).include? target
+      end
+    end
 
     def match_own_scope(target)
-      resource = find_resource(target)
+      resource = resource_from_target(target)
       @user.employee && @user.employee.send(resource.to_sym).include?(target)
     end
 
-    # def match_self_scope
-    #   @user == target || @user.employee == target
-    # end
+    def match_self_scope(target)
+      @user == target || @user.employee == target
+    end
 
-    def find_resource(target)
+    def resource_from_target(target)
       @resource ||= target.class.table_name
     end
 
