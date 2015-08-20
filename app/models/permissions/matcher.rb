@@ -10,6 +10,12 @@ module Permissions
       @perms ||= Merger.new.resource_merge(user.roles.pluck(:permissions))
     end
 
+    def match_general?(ability, level, resource)
+      # what does user have for resource?
+      # is ability >= ?
+      # is level >= ?
+    end
+
     def resource_ability(resource)
       if permissions[resource.to_s]
         Ability.new(permissions[resource.to_s].keys[0])
@@ -19,11 +25,15 @@ module Permissions
     end
 
     def has_resource_ability?(resource)
-      permissions[resource].keys.any?
+      permissions[resource.to_s].keys.any?
     end
 
     def resource_level(resource)
-      permissions[resource].values[0]
+      if has_resource_ability?(resource)
+        Level.new permissions[resource.to_s].values[0]
+      else
+        Level.new
+      end
     end
 
     def has_ability_over?(target)
@@ -40,11 +50,10 @@ module Permissions
       self.send("match_#{level}_scope", target)
     end
 
-    # def match_all_scope(target)
-    #   find_resource(target)
-    #   binding.pry
-    #   Level.new(:all) == resource_ability(resource)
-    # end
+    def match_all_scope(target)
+      find_resource(target)
+      Level.new(:all) == resource_level(resource)
+    end
     #
     # def match_site_scope
     #   @user.sites.any? do |site|

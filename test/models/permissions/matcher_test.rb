@@ -33,9 +33,19 @@ class Permissions::MatcherTest < ActiveSupport::TestCase
     assert_equal @edit, @matcher.target_ability(@classroom)
   end
 
-  # test "Matches all scope" do
-  #   matcher = Permissions::Matcher.new(users(:admin))
-  #   assert matcher.match_all_scope(Classroom.new)
+  test "Matches all scope" do
+    matcher = Permissions::Matcher.new(users(:admin))
+    assert matcher.match_all_scope(Classroom.new)
+  end
+
+  # test "Matches site scope" do
+  #   matcher = Permissions::Matcher.new(users(:office))
+  #   assert matcher.match_site_scope(Classroom.new)
   # end
+
+  test "Match general" do
+    matcher = Permissions::Matcher.new(users(:admin))
+    assert matcher.match_general?(:view, :own, :classrooms)
+  end
 
 end
