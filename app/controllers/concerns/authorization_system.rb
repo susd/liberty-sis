@@ -29,13 +29,19 @@ module AuthorizationSystem
     end
   end
 
+  def authorize_general(action, level, resource)
+    authorize! do
+      current_user.can_generally?(action, level, resource)
+    end
+  end
+
   def validate_authorization_checked
     return if @authorization_checked
     raise AuthorizationNotChecked
   end
 
   def deny_access
-    redirect_to forbidden_path, status: 403
+    redirect_to forbidden_path
   end
 end
 

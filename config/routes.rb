@@ -4,7 +4,10 @@ Rails.application.routes.draw do
 
   get 'forbidden', to: 'pages#forbidden', as: :forbidden
 
-  resources :sites
+  resources :sites do
+    resources :classrooms, only: :index
+  end
+
   resources :classrooms
 
   resources :students do
