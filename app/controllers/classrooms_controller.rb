@@ -14,9 +14,9 @@ class ClassroomsController < ApplicationController
 
   private
 
-  def load_classrooms(site_id = nil)
-    if site_id
-      @site = Site.find(site_id)
+  def load_classrooms
+    if params[:site_id]
+      @site = Site.find(params[:site_id])
       @classrooms = @site.classrooms
     else
       @classrooms = Classroom.all
