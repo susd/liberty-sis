@@ -18,15 +18,6 @@ namespace :personas do
     end
   end
 
-  task renplace: :environment do
-    puts "RenPlace"
-    rp_sites = Setting.find_by(name: 'renplace_sites').data
-    Student.where(site_id: rp_sites).find_each.with_index do |student, idx|
-      student.personas.find_or_create_by(handler: 'renplace', username: student.persona_name, password: student.persona_init_password)
-      progress(idx)
-    end
-  end
-
   task pearson: :environment do
     puts "Pearson"
     Student.find_each.with_index do |student, idx|
