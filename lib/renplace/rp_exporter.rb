@@ -16,9 +16,14 @@ class RpExporter
       :sfirst     => @student.first_name,
       :slast      => @student.last_name,
       :sbirthday  => @student.birthdate.strftime('%m/%d/%Y'),
-      :sgrade     => @student.grade.simple,
+      :sgrade     => grade,
       :susername  => @persona.username,
       :spassword  => @persona.password
     }
+  end
+
+  def grade
+    gr = @student.grade.simple
+    gr == 0 ? 'K' : gr
   end
 end
