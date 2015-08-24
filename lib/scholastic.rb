@@ -1,0 +1,2 @@
+module Scholastic
+end
