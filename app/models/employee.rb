@@ -24,4 +24,43 @@
 class Employee < ActiveRecord::Base
   has_and_belongs_to_many :sites
   belongs_to :user
+
+  before_save :update_email
+
+  def email
+    attributes['email'] || guess_email
+  end
+
+  def persona_domain
+    "saugususd.org"
+  end
+
+  def persona_username
+    update_email
+    email.split('@').first
+  end
+
+  def persona_init_password
+    "#{first_name[0..2]}#{last_name[0..2]}01"
+  end
+
+  def guess_email
+    if user.nil?
+      attempt = "#{first_name[0]}#{lastest_name}@#{persona_domain}".downcase
+      if Employee.where(email: attempt).exists?
+        attempt = "#{first_name}#{lastest_name}@#{persona_domain}".downcase
+      end
+    else
+      attempt = user.email
+    end
+    attempt
+  end
+
+  def lastest_name
+    last_name.split('-').last
+  end
+
+  def update_email
+    email = guess_email if email.nil?
+  end
 end

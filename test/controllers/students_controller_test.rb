@@ -24,7 +24,7 @@ class StudentsControllerTest < ActionController::TestCase
     sign_in @user
 
     get :show, id: students(:hector)
-    assert_response :forbidden
+    assert_redirected_to forbidden_path
 
     sign_out @user
   end

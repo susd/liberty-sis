@@ -53,3 +53,23 @@ office:
   type: Employee
   user: office
   sites: west_creek
+
+same_name1:
+  first_name: Christine
+  last_name: Finkleworth
+  type: Teacher
+  user: same1
+  sites: west_creek
+
+same_name2:
+  first_name: Christopher
+  last_name: Finkleworth
+  type: Teacher
+  user: same2
+  sites: west_creek
+
+hyphenated:
+  first_name: John
+  last_name: Jingleheimer-Schmidt
+  type: Teacher
+  sites: west_creek
