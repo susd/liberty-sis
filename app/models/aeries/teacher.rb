@@ -59,7 +59,7 @@ module Aeries
     self.primary_keys = [:sc, :tn]
 
     def self.active
-      where("tn BETWEEN 1 AND 899").where.not(tg: 'I')
+      where("[TCH].tn BETWEEN 1 AND 899").where.not(tg: 'I')
     end
 
     def self.active_by_site(school_code)
@@ -70,10 +70,16 @@ module Aeries
       "#{attributes['tf']} #{attributes['tln']}"
     end
 
+    def staff_record
+      @staff ||= Employee.find_by(id: attributes['id'], psc: attributes['sc'])
+    end
+
     def to_teacher
       {
         first_name: attributes['tf'],
         last_name:  attributes['tln'],
+        sex: staff_record.sx,
+        hired_on: staff_record.hired_on,
         import_details: {source: 'aeries', import_class: self.class.to_s, import_id: attributes['id']}
       }
     end

@@ -24,7 +24,30 @@
 require 'test_helper'
 
 class EmployeeTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+
+  test "Guessing email" do
+    user1 = users(:same1)
+    emp1 = user1.employee
+
+    emp2 = employees(:same_name2)
+
+    assert emp1.save
+    emp1.reload
+
+    assert_equal "cfinkleworth@example.com", emp1.email
+
+    emp2.save
+    emp2.reload
+
+    assert_equal "chrisfinkleworth@example.com", emp2.email
+  end
+
+  test "Guessing email with hyphenated last_name" do
+    emp = employees(:hyphenated)
+    emp.save
+    emp.reload
+
+    assert_equal "jschmidt@saugususd.org", emp.email
+  end
+
 end
