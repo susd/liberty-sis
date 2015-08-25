@@ -25,7 +25,7 @@ class Employee < ActiveRecord::Base
   has_and_belongs_to_many :sites
   belongs_to :user
 
-  before_save :update_email
+  before_save :set_email
 
   def email
     attributes['email'] || guess_email
@@ -36,7 +36,7 @@ class Employee < ActiveRecord::Base
   end
 
   def persona_username
-    update_email
+    set_email
     email.split('@').first
   end
 
@@ -53,14 +53,14 @@ class Employee < ActiveRecord::Base
     else
       attempt = user.email
     end
-    attempt
+    attempt.gsub(/(\s|-|\'|\")/,'')
   end
 
   def lastest_name
     last_name.split('-').last
   end
 
-  def update_email
-    email = guess_email if email.nil?
+  def set_email
+    self.email = guess_email if attributes['email'].nil?
   end
 end
