@@ -19,7 +19,7 @@ class Persona < ActiveRecord::Base
   enum state: {pending: 0, active: 1, errored: 2, disabled: 3}
   include AASM
 
-  belongs_to :student
+  belongs_to :personable, polymorphic: true
 
   aasm column: :state, enum: true do
     state :pending, initial: true
@@ -35,5 +35,5 @@ class Persona < ActiveRecord::Base
       transitions to: :disabled
     end
   end
-  
+
 end
