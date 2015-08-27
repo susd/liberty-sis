@@ -24,6 +24,7 @@
 class Employee < ActiveRecord::Base
   has_and_belongs_to_many :sites
   belongs_to :user
+  has_many :personas, as: :personable
 
   before_save :set_email
 

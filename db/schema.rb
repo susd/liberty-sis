@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150820173509) do
+ActiveRecord::Schema.define(version: 20150827172108) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -126,15 +126,18 @@ ActiveRecord::Schema.define(version: 20150820173509) do
     t.string   "handler"
     t.string   "username"
     t.string   "password"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.integer  "state",        default: 0,  null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.integer  "state",           default: 0,         null: false
     t.string   "service_id"
-    t.jsonb    "service_data", default: {}, null: false
+    t.jsonb    "service_data",    default: {},        null: false
     t.datetime "synced_at"
+    t.integer  "personable_id"
+    t.string   "personable_type", default: "Student"
   end
 
   add_index "personas", ["handler", "username"], name: "index_personas_on_handler_and_username", unique: true, using: :btree
+  add_index "personas", ["personable_id", "personable_type"], name: "index_personas_on_personable_id_and_personable_type", using: :btree
   add_index "personas", ["student_id"], name: "index_personas_on_student_id", using: :btree
 
   create_table "roles", force: :cascade do |t|

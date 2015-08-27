@@ -16,6 +16,7 @@ module Libertysis
       #{config.root}/lib/
       #{config.root}/lib/renplace
       #{config.root}/lib/pearson
+      #{config.root}/lib/pearson/success_net
       #{config.root}/lib/scholastic
     )
 
