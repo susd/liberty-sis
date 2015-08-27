@@ -36,19 +36,27 @@ class Employee < ActiveRecord::Base
     "saugususd.org"
   end
 
-  def persona_username
+  def persona_name
     set_email
     email.split('@').first
   end
 
-  def persona_init_password
-    "#{first_name[0..2]}#{last_name[0..2]}01"
+  def persona_email
+    email
   end
 
+  def persona_init_password
+    pass = (last_name[0..4].gsub(/(\s|-|\'|\")/, '')).reverse
+    pass << 'susd'
+    pass << '001'
+    pass
+  end
+
+  # FIXME: This is great idea, if there were any emails in the table to begin with!
   def guess_email
     if user.nil?
       attempt = "#{first_name[0]}#{lastest_name}@#{persona_domain}".downcase
-      if Employee.where(email: attempt).exists?
+      if Employee.where(email: attempt).where.not(id: self.id).exists?
         attempt = "#{first_name}#{lastest_name}@#{persona_domain}".downcase
       end
     else
