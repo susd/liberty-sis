@@ -59,7 +59,7 @@ module Aeries
     self.primary_keys = [:sc, :tn]
 
     def self.active
-      where("[TCH].tn BETWEEN 1 AND 899").where.not(tg: 'I')
+      joins("INNER JOIN STF on TCH.id = STF.id and TCH.sc = STF.psc").where("[TCH].tn BETWEEN 1 AND 899").where.not(tg: 'I')
     end
 
     def self.active_by_site(school_code)
@@ -71,7 +71,7 @@ module Aeries
     end
 
     def staff_record
-      @staff ||= Employee.find_by(id: attributes['id'], psc: attributes['sc'])
+      @staff ||= Aeries::Employee.find_by(id: attributes['id'], psc: attributes['sc'])
     end
 
     def to_teacher
