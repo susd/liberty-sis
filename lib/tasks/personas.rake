@@ -26,14 +26,6 @@ namespace :personas do
     end
   end
 
-  task mcgraw: :environment do
-    puts "McGraw Hill"
-    Student.find_each.with_index do |student, idx|
-      student.personas.find_or_create_by(handler: "mcgraw", username: "#{student.persona_name}-susd", password: student.persona_init_password)
-      progress(idx)
-    end
-  end
-
   task update: :environment do
     Student.find_each.with_index do |student, idx|
       p = student.personas.find_by(handler: "gapps")

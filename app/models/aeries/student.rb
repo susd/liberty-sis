@@ -235,6 +235,7 @@ module Aeries
         first_name:   attributes['fn'],
         middle_name:  attributes['mn'],
         last_name:    attributes['ln'],
+        sex:          attributes['sx'],
         birthdate:    convert_birthdate,
         home_lang:    find_home_lang,
         grade:        find_liberty_grade,

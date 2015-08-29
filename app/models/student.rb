@@ -34,7 +34,7 @@ class Student < ActiveRecord::Base
   has_many :classroom_memberships, dependent: :destroy
   has_many :classrooms, through: :classroom_memberships
 
-  has_many :personas, as: :personable
+  has_many :personas, as: :personable, dependent: :destroy
 
   def name
     "#{first_name} #{last_name}"
