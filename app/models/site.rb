@@ -13,6 +13,7 @@
 
 class Site < ActiveRecord::Base
   has_and_belongs_to_many :employees
+  has_many :teachers, foreign_key: :primary_site_id
   has_many :classrooms
   has_many :students
 end

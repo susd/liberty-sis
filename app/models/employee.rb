@@ -22,7 +22,10 @@
 #
 
 class Employee < ActiveRecord::Base
+  FILTER = /(\s|-|\'|\")/
+
   has_and_belongs_to_many :sites
+  belongs_to :primary_site, foreign_key: 'primary_site_id', class_name: 'Site'
   belongs_to :user
   has_many :personas, as: :personable
 
@@ -46,8 +49,8 @@ class Employee < ActiveRecord::Base
   end
 
   def persona_init_password
-    pass = (last_name[0..4].gsub(/(\s|-|\'|\")/, '')).reverse
-    pass << 'susd'
+    pass = first_name.gsub(FILTER, '')[0..2]
+    pass << lastest_name.gsub(FILTER, '')[0..2]
     pass << '001'
     pass
   end
@@ -62,7 +65,7 @@ class Employee < ActiveRecord::Base
     else
       attempt = user.email
     end
-    attempt.gsub(/(\s|-|\'|\")/,'')
+    attempt.gsub(FILTER,'')
   end
 
   def lastest_name
