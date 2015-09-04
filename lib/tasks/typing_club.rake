@@ -45,7 +45,7 @@ namespace :typing do
 
       CSV.open(path, 'w') do |csv|
         csv << TypingClub::StudentExporter.header
-        Student.order(:site_id, :grade_id).find_each.with_index do |student, idx|
+        Student.includes(:site, :personas).order(:site_id, :grade_id).find_each.with_index do |student, idx|
           csv << TypingClub::StudentExporter.new(student).export
           progress(idx)
         end
@@ -62,6 +62,22 @@ namespace :typing do
           site.teachers.includes(:personas).find_each.with_index do |teacher, idx|
             csv << TypingClub::TeacherExporter.new(teacher).export
             progress(idx)
+          end
+          puts "\n"
+        end
+      end
+    end
+
+    task classes: :environment do
+      path = "tmp/data/typing/classes-#{stamp}.csv"
+
+      CSV.open(path, 'w') do |csv|
+        csv << TypingClub::ClassExporter.header
+        Site.order(:code).each do |site|
+          puts site.name
+          site.classrooms.each do |classroom|
+            puts classroom.name
+            csv << TypingClub::ClassExporter.new(classroom).export
           end
           puts "\n"
         end

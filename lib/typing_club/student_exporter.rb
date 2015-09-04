@@ -2,7 +2,7 @@ module TypingClub
   class StudentExporter
 
     def self.header
-      ['First Name', 'Last Name', 'Student ID', 'Email', 'Username', 'Password', 'TypingClub ID', 'Grade', 'Action']
+      ['student-id', 'class-id', 'school-id', 'first name', 'last name', 'username', 'password', 'email', 'grade', 'action']
     end
 
     attr_reader :student, :persona
@@ -18,20 +18,26 @@ module TypingClub
 
     def attrs
       {
-        first: student.first_name,
-        last: student.last_name,
         student_id: persona.service_data['student_id'],
-        email: student.persona_email,
-        username: persona.username,
-        password: persona.password,
-        club_id: persona.service_id,
-        grade: grade,
-        action: 'add/update'
+        class_id:   student.homeroom_id,
+        school_id:  school_id,
+        first:      student.first_name,
+        last:       student.last_name,
+        username:   persona.username,
+        password:   persona.password,
+        email:      student.persona_email,
+        grade:      grade,
+        action:     'update'
       }
     end
 
     def grade
       student.grade.simple == 0 ? 'K' : student.grade.simple
+    end
+
+    def school_id
+      @codes ||= Setting.find_by(name: "typing_club_school_ids").data
+      @codes[student.site.abbr]
     end
   end
 end
