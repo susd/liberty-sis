@@ -16,7 +16,7 @@ module Mcgraw
       {
         last:       student.last_name,
         first:      student.first_name,
-        middle:     student.middle_name,
+        middle:     student.middle_name[0],
         gender:     student.sex,
         grade:      student.grade.simple,
         disability: nil,
@@ -33,7 +33,7 @@ module Mcgraw
 
     def redemp_code
       # setting by grade
-      Setting.find_by(name: "mcg_#{student.grade.simple}_code").data['code']
+      Setting.find_by(name: "mcg_codes").data[student.grade.simple]
     end
   end
 
