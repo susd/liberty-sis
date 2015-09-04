@@ -51,6 +51,9 @@ gem 'activerecord-sqlserver-adapter'
 gem 'mysql2'
 gem 'nokogiri'
 
+# Export Only
+gem 'spreadsheet', require: false
+
 group :test do
   gem 'capybara'
   gem 'guard'
