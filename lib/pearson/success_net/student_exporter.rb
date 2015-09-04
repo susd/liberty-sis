@@ -41,7 +41,7 @@ module Pearson
         {
           school_id: codes[site.abbr],
           first: student.first_name,
-          middle: student.middle_name,
+          middle: student.middle_name[0],
           last: student.last_name,
           student_id: persona.service_id,
           grade: grade,

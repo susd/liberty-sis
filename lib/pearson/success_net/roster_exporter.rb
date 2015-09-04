@@ -21,7 +21,7 @@ module Pearson
       end
 
       def rows
-        students.map{|s| [StudentExporter.new(s).persona.username, persona.username, persona.username] }
+        students.map{|s| [StudentExporter.new(s).persona.username, teacher.email, persona.username] }
       end
 
       def students

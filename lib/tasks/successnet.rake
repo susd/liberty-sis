@@ -12,6 +12,16 @@ def stamp
   Time.now.strftime('%Y%m%d')
 end
 
+def prepare(path)
+  FileUtils.mkdir_p(path)
+end
+
+def success_pass(teacher)
+  pass = (teacher.last_name.reverse + teacher.first_name[0]).gsub(/(\s|-|\'|\")/, '')
+  pass << '001'
+  pass
+end
+
 namespace :successnet do
 
   namespace :personas do
@@ -30,12 +40,12 @@ namespace :successnet do
 
     task teachers: :environment do
       Teacher.find_each.with_index do |teacher, idx|
-        teacher.personas.find_or_create_by({
-          handler: 'successnet',
-          username: teacher.persona_name,
-          password: teacher.persona_init_password,
-          service_id: teacher.import_details['import_id']
-          })
+        attrs = {username: teacher.email, password: success_pass(teacher), service_id: teacher.import_details['import_id']}
+        if persona = teacher.personas.find_by(handler: 'successnet')
+          persona.update(attrs)
+        else
+          persona.create(attrs.merge(handler: 'successnet'))
+        end
         progress(idx)
       end
     end
@@ -45,9 +55,11 @@ namespace :successnet do
   namespace :export do
 
     task students: :environment do
-      prefix = "tmp/data/successnet"
+      prefix = "tmp/data/successnet/#{stamp}"
       Site.order(:code).each do |site|
-        path = "#{prefix}/students-#{site.abbr}-#{stamp}.txt"
+        prepare(prefix)
+        path = "#{prefix}/#{site.abbr}-students.txt"
+
         Pearson::SuccessNet::Formatter.write(path) do |f|
           f.puts Pearson::SuccessNet::StudentExporter.header
           site.students.find_each.with_index do |student, idx|
@@ -59,12 +71,14 @@ namespace :successnet do
     end
 
     task teachers: :environment do
-      prefix = "tmp/data/successnet"
+      prefix = "tmp/data/successnet/#{stamp}"
       Site.order(:code).each do |site|
-        path = "#{prefix}/teachers-#{site.abbr}-#{stamp}.txt"
+        prepare(prefix)
+        path = "#{prefix}/#{site.abbr}-teachers.txt"
+
         Pearson::SuccessNet::Formatter.write(path) do |f|
           f.puts Pearson::SuccessNet::TeacherExporter.header
-          site.employees.where(type: 'Teacher').find_each.with_index do |teacher, idx|
+          site.employees.where(type: 'Teacher').distinct.find_each.with_index do |teacher, idx|
             f.puts Pearson::SuccessNet::TeacherExporter.new(teacher).export.join("\t")
             progress(idx)
           end
@@ -75,13 +89,15 @@ namespace :successnet do
     # SuccessNet Roster is uploaded through EasyBridge so it's csv
 
     task rosters: :environment do
-      prefix = "tmp/data/successnet"
+      prefix = "tmp/data/successnet/#{stamp}"
       Site.order(:code).each do |site|
         puts site.name
-        path = "#{prefix}/rosters-#{site.abbr}-#{stamp}.csv"
+        prepare(prefix)
+
+        path = "#{prefix}/#{site.abbr}-rosters.csv"
         CSV.open(path, 'w') do |csv|
           csv << Pearson::SuccessNet::RosterExporter.header
-          site.employees.where(type: 'Teacher').each do |teacher|
+          site.employees.where(type: 'Teacher').distinct.each do |teacher|
             print "#{teacher.persona_name} "
             Pearson::SuccessNet::RosterExporter.new(teacher).export_to(csv)
           end
