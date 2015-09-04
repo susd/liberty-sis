@@ -12,6 +12,7 @@
 
 class Classroom < ActiveRecord::Base
   belongs_to :site
+  belongs_to :primary_teacher, class_name: 'Teacher'
 
   has_many :classroom_leaderships, dependent: :destroy
   has_many :teachers, through: :classroom_leaderships, source: :employee

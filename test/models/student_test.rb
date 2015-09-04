@@ -7,7 +7,7 @@
 #  last_name         :string
 #  middle_name       :string
 #  sex               :string
-#  birthdate         :datetime
+#  birthdate         :date
 #  site_id           :integer
 #  grade_id          :integer
 #  homeroom_id       :integer
