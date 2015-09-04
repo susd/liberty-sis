@@ -46,14 +46,21 @@ namespace :mcgraw do
       prefix = "tmp/data/mcgraw"
       Site.order(:code).each do |site|
         puts site.name
-        dir = "#{prefix}/#{site.abbr}"
+        dir = "#{prefix}/#{stamp}/#{site.abbr}"
         prepare(dir)
         site.employees.where(type: 'Teacher').distinct.each do |teacher|
           print "#{teacher.persona_name} "
-          path = "#{dir}/#{teacher.persona_name}-#{stamp}.csv"
-          CSV.open(path, 'w') do |csv|
-            csv << Mcgraw::ClassExporter.header
-            Mcgraw::ClassExporter.new(teacher).export_to(csv)
+          path = "#{dir}/#{teacher.persona_name}.xls"
+          # CSV.open(path, 'w') do |csv|
+          #   csv << Mcgraw::ClassExporter.header
+          #   Mcgraw::ClassExporter.new(teacher).export_to(csv)
+          # end
+          writter = Mcgraw::Formatter.new(path)
+          writter.write do |sheet|
+            sheet.insert_row(0, Mcgraw::ClassExporter.header)
+            Mcgraw::ClassExporter.new(teacher).rows.each_with_index do |student, idx|
+              sheet.insert_row(idx+1, student)
+            end
           end
         end
         puts "\n"

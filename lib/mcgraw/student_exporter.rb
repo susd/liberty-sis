@@ -18,7 +18,7 @@ module Mcgraw
         first:      student.first_name,
         middle:     student.middle_name[0],
         gender:     student.sex,
-        grade:      student.grade.simple,
+        grade:      grade,
         disability: nil,
         lunch:      nil,
         eld:        nil,
@@ -27,14 +27,21 @@ module Mcgraw
         student_id: persona.service_id,
         username:   persona.username,
         password:   persona.password,
-        redemption: redemp_code
+        redemption: nil
       }
     end
 
-    def redemp_code
-      # setting by grade
-      Setting.find_by(name: "mcg_codes").data[student.grade.simple]
+    def grade
+      student.grade.simple.to_s
     end
+
+    # TODO: allow teachers to input redemption code for export here
+    # currently this the *Master Code* which does not work
+    #
+    # def redemp_code
+    #   # setting by grade
+    #   Setting.find_by(name: "mcg_codes").data[grade]
+    # end
   end
 
 end
