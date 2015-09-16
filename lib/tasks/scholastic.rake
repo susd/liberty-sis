@@ -14,16 +14,18 @@ end
 
 namespace :scholastic do
 
-  task student_personas: :environment do
-    sites = Site.where(id: Setting.find_by(name: 'scholastic_sites').data)
-    Student.where(site: sites).find_each.with_index do |student, idx|
-      student.personas.find_or_create_by({
-        handler: 'scholastic',
-        username: student.persona_name,
-        password: student.persona_init_password,
-        service_id: student.import_details['import_id']
-        })
-      progress(idx)
+  namespace :personas do
+    task students: :environment do
+      sites = Site.where(id: Setting.find_by(name: 'scholastic_sites').data)
+      Student.where(site: sites).find_each.with_index do |student, idx|
+        student.personas.find_or_create_by({
+          handler: 'scholastic',
+          username: student.persona_name,
+          password: student.persona_init_password,
+          service_id: student.import_details['import_id']
+          })
+        progress(idx)
+      end
     end
   end
 

@@ -30,7 +30,7 @@ module Scholastic
     end
 
     def class_name
-      student.homeroom.teachers.first.persona_username
+      student.homeroom.teachers.first.persona_name
     end
 
     def is_male
