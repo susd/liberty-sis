@@ -211,15 +211,25 @@ module Aeries
   class Student < Base
     include Aeries::AttendanceQueries
 
+    INACTIVE = ['L', 'N', 'i']
+
     self.table_name = "STU"
     self.primary_keys = [:sc, :sn]
 
     def self.active
-      where.not(tg: ['*', 'l', 'i'], sc: 999, del: 'true')
+      where.not(tg: INACTIVE, sc: 999, del: true)
+    end
+
+    def self.inactive
+      where("tg IN (?) OR sc = ? OR del = ?", INACTIVE, 999, 'true')
     end
 
     def self.tkinder
       where("SP" => ['T', 'U'])
+    end
+
+    def self.find_by_student(student)
+      where("ID" => student.import_details['import_id'])
     end
 
     def school_code
@@ -239,6 +249,8 @@ module Aeries
         birthdate:    convert_birthdate,
         home_lang:    find_home_lang,
         grade:        find_liberty_grade,
+        site:         find_liberty_site,
+        state:        state,
         import_details: {source: 'aeries', import_class: self.class.to_s, import_id: attributes['id']}
       }
     end
@@ -251,12 +263,26 @@ module Aeries
       end
     end
 
+    def find_liberty_site
+      Site.find_by(code: sc)
+    end
+
     def find_home_lang
       Language.find_by(aeries_code: attributes['hl'].to_i)
     end
 
     def convert_birthdate
       bd && read_attribute_before_type_cast('bd').to_date
+    end
+
+    def state
+      if INACTIVE.include?(self.tg) || self.del
+        2
+      elsif self.tg == '*'
+        0
+      else
+        1
+      end
     end
 
   end

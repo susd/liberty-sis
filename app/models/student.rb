@@ -24,6 +24,10 @@
 #
 
 class Student < ActiveRecord::Base
+  enum state: {pending: 0, active: 1, inactive: 2}
+
+  include AASM
+
   NAME_LENGTH = 5
 
   belongs_to :site
@@ -35,6 +39,20 @@ class Student < ActiveRecord::Base
   has_many :classrooms, through: :classroom_memberships
 
   has_many :personas, as: :personable, dependent: :destroy
+
+  aasm column: :state, enum: true do
+    state :pending, initial: true
+    state :active
+    state :inactive
+
+    event :activate do
+      transitions to: :active
+    end
+
+    event :deactivate do
+      transitions to: :inactive
+    end
+  end
 
   def name
     "#{first_name} #{last_name}"
@@ -75,6 +93,27 @@ class Student < ActiveRecord::Base
   def add_classroom(new_classroom)
     unless classrooms.include? new_classroom
       classrooms << new_classroom
+    end
+  end
+
+  def reimport!
+    begin
+      import_from_source
+    rescue NameError
+      return false
+    end
+  end
+
+  private
+
+  #FIXME: too dependent on knowing how importer works
+  def import_from_source
+    if import_details['import_class'].nil?
+      false
+    else
+      klass = import_details['import_class'].constantize
+      import_id = import_details['import_id']
+      self.update(klass.find_by(id: import_id).to_student)
     end
   end
 

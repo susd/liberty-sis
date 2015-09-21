@@ -8,7 +8,7 @@ module Aeries
     end
 
     def aeries_students
-      @students ||= Aeries::Student.active.where(sc: @school_code, cu: @teacher_num)
+      @students ||= Aeries::Student.where(sc: @school_code, cu: @teacher_num)
     end
 
     def aeries_teacher
@@ -54,12 +54,13 @@ module Aeries
     def import_students
       aeries_students.each do |stu|
         if student = ::Student.find_by("import_details -> 'import_id' = ?", stu.attributes['id'].to_s)
-          student.update(stu.to_student)
+          attrs = stu.to_student.merge(homeroom: @classroom)
+          student.update(attrs)
         else
           student = ::Student.new(stu.to_student)
           student.add_classroom @classroom
           student.homeroom = @classroom
-          student.site = @site
+          # student.site = @site # already loaded
           student.save
         end
       end

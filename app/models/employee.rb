@@ -32,6 +32,10 @@ class Employee < ActiveRecord::Base
 
   before_save :set_email
 
+  def name
+    "#{first_name} #{last_name}"
+  end
+
   def email
     attributes['email'] || guess_email
   end
