@@ -12,8 +12,11 @@ namespace :renplace do
   task create: :environment do
     puts "RenPlace"
     rp_sites = Setting.find_by(name: 'renplace_sites').data
-    Student.where(site_id: rp_sites).find_each.with_index do |student, idx|
-      student.personas.find_or_create_by(handler: 'renplace', username: student.persona_name, password: student.persona_init_password)
+    Student.active.where(site_id: rp_sites).find_each.with_index do |student, idx|
+      # student.personas.find_or_create_by(handler: 'renplace', username: student.persona_name, password: student.persona_init_password)
+      unless student.personas.where(handler: 'renplace', username: student.persona_name).exists?
+        student.personas.create(handler: 'renplace', username: student.persona_name, password: student.persona_init_password)
+      end
       progress(idx)
     end
   end
@@ -29,7 +32,7 @@ namespace :renplace do
       puts site.name
       CSV.open("tmp/data/rp-#{site.abbr}-#{Time.now.strftime('%Y%m%d')}.csv", 'w') do |csv|
         csv << header
-        Student.where(site_id: site_id).find_each.with_index do |student, idx|
+        Student.active.where(site_id: site_id).find_each.with_index do |student, idx|
           csv << RpExporter.new(student).export
           progress(idx)
         end

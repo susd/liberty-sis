@@ -32,7 +32,10 @@ module Mcgraw
     end
 
     def grade
-      student.grade.simple.to_s
+      def grade
+        gr = @student.grade.simple
+        gr == 0 ? 'K' : gr
+      end
     end
 
     # TODO: allow teachers to input redemption code for export here

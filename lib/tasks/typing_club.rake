@@ -17,7 +17,7 @@ namespace :typing do
   namespace :personas do
 
     task students: :environment do
-      Student.order(:site_id, :grade_id).find_each.with_index do |student, idx|
+      Student.active.order(:site_id, :grade_id).find_each.with_index do |student, idx|
         student.personas.find_or_create_by(handler: 'typing_club', username: student.persona_name) do |p|
           p.password = student.persona_init_password
           p.service_data = {student_id: student.import_details['import_id']}
@@ -45,7 +45,7 @@ namespace :typing do
 
       CSV.open(path, 'w') do |csv|
         csv << TypingClub::StudentExporter.header
-        Student.includes(:site, :personas).order(:site_id, :grade_id).find_each.with_index do |student, idx|
+        Student.active.includes(:site, :personas).order(:site_id, :grade_id).find_each.with_index do |student, idx|
           csv << TypingClub::StudentExporter.new(student).export
           progress(idx)
         end

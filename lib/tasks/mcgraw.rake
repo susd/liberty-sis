@@ -23,7 +23,7 @@ namespace :mcgraw do
 
     task students: :environment do
       puts "McGraw Hill"
-      Student.find_each.with_index do |student, idx|
+      Student.active.find_each.with_index do |student, idx|
         persona = student.personas.find_by(handler: 'mcgraw', username: "#{student.persona_name}-susd")
         if persona.nil?
           student.personas.create({

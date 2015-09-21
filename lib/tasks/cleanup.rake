@@ -1,3 +1,11 @@
+def progress(i)
+  if i % 100 == 0
+    print i
+  elsif i % 10 == 0
+    print '.'
+  end
+end
+
 namespace :cleanup do
 
   task bad_aliases: :environment do
@@ -34,6 +42,26 @@ namespace :cleanup do
       print '.' if idx % 10 == 0
     end
 
+  end
+
+  task inactive_personas: :environment do
+    Student.inactive.find_each do |student|
+      student.personas.destroy_all
+    end
+  end
+
+  task dup_personas: :environment do
+    site = Site.find_by(code: 75)
+    dups = site.students.active.includes(:personas).map do |student|
+      if student.personas.where(handler: 'gapps').count > 1
+        student.personas.where(handler: 'gapps').order(:created_at).last
+      end
+    end
+
+    dups.each_with_index do |persona, idx|
+      DeleteGappsPersonaJob.perform_later(persona)
+      progress(idx)
+    end
   end
 
 end
