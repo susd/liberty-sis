@@ -15,6 +15,7 @@ class App.Autocompleter extends App.Element
 
   onSelect: (e, ui) =>
     @field.val(ui.item.id)
+    App.update('autocomplete_select', ui.item.id)
 
 
 $(document).on 'page:change', ->

@@ -36,6 +36,10 @@ class Admin::EmployeesController < AdminController
 
   def employee_params
     params.delete(:user_query)
-    params.require(:employee).permit!
+    if params[:teacher]
+      params.require(:teacher).permit!
+    else
+      params.require(:employee).permit!
+    end
   end
 end

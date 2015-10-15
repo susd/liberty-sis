@@ -28,6 +28,7 @@ $app-side-width: 18em;
 
 $nav_area-padding: $font-size-base + 1;
 
+@import 'autocomplete';
 @import 'user';
 @import 'nav_area';
 
