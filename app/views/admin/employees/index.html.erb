@@ -1,0 +1,10 @@
+<table class="table table-striped">
+  <% @employees.each do |employee| %>
+  <tr>
+    <td><%= link_to employee.name, admin_employee_path(employee) %></td>
+    <td><%= employee.primary_site.try(:name) %></td>
+  </tr>
+  <% end %>
+</table>
+
+<%= paginate @employees %>

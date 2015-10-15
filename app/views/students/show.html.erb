@@ -5,12 +5,15 @@
 
 <div class="page-header">
   <h2><%= @student.name %></h2>
-  <p>Homeroom: <%= @student.homeroom.name %></p>
+  <p>Homeroom: <%= link_to @student.homeroom.name, @student.homeroom %></p>
 </div>
 
 <ul class="nav nav-tabs">
   <li class="active">
     <a>Demographics</a>
+  </li>
+  <li>
+    <a href="#">Report Cards</a>
   </li>
   <li>
     <%= link_to 'Internet Accounts', student_personas_path(@student) %>

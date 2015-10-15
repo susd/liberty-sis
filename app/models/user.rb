@@ -30,6 +30,12 @@ class User < ActiveRecord::Base
   has_one :employee
   has_many :sites, through: :employee
 
+  include PgSearch
+  pg_search_scope :admin_search,
+    against: [:email, :last_name, :first_name],
+    using: {tsearch: {prefix: true}, trigram: {only: [:last_name, :first_name]}},
+    :ignoring => :accents
+
   def self.from_omniauth(auth)
     pass = Devise.friendly_token
     user = find_or_create_by(auth.slice('provider', 'uid')) do |u|

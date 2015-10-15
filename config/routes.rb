@@ -15,9 +15,14 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    resources :users
+    resources :users, except: [:new, :create] do
+      get :search, on: :collection
+    end
+    resources :employees
     resources :sites
   end
+
+  resources :employees
 
   root to: 'dashboard#index'
 

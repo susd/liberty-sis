@@ -1,2 +1,10 @@
-<h1>Admin::Users#show</h1>
-<p>Find me in app/views/admin/users/show.html.erb</p>
+
+<%= image_tag @user.image_url %>
+
+<p><%= @user.name %></p>
+
+<p><%= @user.email %></p>
+
+<p><%= @user.last_sign_in_at %></p>
+
+<p><%= @user.last_sign_in_ip %></p>

@@ -1,0 +1,22 @@
+<ol class="breadcrumb">
+  <li><%= link_to @employee.name, admin_employee_path(@employee) %></li>
+  <li class="active">Edit</li>
+</ol>
+
+<%= bootstrap_form_for @employee, url: admin_employee_path(@employee) do |f| %>
+
+
+
+  <div class="form-group">
+    <label for="user_query">User</label>
+    <%= f.hidden_field :user_id %>
+    <%= text_field_tag :user_query, nil, class: 'form-control', placeholder: 'Type a name or email',
+        data: {behavior: 'autocomplete', target: '#employee_user_id', source_url: search_admin_users_path} %>
+  </div>
+
+
+  <div class="form-actions">
+    <%= f.submit %>
+  </div>
+
+<% end %>

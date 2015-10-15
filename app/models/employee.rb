@@ -25,7 +25,7 @@
 class Employee < ActiveRecord::Base
   FILTER = /(\s|-|\'|\")/
 
-  has_and_belongs_to_many :sites
+  has_and_belongs_to_many :sites, -> { uniq }
   belongs_to :primary_site, foreign_key: 'primary_site_id', class_name: 'Site'
   belongs_to :user
   has_many :personas, as: :personable
@@ -79,5 +79,24 @@ class Employee < ActiveRecord::Base
 
   def set_email
     self.email = guess_email if attributes['email'].nil?
+  end
+
+  def dedup_sites
+    @sites ||= sites
+    sites = []
+    sites = @sites.uniq
+  end
+
+  def add_site(new_site)
+    unless sites.include? new_site
+      sites << new_site
+    end
+  end
+
+  def update_sites
+    if primary_site
+      add_site(primary_site)
+    end
+    dedup_sites
   end
 end
