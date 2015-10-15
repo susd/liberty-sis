@@ -4,6 +4,10 @@ Rails.application.routes.draw do
 
   get 'forbidden', to: 'pages#forbidden', as: :forbidden
 
+  concern :searchable do
+    get :search, on: :collection
+  end
+
   resources :sites do
     resources :classrooms, only: :index
   end
@@ -15,10 +19,8 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    resources :users, except: [:new, :create] do
-      get :search, on: :collection
-    end
-    resources :employees
+    resources :users, except: [:new, :create], concerns: [:searchable]
+    resources :employees, concerns: [:searchable]
     resources :sites
   end
 
