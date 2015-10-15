@@ -28,7 +28,7 @@
       <% if current_user.sites.count > 1 %>
         <li><%= current_employee.primary_site %></li>
       <% else %>
-        <% current_employee.sites.each do %>
+        <% current_employee.sites.each do |site| %>
           <li><%= link_to site.name, site %></li>
         <% end %>
       <% end %>
