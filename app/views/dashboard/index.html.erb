@@ -1,12 +1,23 @@
+
+<% if current_user.employee %>
+
 <div class="panel panel-primary">
   <div class="panel-heading">
-    <h3 class="panel-title">Message</h3>
+    <h3 class="panel-title">Welcome</h3>
   </div>
   <div class="panel-body">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-    Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-  </div>
-  <div class="panel-footer">
-    <%= Time.now.to_s %>
+    Some help info
   </div>
 </div>
+
+<% else %>
+<div class="panel panel-danger">
+  <div class="panel-heading">
+    <h3 class="panel-title">No associated employee record</h3>
+  </div>
+  <div class="panel-body">
+    Oops, your setup isn't quite finished yet. Call x5400 for help.
+  </div>
+
+</div>
+<% end %>
