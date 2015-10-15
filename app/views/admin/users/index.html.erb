@@ -1,2 +1,8 @@
-<h1>Admin::Users#index</h1>
-<p>Find me in app/views/admin/users/index.html.erb</p>
+<table class="table table-striped">
+  <% @users.each do |user| %>
+  <tr>
+    <td><%= link_to user.name, [:admin, user] %></td>
+    <td><%= user.employee.primary_site.try(:name) %></td>
+  </tr>
+  <% end %>
+</table>

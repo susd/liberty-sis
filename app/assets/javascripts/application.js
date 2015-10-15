@@ -12,11 +12,14 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui/autocomplete
+
 //= require turbolinks
 //  require_tree .
 
 //= require _app
 //= require _element
 //= require _off_canvas
+//= require _autocompleter
 
 Turbolinks.enableProgressBar();

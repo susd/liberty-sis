@@ -3,26 +3,13 @@
 </div>
 
 <div class="row">
-  <div class="col-md-9">
-
-    <div class="row">
-      <% @students.in_groups(3, false) do |grp| %>
-        <div class="col-md-4">
-          <div class="list-group">
-            <% grp.each do |student| %>
-            <%= link_to student.name, student, class: 'list-group-item' %>
-            <% end %>
-          </div>
-        </div>
-      <% end %>
+  <% @students.in_groups(3, false) do |grp| %>
+    <div class="col-md-4">
+      <div class="list-group">
+        <% grp.each do |student| %>
+        <%= link_to student.name, student, class: 'list-group-item' %>
+        <% end %>
+      </div>
     </div>
-
-  </div>
-  <div class="col-md-3">
-
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#">Download McGraw Hill file</a></li>
-    </ul>
-
-  </div>
+  <% end %>
 </div>

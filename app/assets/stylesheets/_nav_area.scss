@@ -12,6 +12,11 @@
   margin: 0;
 }
 
+.nav_area-heading{
+  padding: $nav_area-padding;
+  margin: 0;
+}
+
 .nav_area-user{
   padding: ($nav_area-padding * 2) $nav_area-padding;
 }

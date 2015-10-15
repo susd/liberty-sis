@@ -41,6 +41,9 @@ gem 'google-api-client', '0.9.pre3'
 gem 'aasm'
 gem 'daemons'
 gem 'delayed_job_active_record'
+gem 'kaminari'
+gem 'jquery-ui-rails'
+gem 'pg_search'
 
 # For Aeries
 gem 'tiny_tds', '~> 0.6.3.rc1'
@@ -50,6 +53,10 @@ gem 'activerecord-sqlserver-adapter'
 # For iSchool
 gem 'mysql2'
 gem 'nokogiri'
+
+# PDFs
+gem 'prawn'
+gem 'prawn-table'
 
 # Export Only
 gem 'spreadsheet', require: false
