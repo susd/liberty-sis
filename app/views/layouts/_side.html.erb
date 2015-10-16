@@ -22,6 +22,10 @@
   </div>
 
   <div class="nav_area-content">
+    <ul class="nav nav-pills nav-stacked">
+      <li><%= link_to 'Home', root_path %></li>
+    </ul>
+
     <% if current_employee %>
       <% if current_employee.multi_site? %>
         <h4 class="nav_area-heading">Sites</h4>
