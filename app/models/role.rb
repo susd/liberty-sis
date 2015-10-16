@@ -29,10 +29,14 @@ class Role < ActiveRecord::Base
   end
 
   def form_permissions=(form_perms)
-    hsh = form_perms.inject({}) do |builder, res_hsh|
-      res = {}
-      res[res_hsh.first] = {res_hsh.last['ability'] => res_hsh.last['level']}
-      builder.merge!(res)
+    hsh = form_perms.inject({}) do |builder, res_perm|
+      resource, permission = res_perm
+      unless permission['ability'] == 'none'
+        perm = {}
+        perm[resource] = {permission['ability'] => permission['level']}
+        builder.merge!(perm)
+      end
+      builder
     end
     self.permissions = hsh
   end

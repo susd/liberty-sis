@@ -27,16 +27,14 @@ class RoleTest < ActiveSupport::TestCase
       "sites"=>{"ability"=>"none", "level"=>"none"},
       "employees"=>{"ability"=>"none", "level"=>"none"},
       "classrooms"=>{"ability"=>"manage", "level"=>"own"},
-      "students"=>{"ability"=>"none", "level"=>"none"}
+      "students"=>{"ability"=>"view", "level"=>"own"}
     }
   end
 
   def expected_perms
     {
-      "sites"=>{"none" => "none"},
-      "employees"=>{"none" => "none"},
       "classrooms"=>{"manage" => "own"},
-      "students"=>{"none" => "none"}
+      "students"=>{"view" => "own"}
     }
   end
 end
