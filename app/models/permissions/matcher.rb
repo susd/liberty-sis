@@ -7,7 +7,7 @@ module Permissions
     end
 
     def permissions
-      @perms ||= Merger.new.resource_merge(user.roles.pluck(:permissions))
+      @perms ||= Merger.resource_merge(user.roles.pluck(:permissions))
     end
 
     def match_general?(ability, level, resource)

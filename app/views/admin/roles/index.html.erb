@@ -1,0 +1,7 @@
+<table class="table table-striped">
+  <% @roles.each do |role| %>
+  <tr>
+    <td><%= link_to role.name, edit_admin_role_path(role) %></td>
+  </tr>
+  <% end %>
+</table>

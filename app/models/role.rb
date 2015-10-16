@@ -19,4 +19,21 @@ class Role < ActiveRecord::Base
   def self.office
     find_by(name: 'office')
   end
+
+  def ability_for(resource)
+    fetch_perm([resource]).try(:keys).try(:first)
+  end
+
+  def fetch_perm(keys = [])
+    keys.inject(self.permissions){|permissions, key| permissions && permissions[key] }
+  end
+
+  def form_permissions=(form_perms)
+    hsh = form_perms.inject({}) do |builder, res_hsh|
+      res = {}
+      res[res_hsh.first] = {res_hsh.last['ability'] => res_hsh.last['level']}
+      builder.merge!(res)
+    end
+    self.permissions = hsh
+  end
 end

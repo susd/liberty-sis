@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :users, except: [:new, :create], concerns: [:searchable]
     resources :employees, concerns: [:searchable]
+    resources :roles
     resources :sites
   end
 
