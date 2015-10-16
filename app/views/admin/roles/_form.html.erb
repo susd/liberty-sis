@@ -15,7 +15,7 @@
           <label for="role[form_permissions][<%= res %>][level]">
             Level
           </label>
-          <%= select_tag "role[form_permissions][#{res}][level]", options_for_select(permission_levels), class: 'form-control' %>
+          <%= select_tag "role[form_permissions][#{res}][level]", options_for_select(permission_levels, @role.level_for(res)), class: 'form-control' %>
         </div>
       </div>
     </div>

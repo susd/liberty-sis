@@ -24,6 +24,10 @@ class Role < ActiveRecord::Base
     fetch_perm([resource]).try(:keys).try(:first)
   end
 
+  def level_for(resource)
+    fetch_perm([resource, ability_for(resource)])
+  end
+
   def fetch_perm(keys = [])
     keys.inject(self.permissions){|permissions, key| permissions && permissions[key] }
   end
