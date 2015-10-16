@@ -23,16 +23,14 @@
 
   <div class="nav_area-content">
     <% if current_employee %>
-    <h4 class="nav_area-heading">Sites</h4>
-    <ul class="nav nav-pills nav-stacked">
-      <% if current_user.sites.count > 1 %>
-        <li><%= current_employee.primary_site %></li>
-      <% else %>
-        <% current_employee.sites.each do |site| %>
+      <% if current_employee.multi_site? %>
+        <h4 class="nav_area-heading">Sites</h4>
+        <ul class="nav nav-pills nav-stacked">
+          <% current_employee.sites.each do |site| %>
           <li><%= link_to site.name, site %></li>
-        <% end %>
+          <% end %>
+        </ul>
       <% end %>
-    </ul>
     <% end %>
 
     <% if current_user.admin? %>

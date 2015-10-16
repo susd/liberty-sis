@@ -29,8 +29,17 @@ ashleys_class:
   name: "Ashley Doe's Class"
   import_details: '{}'
   site: west_creek
+  primary_teacher: ashley_doe
 
 alices_class:
   name: "Alice Doe's Class"
   import_details: '{}'
   site: west_creek
+
+<% 3.times do |i| %>
+
+multi_class_<%= i %>:
+  name: "Multi Class <%= i %>"
+  site: west_creek
+
+<% end %>

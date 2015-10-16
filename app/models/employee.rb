@@ -105,4 +105,12 @@ class Employee < ActiveRecord::Base
     end
     dedup_sites
   end
+
+  def single_site?
+    sites.count == 1
+  end
+
+  def multi_site?
+    sites.count > 1
+  end
 end
