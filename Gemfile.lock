@@ -8,6 +8,7 @@ GIT
 
 GEM
   remote: https://rubygems.org/
+  remote: https://rails-assets.org/
   specs:
     aasm (4.2.0)
     actionmailer (4.2.3)
@@ -261,6 +262,7 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.2.3)
       sprockets-rails
+    rails-assets-throttle-debounce (0.1.1)
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
     rails-dom-testing (1.0.6)
@@ -381,6 +383,7 @@ DEPENDENCIES
   puma
   quiet_assets
   rails (= 4.2.3)
+  rails-assets-throttle-debounce!
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   spreadsheet

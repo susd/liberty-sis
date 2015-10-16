@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Permissions::MergerTest < ActiveSupport::TestCase
   setup do
-    @merger = Permissions::Merger.new
+    @merger = Permissions::Merger
   end
 
   test "merging abilities with like levels" do

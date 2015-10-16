@@ -39,6 +39,10 @@ alice_doe:
   email: alicedoe@example.com
   encrypted_password: <%= User.new.send(:password_digest, 'password') %>
 
+multi_teacher:
+  email: mteacher@example.com
+  encrypted_password: <%= User.new.send(:password_digest, 'password') %>
+
 office:
   email: office@example.com
   encrypted_password: <%= User.new.send(:password_digest, 'password') %>

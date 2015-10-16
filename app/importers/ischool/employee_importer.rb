@@ -14,7 +14,7 @@ module Ischool
     end
 
     def import!
-      native_employee = ::Employee.find_or_initialize_by("import_details -> 'import_id' = ?", employee.id.to_json)
+      native_employee = ::Employee.find_or_initialize_by(["import_details -> 'import_id' = ?", employee.id.to_json])
       native_employee.assign_attributes(attrs)
       native_employee.user = user if user
       native_employee.save

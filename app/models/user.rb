@@ -71,4 +71,10 @@ class User < ActiveRecord::Base
     Permissions::Matcher.new(self).match_general?(action, level, resource)
   end
 
+  def add_role(role)
+    unless roles.include?(role)
+      roles << role
+    end
+  end
+
 end

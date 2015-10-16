@@ -1,0 +1,27 @@
+<%= bootstrap_form_for [:admin, @role] do |f| %>
+  <%= f.text_field :name %>
+
+  <% permission_resources.each do |res| %>
+    <div class="form-group">
+      <h4><%= res %></h4>
+      <div class="row">
+        <div class="col-md-3">
+          <label for="role[form_permissions][<%= res %>][ability]">
+            Ability
+          </label>
+          <%= select_tag "role[form_permissions][#{res}][ability]", options_for_select(permission_abilities, @role.ability_for(res)), class: 'form-control' %>
+        </div>
+        <div class="col-md-3">
+          <label for="role[form_permissions][<%= res %>][level]">
+            Level
+          </label>
+          <%= select_tag "role[form_permissions][#{res}][level]", options_for_select(permission_levels, @role.level_for(res)), class: 'form-control' %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

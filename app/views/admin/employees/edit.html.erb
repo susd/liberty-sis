@@ -9,9 +9,15 @@
 
   <div class="form-group">
     <label for="user_query">User</label>
-    <%= f.hidden_field :user_id %>
+    <%= f.hidden_field :user_id, data: {bind: 'autocomplete_select'} %>
     <%= text_field_tag :user_query, nil, class: 'form-control', placeholder: 'Type a name or email',
         data: {behavior: 'autocomplete', target: '#employee_user_id', source_url: search_admin_users_path} %>
+    <p class="help-block">
+      User ID:
+      <span data-bind="autocomplete_select">
+        <%= @employee.user_id %>
+      </span>
+    </p>
   </div>
 
 

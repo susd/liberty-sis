@@ -12,7 +12,29 @@
 require 'test_helper'
 
 class RoleTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "saving permissions from form" do
+    role = Role.new
+
+    role.form_permissions = form_params
+
+    assert_equal expected_perms, role.permissions
+  end
+
+  private
+
+  def form_params
+    {
+      "sites"=>{"ability"=>"none", "level"=>"none"},
+      "employees"=>{"ability"=>"none", "level"=>"none"},
+      "classrooms"=>{"ability"=>"manage", "level"=>"own"},
+      "students"=>{"ability"=>"view", "level"=>"own"}
+    }
+  end
+
+  def expected_perms
+    {
+      "classrooms"=>{"manage" => "own"},
+      "students"=>{"view" => "own"}
+    }
+  end
 end

@@ -32,6 +32,12 @@ class Employee < ActiveRecord::Base
 
   before_save :set_email
 
+  include PgSearch
+  pg_search_scope :admin_search,
+    against: [:email, :last_name, :first_name, :title],
+    using: {tsearch: {prefix: true}, trigram: {only: [:last_name, :first_name]}},
+    :ignoring => :accents
+
   def name
     "#{first_name} #{last_name}"
   end
@@ -98,5 +104,13 @@ class Employee < ActiveRecord::Base
       add_site(primary_site)
     end
     dedup_sites
+  end
+
+  def single_site?
+    sites.count == 1
+  end
+
+  def multi_site?
+    sites.count > 1
   end
 end
