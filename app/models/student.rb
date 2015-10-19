@@ -25,6 +25,8 @@
 #
 
 class Student < ActiveRecord::Base
+  include ReportCard::StudentMethods
+  
   enum state: {pending: 0, active: 1, inactive: 2}
 
   include AASM

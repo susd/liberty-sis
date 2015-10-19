@@ -34,8 +34,13 @@ class Ischool::Form < Ischool::Base
     cards.where('CreationDate' => ReportCard::GradingPeriod.current_year_range)
   end
 
-  def self.for_student(aeries_id)
+  def self.by_aeries_id(aeries_id)
     where('StudentID' => aeries_id).order('CreationDate desc')
+  end
+
+  def self.for_student(student)
+    aeries_id = student.import_details['import_id']
+    by_aeries_id(aeries_id)
   end
 
   def data

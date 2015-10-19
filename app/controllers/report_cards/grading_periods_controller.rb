@@ -3,7 +3,7 @@ module ReportCards
     helper_method :period_form_path
 
     def index
-      @grading_periods = ReportCard::GradingPeriod.current_year
+      @grading_periods = ReportCard::GradingPeriod.order({year: :desc, position: :asc})
     end
 
     def new

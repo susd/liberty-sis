@@ -1,6 +1,12 @@
 module Ischool
   class ReportCardImporter
 
+    def self.for_student(student, card = nil)
+      ischool_form = Ischool::Form.cards_this_year.for_student(student)
+      report_card = card || student.current_or_new_report_card
+      new(ischool_form, report_card)
+    end
+
     def initialize(ischool_form, report_card)
       @form = ischool_form
       @card = report_card
