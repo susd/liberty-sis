@@ -1,0 +1,27 @@
+<table class="table" id="report_card-subjects">
+  <tr>
+    <th>Subject</th>
+    <th colspan="2">1st Period</th>
+    <th colspan="2">2nd Period</th>
+    <th colspan="2">3rd Period</th>
+  </tr>
+  <tbody>
+    <% subjects.each do |subject| %>
+    <tr>
+      <td class="report_card-label"><%= subject.name %></td>
+      <% (1..3).each do |i| %>
+        <td><%= presenter.subject_field(builder, subject, "score", i) if subject.show_score? %></td>
+        <td><%= presenter.subject_field(builder, subject, "effort", i) if subject.show_effort? %></td>
+      <% end %>
+    </tr>
+      <% if subject.show_level? %>
+        <tr class="report_card-subject_level">
+          <td class="report_card-label">Instructional level</td>
+          <% (1..3).each do |i| %>
+          <td colspan="2"><%= presenter.subject_field(builder, subject, "level", i, value: @student.grade.aeries_grade ) %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

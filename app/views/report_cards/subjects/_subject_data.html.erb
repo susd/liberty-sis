@@ -1,0 +1,9 @@
+<% if subject.positional_score? %>
+  <td>
+    <%= render partial: 'report_cards/subjects/positional_score', locals: {presenter: presenter, subject: subject, period: period } %>
+  </td>
+<% else %>
+  <td><%= presenter.get_subject(subject, 'score', period) %></td>
+<% end %>
+
+  <td><%= presenter.get_subject(subject, 'effort', period) %></td>

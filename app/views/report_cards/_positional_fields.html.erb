@@ -1,0 +1,46 @@
+<table class="table positional_card-form_subjects">
+  <tr>
+    <th></th>
+    <th colspan="4">1st Period</th>
+    <th colspan="4">2nd Period</th>
+    <th colspan="4">3rd Period</th>
+  </tr>
+  <tr>
+    <th>Subject</th>
+    <% 3.times do %>
+      <th>R</th>
+      <th>W</th>
+      <th>D</th>
+      <th>E</th>
+    <% end %>
+  </tr>
+  
+  <tbody>
+    <% subjects.each do |subject| %>
+    <tr>
+      <td class="report_card-label"><%= subject.name %></td>
+      <% (1..3).each do |period| %>
+        <% if subject.show_score? %>
+          <% presenter.positional_score(builder, subject, period) do |radio, label| %>
+            <td>
+              <label><%= radio %> <%= label %></label>
+            </td>
+          <% end %>
+        <% else %>
+          <td colspan="3"></td>
+        <% end %>
+        <td class="positional_card-effort"><%= presenter.subject_field(builder, subject, "effort", period) if subject.show_effort? %></td>
+      <% end %>
+    </tr>
+      <% if subject.show_level? %>
+        <tr class="report_card-subject_level">
+          <td class="report_card-label">Instructional level</td>
+          <% (1..3).each do |i| %>
+          <td colspan="4"><%= presenter.subject_field(builder, subject, "level", i, value: presenter.instruction_level(subject) ) %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+  
+</table>

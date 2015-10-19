@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151015201959) do
+ActiveRecord::Schema.define(version: 20151019160914) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -144,6 +144,70 @@ ActiveRecord::Schema.define(version: 20151015201959) do
   add_index "personas", ["personable_id", "personable_type"], name: "index_personas_on_personable_id_and_personable_type", using: :btree
   add_index "personas", ["student_id"], name: "index_personas_on_student_id", using: :btree
 
+  create_table "report_card_comment_groups", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "report_card_form_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
+  add_index "report_card_comment_groups", ["report_card_form_id"], name: "index_report_card_comment_groups_on_report_card_form_id", using: :btree
+
+  create_table "report_card_comments", force: :cascade do |t|
+    t.text     "english"
+    t.text     "spanish"
+    t.integer  "report_card_comment_group_id"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+  end
+
+  add_index "report_card_comments", ["report_card_comment_group_id"], name: "index_report_card_comments_on_report_card_comment_group_id", using: :btree
+
+  create_table "report_card_forms", force: :cascade do |t|
+    t.string   "name"
+    t.string   "renderer"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "report_card_grading_periods", force: :cascade do |t|
+    t.date     "starts_on"
+    t.date     "ends_on"
+    t.integer  "position",   default: 0,    null: false
+    t.integer  "year",       default: 2015, null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  create_table "report_card_subjects", force: :cascade do |t|
+    t.string   "name"
+    t.string   "spanish_name"
+    t.string   "slug"
+    t.integer  "report_card_form_id"
+    t.integer  "position"
+    t.boolean  "major"
+    t.boolean  "show_score"
+    t.boolean  "show_effort"
+    t.boolean  "show_level"
+    t.boolean  "side_section"
+    t.boolean  "positional_score"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
+  add_index "report_card_subjects", ["report_card_form_id"], name: "index_report_card_subjects_on_report_card_form_id", using: :btree
+
+  create_table "report_cards", force: :cascade do |t|
+    t.integer  "student_id"
+    t.integer  "report_card_form_id"
+    t.jsonb    "data"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
+  add_index "report_cards", ["report_card_form_id"], name: "index_report_cards_on_report_card_form_id", using: :btree
+  add_index "report_cards", ["student_id"], name: "index_report_cards_on_student_id", using: :btree
+
   create_table "roles", force: :cascade do |t|
     t.text     "name"
     t.jsonb    "permissions", default: {}, null: false
@@ -258,6 +322,11 @@ ActiveRecord::Schema.define(version: 20151015201959) do
   add_foreign_key "classroom_memberships", "students"
   add_foreign_key "classrooms", "sites"
   add_foreign_key "personas", "students"
+  add_foreign_key "report_card_comment_groups", "report_card_forms"
+  add_foreign_key "report_card_comments", "report_card_comment_groups"
+  add_foreign_key "report_card_subjects", "report_card_forms"
+  add_foreign_key "report_cards", "report_card_forms"
+  add_foreign_key "report_cards", "students"
   add_foreign_key "students", "grades"
   add_foreign_key "students", "sites"
 end

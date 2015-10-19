@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  student_id: 
+  report_card_form_id: 
+  data: 
+
+two:
+  student_id: 
+  report_card_form_id: 
+  data: 

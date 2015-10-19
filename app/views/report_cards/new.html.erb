@@ -1,0 +1,19 @@
+<h1><%= @student.name %></h1>
+<h3>New Report Card</h3>
+
+<%= bootstrap_form_for [@student, ReportCard.new] do |f| %>
+  <% if @report_card.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@report_card.errors.count, "error") %> prohibited this report_card from being saved:</h2>
+
+      <ul>
+      <% @report_card.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= f.select :form_id, @forms, label: 'Which form?' %>
+  <%= f.submit 'Start new report card' %>
+<% end %>
+

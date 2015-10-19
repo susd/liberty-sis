@@ -1,0 +1,63 @@
+<% present(@report_card, ReportCard::Presenter) do |presenter| %>
+
+
+<table class="table" id="report_card-subjects">
+  <tr>
+    <th></th>
+    <th colspan="2">1st Period</th>
+    <th colspan="2">2nd Period</th>
+    <th colspan="2">3rd Period</th>
+  </tr>
+  <tr>
+    <th>Subject</th>
+    <% 3.times do %>
+      <th>Quality</th>
+      <th>Effort</th>
+    <% end %>
+  </tr>
+  <tbody>
+    <% presenter.subjects.each do |subject| %>
+      <%= render partial: 'report_cards/subjects/subject_row', locals: {presenter: presenter, subject: subject} %>
+    <% end %>
+  </tbody>
+</table>
+
+<hr>
+
+<div class="report_card-attendance">
+  <h3>Attendance</h3>
+  <table class="table">
+    <tr>
+      <td class="report_card-label">Days Absent</td>
+      <% (1..3).each do |i| %>
+      <td><%= @attendance[i][:absences] %></td>
+      <% end %>
+    </tr>
+    <tr>
+      <td class="report_card-label">Days Tardy</td>
+      <% (1..3).each do |i| %>
+      <td><%= @attendance[i][:tardies] %></td>
+      <% end %>
+    </tr>
+  </table>
+</div>
+
+<hr>
+
+<div class="report_card-comments">
+  
+  <h3>Comments</h3>
+  <hr>
+  
+  <% presenter.comment_periods.each do |p, comments| %>
+    <div class="comment-period">
+      <h4><%= "#{p}#{p.ordinal}" %> Period</h4>
+      <% comments.each do |comment| %>
+      <span><%= comment.english %></span>
+      <% end %>
+    </div>
+  <% end %>
+  
+</div>
+
+<% end %>

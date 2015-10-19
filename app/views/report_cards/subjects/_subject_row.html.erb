@@ -1,0 +1,16 @@
+<tr>
+  <td class="report_card-label"><%= subject.name %></td>
+  <% (1..3).each do |i| %>
+    <%= render partial: 'report_cards/subjects/subject_data', locals: {presenter: presenter, subject: subject, period: i} %>
+  <% end %>
+</tr>
+<% if subject.show_level? %>
+  <tr class="report_card-subject_level">
+    <td class="report_card-label">Instructional level</td>
+    <% (1..3).each do |i| %>
+      <td colspan="2">
+        <%= presenter.get_level(subject, i) %>
+      </td>
+    <% end %>
+  </tr>
+<% end %>

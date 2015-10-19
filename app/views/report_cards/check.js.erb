@@ -1,0 +1,3 @@
+<% if @generated_pdf_path.present? %>
+  App.poller.finish("<%= @generated_pdf_path %>")
+<% end %>

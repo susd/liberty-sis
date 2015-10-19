@@ -1,0 +1,28 @@
+<%= bootstrap_form_for(@subject, url: adjusted_subject_form_path) do |f| %>
+  <% if @subject.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@subject.errors.count, "error") %> prohibited this subject from being saved:</h2>
+
+      <ul>
+      <% @subject.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <%= f.text_field :name %>
+  <%= f.text_field :spanish_name %>
+  <%= f.text_field :slug %>
+  <%= f.text_field :position %>
+  <%= f.check_box :major %>
+  <%= f.check_box :positional_score %>
+  <%= f.check_box :show_score %>
+  <%= f.check_box :show_effort %>
+  <%= f.check_box :show_level %>
+  <%= f.check_box :side_section %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
