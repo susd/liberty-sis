@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151019160914) do
+ActiveRecord::Schema.define(version: 20151019172132) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -201,8 +201,9 @@ ActiveRecord::Schema.define(version: 20151019160914) do
     t.integer  "student_id"
     t.integer  "report_card_form_id"
     t.jsonb    "data"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.jsonb    "import_details",      default: {}, null: false
   end
 
   add_index "report_cards", ["report_card_form_id"], name: "index_report_cards_on_report_card_form_id", using: :btree
