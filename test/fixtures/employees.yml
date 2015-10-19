@@ -13,7 +13,7 @@
 #  years_edu       :integer          default(0), not null
 #  years_district  :integer          default(0), not null
 #  title           :string
-#  status          :integer          default(0), not null
+#  state           :integer          default(0), not null
 #  legacy_id       :integer
 #  user_id         :integer
 #  created_at      :datetime         not null

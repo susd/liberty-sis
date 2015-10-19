@@ -21,6 +21,7 @@
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  import_details    :jsonb            default({}), not null
+#  state             :integer          default(0), not null
 #
 
 class Student < ActiveRecord::Base
