@@ -19,5 +19,5 @@
 #
 
 class ReportCard::Subject < ActiveRecord::Base
-  belongs_to :form
+  belongs_to :form, foreign_key: 'report_card_form_id'
 end

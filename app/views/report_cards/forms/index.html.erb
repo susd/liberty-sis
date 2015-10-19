@@ -16,7 +16,7 @@
         New Form
       </div>
       <div class="panel-body">
-        <%= bootstrap_form_for Form.new, url: report_cards_forms_path do |f| %>
+        <%= bootstrap_form_for ReportCard::Form.new, url: report_cards_forms_path do |f| %>
           <%= f.text_field :name %>
           <%= f.text_field :renderer %>
           <%= f.submit %>

@@ -1,0 +1,11 @@
+<%= bootstrap_form_for @grading_period, url: period_form_path(@grading_period) do |f| %>
+  <%= f.text_field :year %>
+  <%= f.select :position, (1..3) %>
+  <%= f.date_select :starts_on %>
+  <%= f.date_select :ends_on %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+<% end %>

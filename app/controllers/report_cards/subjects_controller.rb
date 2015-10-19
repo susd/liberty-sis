@@ -3,7 +3,7 @@ class ReportCards::SubjectsController < ApplicationController
   before_action :authorize_admin!
   before_action :set_form
   before_action :set_subject, only: [:show, :edit, :update, :destroy]
-  
+
   helper_method :adjusted_subject_form_path
 
   # GET /subjects
@@ -69,27 +69,27 @@ class ReportCards::SubjectsController < ApplicationController
   private
 
   def set_form
-    @form = Form.find(params[:form_id])
+    @form = ReportCard::Form.find(params[:form_id])
   end
 
   def set_subject
     @subject = subject_scope.find(params[:id])
   end
-  
+
   def subject_scope
     @form.subjects.order(:position)
   end
 
   def subject_params
     permitted = [
-      :name, :slug, :form_id, :major, 
-      :positional_score, :show_score, 
-      :show_effort, :show_level, 
+      :name, :slug, :form_id, :major,
+      :positional_score, :show_score,
+      :show_effort, :show_level,
       :side_section, :position, :spanish_name
     ]
     params.require(:subject).permit(*permitted)
   end
-  
+
   def adjusted_subject_form_path
     if @subject.new_record?
       report_cards_form_subjects_path(@form)

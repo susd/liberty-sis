@@ -14,4 +14,6 @@
 class ReportCard < ActiveRecord::Base
   belongs_to :student
   belongs_to :report_card_form
+
+  has_and_belongs_to_many :report_card_comments
 end

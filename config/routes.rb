@@ -25,6 +25,14 @@ Rails.application.routes.draw do
     resources :sites
   end
 
+  namespace :report_cards do
+    resources :grading_periods
+    resources :forms do
+      resources :subjects
+      resources :comments
+    end
+  end
+
   resources :employees
 
   root to: 'dashboard#index'

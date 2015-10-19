@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151019172132) do
+ActiveRecord::Schema.define(version: 20151019205017) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,13 @@ ActiveRecord::Schema.define(version: 20151019172132) do
   end
 
   add_index "classrooms", ["site_id"], name: "index_classrooms_on_site_id", using: :btree
+
+  create_table "comments_report_cards", id: false, force: :cascade do |t|
+    t.integer "report_card_comment_id"
+    t.integer "report_card_id"
+  end
+
+  add_index "comments_report_cards", ["report_card_comment_id", "report_card_id"], name: "index_comments_report_cards", unique: true, using: :btree
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   default: 0, null: false

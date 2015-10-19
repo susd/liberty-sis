@@ -11,6 +11,6 @@
 #
 
 class ReportCard::Comment < ActiveRecord::Base
-  belongs_to :comment_group
+  belongs_to :comment_group, foreign_key: 'report_card_comment_group_id'
   has_and_belongs_to_many :report_cards
 end

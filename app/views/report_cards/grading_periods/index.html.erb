@@ -1,0 +1,20 @@
+<%= link_to 'New', new_report_cards_grading_period_path %>
+
+<table class="table table-striped">
+  <tr>
+    <th>Year</th>
+    <th>Position</th>
+    <th>Starts on</th>
+    <th>Ends on</th>
+    <th>Edit</th>
+  </tr>
+  <% @grading_periods.each do |grading_period| %>
+  <tr>
+    <td><%= grading_period.year %></td>
+    <td><%= grading_period.position %></td>
+    <td><%= grading_period.starts_on %></td>
+    <td><%= grading_period.ends_on %></td>
+    <td><%= link_to 'Edit', edit_report_cards_grading_period_path(grading_period) %></td>
+  </tr>
+  <% end %>
+</table>

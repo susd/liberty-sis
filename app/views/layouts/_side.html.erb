@@ -39,10 +39,16 @@
 
     <% if current_user.admin? %>
     <h4 class="nav_area-heading">Admin</h4>
-    <ul class="nav nav-pills nav-stacked">
+    <ul>
       <li><%= link_to 'Users', admin_users_path %></li>
       <li><%= link_to 'Employees', admin_employees_path %></li>
       <li><%= link_to 'Roles', admin_roles_path %></li>
+    </ul>
+
+    <h4 class="nav_area-heading">Report Card Admin</h4>
+    <ul>
+      <li><%= link_to 'Grading Periods', report_cards_grading_periods_path %></li>
+      <li><%= link_to 'Forms', report_cards_forms_path %></li>
     </ul>
     <% end %>
   </div>
