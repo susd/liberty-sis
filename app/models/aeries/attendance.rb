@@ -47,6 +47,10 @@ module Aeries
       %w{D L T}
     end
 
+    def self.confirmed
+      where.not(al: '')
+    end
+
     def absence?
       self.class.absence_codes.include? attributes['al']
     end

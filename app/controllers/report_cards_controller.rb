@@ -10,6 +10,19 @@ class ReportCardsController < ApplicationController
   def show
     set_report_card
     set_attendance
+
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = "#{@report_card.form.renderer.capitalize}ReportCardPdf".constantize.new(@report_card)
+        options = {
+          filename: report_card_filename,
+          type: "application/pdf",
+          disposition: "inline"
+        }
+        send_data pdf.render, options
+      end
+    end
   end
 
   private
@@ -36,5 +49,9 @@ class ReportCardsController < ApplicationController
 
   def authorize_teacher
     authorize_to(:edit, @student)
+  end
+
+  def report_card_filename
+    "#{@student.name.parameterize}_report_card_#{@report_card.updated_at.strftime('%Y-%m-%d')}.pdf"
   end
 end

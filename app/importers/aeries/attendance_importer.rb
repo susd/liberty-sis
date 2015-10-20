@@ -28,7 +28,7 @@ module Aeries
     end
 
     def attendance_scope
-      student.attendances.where(dt: @range)
+      student.attendances.confirmed.where(dt: @range)
     end
 
     private

@@ -16,15 +16,4 @@ module ReportCard::StudentMethods
   def latest_report_card
     report_cards.order(updated_at: :desc).first
   end
-
-  def attendance_by_period
-    ReportCard::GradingPeriod.current_year.inject({}) do |result, p|
-      result.merge!({
-        p.position => {
-          absences: attendances.absences.in_range(p.range).count,
-          tardies: attendances.tardies.in_range(p.range).count
-        }
-      })
-    end
-  end
 end

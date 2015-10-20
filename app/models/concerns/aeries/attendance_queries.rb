@@ -26,15 +26,15 @@ module Aeries
     end
 
     def absences_for_period(period)
-      absences.where(dt: period.beginning..period.ending).count
+      absences.where(dt: period.starts_on..period.ends_on).count
     end
 
     def absences_this_period
-      absences_for_period(Period.current)
+      absences_for_period(ReportCard::GradingPeriod.current)
     end
 
     def absences_for_periods_this_year
-      Period.where(year: Period.current.year).map{|p| absences_for_period(p)}
+      ReportCard::GradingPeriod.where(year: ReportCard::GradingPeriod.current.year).map{|p| absences_for_period(p)}
     end
 
 
@@ -46,28 +46,28 @@ module Aeries
     end
 
     def tardies_for_period(period)
-      tardies.where(dt: period.beginning..period.ending).count
+      tardies.where(dt: period.starts_on..period.ends_on).count
     end
 
     def tardies_this_period
-      tardies_for_period(Period.current)
+      tardies_for_period(ReportCard::GradingPeriod.current)
     end
 
     def tardies_for_periods_this_year
-      Period.where(year: Period.current.year).map{|p| tardies_for_period(p)}
+      ReportCard::GradingPeriod.where(year: ReportCard::GradingPeriod.current.year).map{|p| tardies_for_period(p)}
     end
 
 
     # Grouped
 
     def attendance_by_period
-      Period.where(year: Period.current.year).inject({}) do |result, p|
+      ReportCard::GradingPeriod.where(year: ReportCard::GradingPeriod.current.year).inject({}) do |result, p|
         result.merge!(p.position => {absences: absences_for_period(p), tardies: tardies_for_period(p)})
       end
     end
 
     def attendance_by_type
-      Period.where(year: Period.current.year).inject({}) do |result, p|
+      ReportCard::GradingPeriod.where(year: ReportCard::GradingPeriod.current.year).inject({}) do |result, p|
         result.merge!(tardies: tardies_for_periods_this_year, absences: absences_for_periods_this_year)
       end
     end
