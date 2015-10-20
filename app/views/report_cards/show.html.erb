@@ -5,40 +5,35 @@
   <li><%= link_to 'Report Cards', student_report_cards_path(@student) %></li>
 </ol>
 
-<div class="page-header">
-  <h3>Report Card for <%= @student.name %></h3>
+<header class="page-header">
+  <div class="row">
+    <div class="col-md-10">
+      <h3>Report Card for <%= @student.name %></h3>
 
-  <p>
-    <strong>Started:</strong> <%= @report_card.created_at.to_s(:short) %> /
-    <strong>Updated:</strong> <%= @report_card.updated_at.to_s(:short) %>
-  </p>
+      <p>
+        Started on: <%= @report_card.created_at.to_s(:mdy) %>
+      </p>
+    </div>
+    <div class="col-md-2">
+      <%= link_to 'Edit', edit_student_report_card_path(@student, @report_card), class: 'btn btn-primary btn-block' %>
+      <% if @generated_pdf_path.present? %>
+        <%# link_to 'Print Preview', student_report_card_path(@student, @report_card, format: :pdf), class: 'btn btn-default btn-block' %>
+        <%= link_to 'View PDF', @generated_pdf_path, class: 'btn btn-default btn-block' %>
+        <%= link_to 'Reset PDF', force_student_report_card_path(@student, @report_card), data: {method: :patch}, class: 'btn btn-link btn-block' %>
+      <% else %>
+        <%# link_to 'Generate PDF', generate_student_report_card_path(@student, @report_card), method: :patch, class: 'btn btn-default btn-block' %>
+        <%= job_polling_link('Generate PDF', generate_student_report_card_path(@student, @report_card), check_student_report_card_path(@student, @report_card), {class: 'btn btn-default btn-block'}) %>
+      <% end %>
 
-
-
-</div>
-
-<div class="row">
-  <div class="col-md-10">
-
-    <%= render @report_card %>
-
-    <hr></hr>
-
-    <p><%= delete_report_card_link(@student, @report_card) %></p>
-
+      <%= link_to 'Legend', '#', class: 'btn btn-link btn-block', data:{toggle: 'modal', target: '#legend'} %>
+    </div>
   </div>
-  <div class="col-md-2">
+</header>
 
-    <%= link_to 'Edit', edit_student_report_card_path(@student, @report_card), class: 'btn btn-primary btn-block' %>
 
-    <% if @generated_pdf_path.present? %>
-      <%# link_to 'Print Preview', student_report_card_path(@student, @report_card, format: :pdf), class: 'btn btn-default btn-block' %>
-      <%= link_to 'View PDF', @generated_pdf_path, class: 'btn btn-default btn-block' %>
-      <%= link_to 'Reset PDF', force_student_report_card_path(@student, @report_card), data: {method: :patch}, class: 'btn btn-link btn-block' %>
-    <% else %>
-      <%# link_to 'Generate PDF', generate_student_report_card_path(@student, @report_card), method: :patch, class: 'btn btn-default btn-block' %>
-      <%= job_polling_link('Generate PDF', generate_student_report_card_path(@student, @report_card), check_student_report_card_path(@student, @report_card), {class: 'btn btn-default btn-block'}) %>
-    <% end %>
 
-  </div>
-</div>
+<%= render @report_card %>
+
+<hr></hr>
+
+<p><%= delete_report_card_link(@student, @report_card) %></p>

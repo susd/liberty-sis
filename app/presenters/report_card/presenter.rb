@@ -60,4 +60,8 @@ class ReportCard::Presenter < BasePresenter
     report_card.fetch_data(['attendance', period.to_s, 'tardies'])
   end
 
+  def editable?
+    report_card.year == ReportCard::GradingPeriod.school_year
+  end
+
 end

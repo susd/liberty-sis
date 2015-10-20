@@ -19,6 +19,8 @@
 //= require jquery-ui/autocomplete
 //= require throttle-debounce
 
+//= require bootstrap-sprockets
+
 //= require _app
 //= require _element
 //= require _off_canvas
