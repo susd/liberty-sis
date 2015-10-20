@@ -1,20 +1,19 @@
 <ol class="breadcrumb">
   <li><%= link_to 'Home', root_path %></li>
-  <li><%= link_to @student.classroom.name, @student.classroom %></li>
+  <li><%= link_to @student.homeroom.name, @student.homeroom %></li>
   <li><%= link_to @student.name, @student %></li>
 </ol>
 
 <div class="page-header">
-  <h2>
-    <%= @student.name %>
-    <small>Report Cards</small>
-  </h2>
+  <h2><%= @student.name %></h2>
+  <p>Homeroom: <%= @student.homeroom.name %></p>
 </div>
 
+<%= render 'students/tabs' %>
 
 <div class="row">
   <div class="col-md-8">
-    
+
     <table class="table">
       <thead>
         <tr>
@@ -34,24 +33,21 @@
         <% end %>
       </tbody>
     </table>
-    
+
   </div>
   <div class="col-md-4">
-    
+
     <div class="panel panel-primary">
       <div class="panel-heading">
         New Report Card
       </div>
       <div class="panel-body">
         <%= bootstrap_form_for [@student, ReportCard.new] do |f| %>
-          <%= f.select :form_id, @forms, label: 'Which form?' %>
+          <%= f.select :report_card_form_id, @forms, label: 'Which form?' %>
           <%= f.submit 'Start new report card' %>
         <% end %>
       </div>
     </div>
-    
+
   </div>
 </div>
-
-
-

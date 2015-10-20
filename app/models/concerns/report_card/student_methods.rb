@@ -1,6 +1,10 @@
 module ReportCard::StudentMethods
   extend ActiveSupport::Concern
 
+  included do
+    has_many :report_cards
+  end
+
   def current_report_card
     report_cards.find_by(year: ReportCard::GradingPeriod.school_year)
   end

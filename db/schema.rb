@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151019223801) do
+ActiveRecord::Schema.define(version: 20151020002710) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -212,9 +212,12 @@ ActiveRecord::Schema.define(version: 20151019223801) do
     t.datetime "updated_at",                         null: false
     t.jsonb    "import_details",      default: {},   null: false
     t.integer  "year",                default: 2015, null: false
+    t.integer  "employee_id"
   end
 
+  add_index "report_cards", ["employee_id"], name: "index_report_cards_on_employee_id", using: :btree
   add_index "report_cards", ["report_card_form_id"], name: "index_report_cards_on_report_card_form_id", using: :btree
+  add_index "report_cards", ["student_id", "year"], name: "index_report_cards_on_student_id_and_year", unique: true, using: :btree
   add_index "report_cards", ["student_id"], name: "index_report_cards_on_student_id", using: :btree
 
   create_table "roles", force: :cascade do |t|
@@ -334,6 +337,7 @@ ActiveRecord::Schema.define(version: 20151019223801) do
   add_foreign_key "report_card_comment_groups", "report_card_forms"
   add_foreign_key "report_card_comments", "report_card_comment_groups"
   add_foreign_key "report_card_subjects", "report_card_forms"
+  add_foreign_key "report_cards", "employees"
   add_foreign_key "report_cards", "report_card_forms"
   add_foreign_key "report_cards", "students"
   add_foreign_key "students", "grades"

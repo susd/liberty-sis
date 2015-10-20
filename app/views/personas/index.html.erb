@@ -8,12 +8,7 @@
   <p>Homeroom: <%= @student.homeroom.name %></p>
 </div>
 
-<ul class="nav nav-tabs">
-  <li>
-    <%= link_to 'Demographics', @student %>
-  </li>
-  <li class="active"><a>Internet Accounts</a></li>
-</ul>
+<%= render 'students/tabs' %>
 
 <table class="table table-striped">
   <tr>
