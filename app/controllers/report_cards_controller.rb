@@ -5,7 +5,11 @@ class ReportCardsController < ApplicationController
   def index
     @report_cards = report_card_scope
     load_form_options
+  end
 
+  def show
+    set_report_card
+    set_attendance
   end
 
   private
@@ -18,8 +22,12 @@ class ReportCardsController < ApplicationController
     @report_card = report_card_scope.find(params[:id])
   end
 
+  def set_attendance
+    @attendance = @student.attendance_by_period
+  end
+
   def report_card_scope
-    @student.report_cards
+    @student.report_cards.order(created_at: :desc)
   end
 
   def load_form_options

@@ -8,15 +8,21 @@ Rails.application.routes.draw do
     get :search, on: :collection
   end
 
+  concern :pdfs do
+    patch :generate, on: :member
+    patch :force, on: :member
+    get :check, on: :member
+  end
+
   resources :sites do
     resources :classrooms, only: :index
   end
 
-  resources :classrooms
+  resources :classrooms, concerns: :pdfs
 
   resources :students do
     resources :personas
-    resources :report_cards
+    resources :report_cards, concerns: :pdfs
   end
 
   namespace :admin do

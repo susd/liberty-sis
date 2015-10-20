@@ -26,7 +26,8 @@
 
 class Student < ActiveRecord::Base
   include ReportCard::StudentMethods
-  
+  include Aeries::StudentConvenience
+
   enum state: {pending: 0, active: 1, inactive: 2}
 
   include AASM
@@ -42,6 +43,8 @@ class Student < ActiveRecord::Base
   has_many :classrooms, through: :classroom_memberships
 
   has_many :personas, as: :personable, dependent: :destroy
+
+  has_many :attendances
 
   aasm column: :state, enum: true do
     state :pending, initial: true

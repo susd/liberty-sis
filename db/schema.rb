@@ -11,12 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151020002710) do
+ActiveRecord::Schema.define(version: 20151020031812) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "unaccent"
   enable_extension "pg_trgm"
+
+  create_table "attendances", force: :cascade do |t|
+    t.integer  "student_id"
+    t.date     "date"
+    t.integer  "day",            default: 0,  null: false
+    t.integer  "kind",           default: 0,  null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.jsonb    "import_details", default: {}, null: false
+  end
+
+  add_index "attendances", ["student_id"], name: "index_attendances_on_student_id", using: :btree
 
   create_table "classroom_leaderships", force: :cascade do |t|
     t.integer  "employee_id"
@@ -328,6 +340,7 @@ ActiveRecord::Schema.define(version: 20151020002710) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
+  add_foreign_key "attendances", "students"
   add_foreign_key "classroom_leaderships", "classrooms"
   add_foreign_key "classroom_leaderships", "employees"
   add_foreign_key "classroom_memberships", "classrooms"

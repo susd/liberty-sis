@@ -1,6 +1,13 @@
 module Ischool
   class ReportCardImporter
 
+    def self.import_classroom(classroom)
+      Aeries::AttendanceImporter.import_classroom(classroom)
+      classroom.students.each do |student|
+        all_for_student(student)
+      end
+    end
+
     def self.all_for_student(student)
       Ischool::Form.cards.for_student(student).each do |form|
         new(form, student).import!
