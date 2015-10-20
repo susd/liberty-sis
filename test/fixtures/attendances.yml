@@ -15,15 +15,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  student_id: 
+  student_id:
   day: 1
   date: 2015-10-19
-  code: 1
   kind: 1
 
 two:
-  student_id: 
+  student_id:
   day: 1
   date: 2015-10-19
-  code: 1
   kind: 1

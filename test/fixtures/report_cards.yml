@@ -15,12 +15,17 @@
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  student_id: 
-  report_card_form_id: 
-  data: 
+# one:
+#   student_id:
+#   report_card_form_id:
+#   data: {}
+#
+# two:
+#   student_id:
+#   report_card_form_id:
+#   data: {}
 
-two:
-  student_id: 
-  report_card_form_id: 
-  data: 
+long_names_card:
+  student: long_name
+  form: primary
+  updated_at: <%= DateTime.new(2015, 10, 20, 12, 00) %>

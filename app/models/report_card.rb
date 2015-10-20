@@ -22,6 +22,10 @@ class ReportCard < ActiveRecord::Base
 
   validates_presence_of :report_card_form_id
 
+  def self.cache_dir
+    Rails.root.join('tmp', 'data', 'pdfs')
+  end
+
   def self.this_period
     where("created_at > ?", Period.current.starts_on)
   end
@@ -76,11 +80,12 @@ class ReportCard < ActiveRecord::Base
   end
 
   def cache_dir
-    File.expand_path("public/pdfs/students/#{student_id_partition}", Rails.root)
+    # File.expand_path("public/pdfs/students/#{student_id_partition}", Rails.root)
+    self.class.cache_dir.join('students', *student_id_partition).to_s
   end
 
   def cache_rel_dir
-    "/pdfs/students/#{student_id_partition}"
+    "/students/#{student_id_partition.join('/')}"
   end
 
   def cache_rel_path
@@ -91,9 +96,7 @@ class ReportCard < ActiveRecord::Base
     File.exists? cache_path
   end
 
-  private
-
   def student_id_partition
-    ("%09d" % student.aeries_id).scan(/\d{3}/).join("/")
+    ("%09d" % student.import_details['import_id']).scan(/\d{3}/)
   end
 end
