@@ -26,6 +26,7 @@
 //= require _off_canvas
 //= require _autocompleter
 //= require _table_filter
+//= require _job_poller
 
 
 Turbolinks.enableProgressBar();

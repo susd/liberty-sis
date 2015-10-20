@@ -16,7 +16,7 @@ class ReportCard::ClassroomCombiner
   def perform!
     return false unless pdf_paths.any?
 
-    GeneratePdfsForClassroom.new(@classroom).perform!
+    ReportCard::ClassroomGenerator.new(@classroom).perform!
 
     combined = CombinePDF.new
     pdf_paths.each do |path|

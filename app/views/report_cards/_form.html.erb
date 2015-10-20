@@ -15,39 +15,40 @@
 
   <div class="row">
     <div class="col-md-2">
-      <%= render 'report_cards/subjects/positional_scale' if presenter.positional_form? %>    
+      <%= render 'report_cards/subjects/positional_scale' if presenter.positional_form? %>
+      <%= render 'report_cards/subjects/value_scale' unless presenter.positional_form? %>
       <ul class="nav nav-pills nav-stacked">
         <li role="presentation"><a href="#report_card-subjects">Subjects</a></li>
         <li role="presentation"><a href="#report_card-comments">Comments</a></li>
       </ul>
     </div>
-    
+
     <div class="col-md-10">
       <% if presenter.positional_form? %>
         <%= render partial: 'positional_fields',  locals: presenter.partial_locals(f) %>
       <% else %>
         <%= render partial: 'value_fields',  locals: presenter.partial_locals(f) %>
       <% end %>
-      
+
       <hr>
         <h3>Comments</h3>
       <hr>
-      
+
       <div id="report_card-comments">
-        
+
         <% @comment_groups.each do |comment_group| %>
           <h4><%= comment_group.name %></h4>
           <fieldset class="comment-checkboxes">
             <%= presenter.render_comments(f, comment_group) %>
           </fieldset>
         <% end %>
-        
+
       </div>
-      
+
       <hr>
         <h3>Additional</h3>
       <hr>
-      
+
       <div class="row">
         <div class="col-md-3">
           <%= presenter.next_grade_field(f) %>
@@ -56,10 +57,10 @@
           <%= presenter.teacher_name_field(f) %>
         </div>
       </div>
-    
+
     </div>
   </div>
-  
+
   <div class="form-actions form-actions-affixed">
     <div class="container">
       <div class="row">

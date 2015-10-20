@@ -3,7 +3,7 @@ class ReportCard::StudentGenerator
 
   def initialize(student)
     @student = student
-    @card = student.latest_card
+    @card = student.latest_report_card
   end
 
   def perform!

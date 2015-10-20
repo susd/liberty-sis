@@ -9,9 +9,12 @@ Rails.application.routes.draw do
   end
 
   concern :pdfs do
-    patch :generate, on: :member
-    patch :force, on: :member
-    get :check, on: :member
+    member do
+      patch :generate
+      patch :clear
+      get :check
+      get :show_cached
+    end
   end
 
   resources :sites do
