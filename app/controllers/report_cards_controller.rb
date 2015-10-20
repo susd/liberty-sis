@@ -25,6 +25,12 @@ class ReportCardsController < ApplicationController
     end
   end
 
+  def edit
+    set_report_card
+    set_subjects
+    set_comment_groups
+  end
+
   private
 
   def set_student
@@ -37,6 +43,14 @@ class ReportCardsController < ApplicationController
 
   def set_attendance
     @attendance = @student.attendance_by_period
+  end
+
+  def set_subjects
+    @subjects = @report_card.form.subjects.order(:position)
+  end
+
+  def set_comment_groups
+    @comment_groups = @report_card.comment_groups.includes(:comments)
   end
 
   def report_card_scope

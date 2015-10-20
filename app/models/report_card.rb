@@ -17,7 +17,7 @@ class ReportCard < ActiveRecord::Base
   belongs_to :student
   belongs_to :form, class_name: 'ReportCard::Form', foreign_key: 'report_card_form_id'
 
-  has_many :comment_groups, class_name: 'ReportCard::CommentGroup'
+  has_many :comment_groups, through: :form
   has_and_belongs_to_many :report_card_comments, join_table: 'comments_report_cards'
 
   validates_presence_of :report_card_form_id
