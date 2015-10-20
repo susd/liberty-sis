@@ -1,18 +1,18 @@
 class ReportCard::Presenter < BasePresenter
   presents :report_card
-  
+
   def subjects
     report_card.form.subjects.order(:position)
   end
-  
+
   def get_subject(subject, subject_key, period)
     report_card.fetch_data(['subjects', subject.id.to_s, 'periods', period.to_s, subject_key])
   end
-  
+
   def get_level(subject, period)
     report_card.fetch_data(['subjects', subject.id.to_s, 'periods', period.to_s, 'level'])
   end
-  
+
   def comment_ids
     cmnts = []
     (1..3).each do |i|
@@ -20,7 +20,7 @@ class ReportCard::Presenter < BasePresenter
     end
     cmnts.flatten.uniq
   end
-  
+
   def comment_periods
     (1..3).inject({}) do |result, period|
       if report_card.has_comments?(period)
@@ -29,7 +29,7 @@ class ReportCard::Presenter < BasePresenter
       result
     end
   end
-  
+
   def positional_value_tag(subject, period)
     tpl.capture do
       %w{R W D}.each_with_index do |v, idx|
@@ -39,7 +39,7 @@ class ReportCard::Presenter < BasePresenter
       end
     end
   end
-  
+
   def handle_string_score(score)
     if score.blank?
       nil
@@ -47,5 +47,17 @@ class ReportCard::Presenter < BasePresenter
       score.to_i
     end
   end
-  
+
+  def attendance
+    report_card.fetch_data(['attendance'])
+  end
+
+  def absences(period)
+    report_card.fetch_data(['attendance', period.to_s, 'absences'])
+  end
+
+  def tardies(period)
+    report_card.fetch_data(['attendance', period.to_s, 'tardies'])
+  end
+
 end

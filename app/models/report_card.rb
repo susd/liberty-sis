@@ -42,6 +42,13 @@ class ReportCard < ActiveRecord::Base
     fetch_data(['attendance', key, period.to_s])
   end
 
+  def store_attendance(attedance_by_type)
+    self.data['attendance'] ||= {}
+    attedance_by_type.each do |key, periods|
+      self.data['attendance'][key] = periods
+    end
+  end
+
   def has_subject?(period, subject)
     fetch_data(['subjects', subject.id.to_s]).present?
   end

@@ -15,6 +15,7 @@ module Ischool
       def parse!
         parse_subjects
         parse_comments
+        parse_attendance
 
         @result
       end
@@ -37,6 +38,15 @@ module Ischool
           end
         end
 
+        @result
+      end
+
+      def parse_attendance
+        @result['attendance'] ||= {}
+        attendance_map.each do |source_key, target_key|
+          type, period = target_key.split('.')
+          @result['attendance'][period.to_i][type] = @data[source_key].to_i
+        end
         @result
       end
 

@@ -28,15 +28,21 @@
   <h3>Attendance</h3>
   <table class="table">
     <tr>
+      <th></th>
+      <th>1st Period</th>
+      <th>2nd Period</th>
+      <th>3rd Period</th>
+    </tr>
+    <tr>
       <td class="report_card-label">Days Absent</td>
       <% (1..3).each do |i| %>
-      <td><%= @attendance[i][:absences] %></td>
+      <td><%= presenter.absences(i) %></td>
       <% end %>
     </tr>
     <tr>
       <td class="report_card-label">Days Tardy</td>
       <% (1..3).each do |i| %>
-      <td><%= @attendance[i][:tardies] %></td>
+      <td><%= presenter.tardies(i) %></td>
       <% end %>
     </tr>
   </table>
@@ -45,10 +51,10 @@
 <hr>
 
 <div class="report_card-comments">
-  
+
   <h3>Comments</h3>
   <hr>
-  
+
   <% presenter.comment_periods.each do |p, comments| %>
     <div class="comment-period">
       <h4><%= "#{p}#{p.ordinal}" %> Period</h4>
@@ -57,7 +63,7 @@
       <% end %>
     </div>
   <% end %>
-  
+
 </div>
 
 <% end %>
