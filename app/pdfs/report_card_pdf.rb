@@ -20,7 +20,7 @@ class ReportCardPdf
       'school'      => student.site.name,
       'teacher'     => teacher_name,
       'principal'   => student.site.principal,
-      'next_grade'  => @report_card.fetch_data(['next_grade']),
+      'next_grade'  => next_grade,
       'comments'    => {},
       'spanish_comments' => {}
     }
@@ -72,7 +72,7 @@ class ReportCardPdf
   end
 
   def tabulate_attendance(lang = :english)
-    @att_hsh ||= student.attendance_by_type
+    @att_hsh ||= @report_card.attendance_by_type
     abs_title = (lang == :english ? "Days Absent" : "Días Ausente")
     tar_title = (lang == :english ? "Days Tardy" : "Días Tarde")
     [
@@ -153,6 +153,10 @@ class ReportCardPdf
 
   def teacher_name
     @report_card.fetch_data(['teacher_name']) || student.homeroom.primary_teacher.name
+  end
+
+  def next_grade
+    @report_card.fetch_data(['next_grade']) || (student.grade.simple + 1).to_s
   end
 
   def effort_cols

@@ -39,7 +39,7 @@ class ReportCard < ActiveRecord::Base
   end
 
   def attendance_data(period, key)
-    fetch_data(['attendance', key, period.to_s])
+    fetch_data(['attendance', period.to_s, key.to_s])
   end
 
   def store_attendance(attedance_by_type)
@@ -47,6 +47,15 @@ class ReportCard < ActiveRecord::Base
     attedance_by_type.each do |key, periods|
       self.data['attendance'][key] = periods
     end
+  end
+
+  def attendance_by_type
+    hsh = {absences: [], tardies: []}
+    (1..3).each do |i|
+      hsh[:absences][i] = attendance_data(i, 'absences')
+      hsh[:tardies][i]  = attendance_data(i, 'tardies')
+    end
+    hsh.each{|k,v| v.compact! }
   end
 
   def has_subject?(period, subject)
