@@ -26,7 +26,7 @@ class ReportCardTest < ActiveSupport::TestCase
   end
 
   test "Cache relative directory" do
-    assert_equal "/students/123/456/789", @report_card.cache_rel_dir
+    assert_equal "tmp/data/pdfs/students/123/456/789", @report_card.cache_rel_dir
   end
 
   test "Cache file name" do

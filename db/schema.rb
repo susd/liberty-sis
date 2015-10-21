@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151020162654) do
+ActiveRecord::Schema.define(version: 20151021000724) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -225,6 +225,7 @@ ActiveRecord::Schema.define(version: 20151020162654) do
     t.jsonb    "import_details",      default: {},   null: false
     t.integer  "year",                default: 2015, null: false
     t.integer  "employee_id"
+    t.text     "pdf_path"
   end
 
   add_index "report_cards", ["employee_id"], name: "index_report_cards_on_employee_id", using: :btree

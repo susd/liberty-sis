@@ -22,8 +22,11 @@ class ReportCard < ActiveRecord::Base
 
   validates_presence_of :report_card_form_id
 
+  before_save :set_pdf_path
+
   def self.cache_dir
-    Rails.root.join('tmp', 'data', 'pdfs')
+    # Rails.root.join('tmp', 'data', 'pdfs')
+    Rails.configuration.pdf_path
   end
 
   def self.this_period
@@ -85,7 +88,8 @@ class ReportCard < ActiveRecord::Base
   end
 
   def cache_rel_dir
-    "/students/#{student_id_partition.join('/')}"
+    # "/students/#{student_id_partition.join('/')}"
+    self.class.cache_dir.relative_path_from(Rails.root).join('students', *student_id_partition).to_s
   end
 
   def cache_rel_path
@@ -98,5 +102,9 @@ class ReportCard < ActiveRecord::Base
 
   def student_id_partition
     ("%09d" % student.import_details['import_id']).scan(/\d{3}/)
+  end
+
+  def set_pdf_path
+    self.pdf_path = cache_path
   end
 end
