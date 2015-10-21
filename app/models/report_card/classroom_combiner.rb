@@ -6,7 +6,7 @@ class ReportCard::ClassroomCombiner
   end
 
   def report_cards
-    @cards ||= @classroom.students.order(:last_name).map(&:latest_card).compact
+    @cards ||= @classroom.students.order(:last_name).map(&:latest_report_card).compact
   end
 
   def pdf_paths

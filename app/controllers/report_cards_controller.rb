@@ -147,7 +147,7 @@ class ReportCardsController < ApplicationController
 
   def check_for_pdf
     if File.exists? @report_card.cache_path
-      @generated_pdf_path = @report_card.cache_path
+      @cached_pdf_path = @report_card.cache_path
     end
   end
 

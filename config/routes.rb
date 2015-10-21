@@ -21,7 +21,7 @@ Rails.application.routes.draw do
     resources :classrooms, only: :index
   end
 
-  resources :classrooms, concerns: :pdfs
+  resources :classrooms, only: [:index, :show], concerns: :pdfs
 
   resources :students do
     resources :personas

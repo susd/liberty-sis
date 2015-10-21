@@ -21,6 +21,8 @@ class Classroom < ActiveRecord::Base
   has_many :classroom_memberships, dependent: :destroy
   has_many :students, through: :classroom_memberships
 
+  include ReportCard::ClassroomMethods
+
   def reimport!
     begin
       import_from_source

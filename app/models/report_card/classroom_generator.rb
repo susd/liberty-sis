@@ -10,7 +10,7 @@ class ReportCard::ClassroomGenerator
 
     @classroom.students.each do |student|
 
-      gsp = GenerateStudentCardPdf.new(student)
+      gsp = ReportCard::StudentGenerator.new(student)
 
       if proceed_with_generation?(gsp)
         gsp.perform!
