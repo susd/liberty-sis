@@ -24,7 +24,7 @@
   <div class="nav_area-content">
     <ul>
       <li><%= link_to 'Home', root_path %></li>
-      <% if current_employee.multi_site? || current_user.admin? %>
+      <% if (current_employee && current_employee.multi_site?) || current_user.admin? %>
         <li><%= link_to 'Sites', sites_path %></li>
       <% end %>
     </ul>

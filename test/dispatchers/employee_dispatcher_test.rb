@@ -11,4 +11,8 @@ class EmployeeDispatcherTest < ActiveSupport::TestCase
     assert_equal classrooms_path, EmployeeDispatcher.new(employees(:multi_teacher)).path
   end
 
+  test "Employee without classrooms" do
+    assert_not EmployeeDispatcher.new(employees(:no_class)).dispatch?
+  end
+
 end

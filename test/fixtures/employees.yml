@@ -42,6 +42,12 @@ teacher:
   last_name: Teacher
   user: teacher
 
+no_class:
+  type: Teacher
+  first_name: Mrs
+  last_name: Teacher
+  user: teacher
+
 ashley_doe:
   type: Teacher
   first_name: Ashley

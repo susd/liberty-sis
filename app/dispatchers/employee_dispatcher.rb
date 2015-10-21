@@ -7,7 +7,7 @@ class EmployeeDispatcher
   end
 
   def dispatch?
-    employee.type == 'Teacher'
+    employee.type == 'Teacher' && employee.classrooms.any?
   end
 
   def path
