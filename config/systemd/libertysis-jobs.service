@@ -1,0 +1,16 @@
+[Unit]
+Description=Background jobs for liberty
+
+[Service]
+Type=forking
+WorkingDirectory=/srv/rails/libertysis/current
+SyslogIdentifier=liberty-jobs
+PIDFile=/srv/rails/libertysis/shared/tmp/pids/delayed_job.pid
+
+Environment="RAILS_ENV=production"
+ExecStart=/srv/rails/libertysis/current/bin/delayed_job start -n8 --pid-dir=/srv/rails/libertysis/shared/tmp/pids
+ExecStop=/srv/rails/libertysis/current/bin/delayed_job stop -n8 --pid-dir=/srv/rails/libertysis/shared/tmp/pids
+TimeoutSec=120
+
+[Install]
+WantedBy=multiuser.target

@@ -1,0 +1,14 @@
+[Unit]
+Description=Puma service for liberty
+
+[Service]
+WorkingDirectory=/srv/rails/libertysis/current
+SyslogIdentifier=liberty-puma
+PIDFile=/srv/rails/libertysis/current/tmp/puma/pid
+
+ExecStart=/usr/local/bin/bundle exec "puma -C /srv/rails/libertysis/current/config/puma/production.rb"
+ExecStop=/usr/bin/kill -QUIT $MAINPID
+ExecReload=/usr/bin/kill -USR1 $MAINPID
+
+[Install]
+WantedBy=multiuser.target
