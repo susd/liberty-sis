@@ -1,0 +1,22 @@
+<table class="table">
+  <tr>
+    <% (1..3).each do |i| %>
+    <th><%= "#{i}#{i.ordinal}"%></th>
+    <% end %>
+    <th>Comment</th>
+  </tr>
+  <% comment_group.comments.each do |comment| %>
+  <tr>
+    <% (1..3).each do |i| %>
+    <td>
+      <%= presenter.comment_box(comment, i) %>
+    </td>
+    <% end %>
+    <td>
+      <label>
+        <%= comment.english %>
+      </label>
+    </td>
+  </tr>
+  <% end %>
+</table>

@@ -1,0 +1,27 @@
+<div class="page-header">
+  <h1>Forms</h1>
+</div>
+
+<div class="row">
+  <div class="col-md-8">
+    <div class="list-group">
+      <% @forms.each do |form| %>
+        <%= link_to form.name, report_cards_form_path(form), class: 'list-group-item' %>
+      <% end %>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        New Form
+      </div>
+      <div class="panel-body">
+        <%= bootstrap_form_for ReportCard::Form.new, url: report_cards_forms_path do |f| %>
+          <%= f.text_field :name %>
+          <%= f.text_field :renderer %>
+          <%= f.submit %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  spanish_name: MyString
+  slug: MyString
+  report_card_form_id: 
+  position: 1
+  major: false
+  show_score: false
+  show_effort: false
+  show_level: false
+  side_section: false
+  positional_score: false
+
+two:
+  name: MyString
+  spanish_name: MyString
+  slug: MyString
+  report_card_form_id: 
+  position: 1
+  major: false
+  show_score: false
+  show_effort: false
+  show_level: false
+  side_section: false
+  positional_score: false

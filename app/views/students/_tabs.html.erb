@@ -1,0 +1,11 @@
+<ul id="student_tabs" class="nav nav-tabs">
+  <%= active_li('students') do %>
+    <%= link_to 'Demographics', @student %>
+  <% end %>
+  <%= active_li('report_cards') do %>
+    <%= link_to 'Report Cards', student_report_cards_path(@student) %>
+  <% end %>
+  <%= active_li('personas') do %>
+    <%= link_to 'Internet Accounts', student_personas_path(@student) %>
+  <% end %>
+</ul>

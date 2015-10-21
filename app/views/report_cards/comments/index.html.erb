@@ -1,0 +1,16 @@
+<div class="page-header">
+  <h1><%= @form.name %> Comments</h1>
+</div>
+
+<table class="table">
+  <tbody>
+    <% @comments.each do |comment| %>
+    <tr>
+      <td><%= comment.comment_group.name %></td>
+      <td><%= comment.english %></td>
+      <td><%= comment.spanish %></td>
+      <td><%= link_to 'Edit', edit_report_cards_form_comment_path(@form, comment)%></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,100 @@
+.form-affixed_actions{
+  padding-bottom: 4em;
+}
+
+.form-actions{}
+
+.form-actions-affixed{
+  width: calc(100% - $app-side-width);
+  position:fixed;
+  left: $app-side-width;
+  bottom: 0;
+  padding: 1em 0;
+  background-color: #eee;
+  border-top: 2px solid #337ab7;
+  z-index: 100;
+}
+
+.form-actions.affix{
+  top: 400px;
+  background-color: #777;
+}
+
+.form-actions.affix-top{
+  position:fixed;
+  top: 200px;
+  right: 10px;
+  border: 1px solid #0f0;
+}
+
+.form-actions.affix-bottom{
+  position:fixed;
+  top: 600px;
+  right: 10px;
+  border: 1px solid #ff0;
+}
+
+#report_card-subjects{
+  td{
+    width: 10%;
+    border-left: 1px solid #ddd;
+    text-align: center;
+  }
+  td:first-child, th:first-child{
+    width: 40%;
+    border-left: none;
+    text-align: left;
+  }
+  td:nth-child(4), td:nth-child(6){
+    border-left: 2px solid #aaa;
+  }
+  .report_card-subject_level{
+    .report_card-label{
+      text-align: right;
+      font-weight: normal;
+      font-style: italic;
+      font-size: 12px;
+    }
+    td:nth-child(3), td:nth-child(4){
+      border-left: 2px solid #aaa;
+    }
+  }
+}
+
+.positional_card-form_subjects{
+  th{
+    text-align: center;
+  }
+  td{
+    border-left: 1px solid #ddd;
+    text-align: center;
+  }
+  td:first-child, th:first-child{
+    width: 20%;
+    border-left: none;
+    text-align: left;
+  }
+  td.positional_card-effort{
+    width: 8%;
+  }
+}
+
+.report_card-label{
+  font-weight: bold;
+  text-align: left;
+}
+
+.pos_score{
+  display: flex;
+}
+
+.pos_score-value{
+  flex:1;
+  background-color: #fff;
+  border-radius: 4px;
+  color: #999;
+  &.selected{
+    color: #fff;
+    background-color: $brand-primary;
+  }
+}

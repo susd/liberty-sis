@@ -29,3 +29,8 @@ west_creek:
   name: 'West Creak Academy'
   code: 85
   abbr: wc
+
+cedarcreek:
+  name: 'Cedarcreek'
+  code: 10
+  abbr: cc

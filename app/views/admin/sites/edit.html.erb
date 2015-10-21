@@ -1,0 +1,12 @@
+<%= bootstrap_form_for [:admin, @site] do |f| %>
+
+  <%= f.text_field :name %>
+  <%= f.text_field :abbr %>
+  <%= f.text_field :code %>
+  <%= f.text_field :principal %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+<% end %>

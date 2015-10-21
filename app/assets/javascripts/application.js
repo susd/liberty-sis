@@ -19,11 +19,14 @@
 //= require jquery-ui/autocomplete
 //= require throttle-debounce
 
+//= require bootstrap-sprockets
+
 //= require _app
 //= require _element
 //= require _off_canvas
 //= require _autocompleter
 //= require _table_filter
+//= require _job_poller
 
 
 Turbolinks.enableProgressBar();

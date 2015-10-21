@@ -1,5 +1,4 @@
 class Admin::UsersController < AdminController
-  before_action :set_user, only: [:show, :edit, :update]
 
   def index
     @users = User.includes(:employee).order(:last_name).page(params[:page]).per(50)
@@ -16,15 +15,20 @@ class Admin::UsersController < AdminController
   end
 
   def show
+    set_user
   end
 
   def edit
+    set_user
+    set_roles
   end
 
   def update
+    set_user
     if @user.update(user_params)
       redirect_to admin_users_path, notice: 'User updated'
     else
+      set_roles
       render :edit
     end
   end
@@ -33,5 +37,9 @@ class Admin::UsersController < AdminController
 
   def set_user
     @user = User.find(params[:id])
+  end
+
+  def set_roles
+    @roles = Role.order(:name)
   end
 end

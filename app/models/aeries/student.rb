@@ -255,6 +255,10 @@ module Aeries
       }
     end
 
+    def native_student
+      ::Student.where("import_details -> 'import_id' = ?", attributes['id'].to_json)
+    end
+
     def find_liberty_grade
       if ['T', 'U'].include? attributes['sp']
         Grade.find_by(position: 0.5)

@@ -1,0 +1,12 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# one:
+#   name: MyString
+#   renderer: MyString
+#
+# two:
+#   name: MyString
+#   renderer: MyString
+primary:
+  name: 'Primary'
+  renderer: primary

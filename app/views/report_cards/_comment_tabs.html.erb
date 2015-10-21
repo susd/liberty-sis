@@ -1,0 +1,24 @@
+<div role="tabpanel">
+  
+  <div class="row">
+    <div class="col-md-3">
+      <ul class="nav nav-pills nav-stacked" role="tablist">
+        <% @comment_groups.each_with_index do |comment_group, i| %>
+        <li role="presentation" class="<%= 'active' if i == 0 %>">
+          <%= link_to comment_group.name, "#tab-#{comment_group.name.parameterize}", data:{toggle: 'tab'}, role: 'tab' %>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="col-md-9">
+      <div class="tab-content">
+        <% @comment_groups.each_with_index do |comment_group, i| %>
+          <div role="tabpanel" class="tab-pane <%= 'active' if i == 0 %>" id="<%= "tab-#{comment_group.name.parameterize}" %>">
+            <%= render partial: "comment_groups/checkboxes", locals:{comment_group: comment_group, f: f, resource: @report_card } %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  
+</div> <!-- /tabpanel -->

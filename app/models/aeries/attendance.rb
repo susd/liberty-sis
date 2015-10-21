@@ -38,5 +38,33 @@ module Aeries
   class Attendance < Base
     self.table_name = "ATT"
     self.primary_keys = [:sc, :sn, :dy]
+
+    def self.absence_codes
+      %w{E I L M N R U}
+    end
+
+    def self.tardy_codes
+      %w{D L T}
+    end
+
+    def self.confirmed
+      where.not(al: '')
+    end
+
+    def absence?
+      self.class.absence_codes.include? attributes['al']
+    end
+
+    def tardy?
+      self.class.tardy_codes.include? attributes['al']
+    end
+
+    def simple
+      if absence?
+        'absent'
+      else
+        'tardy'
+      end
+    end
   end
 end

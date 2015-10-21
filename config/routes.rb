@@ -8,14 +8,24 @@ Rails.application.routes.draw do
     get :search, on: :collection
   end
 
+  concern :pdfs do
+    member do
+      patch :generate
+      patch :clear
+      get :check
+      get :show_cached
+    end
+  end
+
   resources :sites do
     resources :classrooms, only: :index
   end
 
-  resources :classrooms
+  resources :classrooms, only: [:index, :show], concerns: :pdfs
 
   resources :students do
     resources :personas
+    resources :report_cards, concerns: :pdfs
   end
 
   namespace :admin do
@@ -23,6 +33,14 @@ Rails.application.routes.draw do
     resources :employees, concerns: [:searchable]
     resources :roles
     resources :sites
+  end
+
+  namespace :report_cards do
+    resources :grading_periods
+    resources :forms do
+      resources :subjects
+      resources :comments
+    end
   end
 
   resources :employees

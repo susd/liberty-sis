@@ -57,6 +57,7 @@ gem 'nokogiri'
 # PDFs
 gem 'prawn'
 gem 'prawn-table'
+gem 'combine_pdf', require: false
 
 # Export Only
 gem 'spreadsheet', require: false

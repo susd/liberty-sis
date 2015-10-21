@@ -17,6 +17,7 @@ class Admin::EmployeesController < AdminController
 
   def edit
     set_employee
+    set_sites
   end
 
   def update
@@ -32,6 +33,10 @@ class Admin::EmployeesController < AdminController
 
   def set_employee
     @employee = Employee.find params[:id]
+  end
+
+  def set_sites
+    @sites = Site.order(:code)
   end
 
   def employee_params

@@ -21,9 +21,14 @@
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  import_details    :jsonb            default({}), not null
+#  state             :integer          default(0), not null
 #
 
 class Student < ActiveRecord::Base
+  include ReportCard::StudentMethods
+  include ReportCard::AttendanceQueries
+  include Aeries::StudentConvenience
+
   enum state: {pending: 0, active: 1, inactive: 2}
 
   include AASM
@@ -39,6 +44,8 @@ class Student < ActiveRecord::Base
   has_many :classrooms, through: :classroom_memberships
 
   has_many :personas, as: :personable, dependent: :destroy
+
+  has_many :attendances
 
   aasm column: :state, enum: true do
     state :pending, initial: true

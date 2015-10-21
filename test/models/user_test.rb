@@ -32,4 +32,10 @@ class UserTest < ActiveSupport::TestCase
   test "Permissions API" do
     assert @teacher.can?(:view, classrooms(:ashleys_class))
   end
+
+  test "Finding employee" do
+    user = users(:ann_dekanter)
+    user.find_and_set_employee
+    assert_equal user.employee, employees(:ann_dekanter)
+  end
 end

@@ -1,0 +1,10 @@
+<table class="table table-striped">
+  <% @sites.each do |site| %>
+  <tr>
+    <td><%= link_to site.name, edit_admin_site_path(site) %></td>
+    <td><%= site.abbr %></td>
+    <td><%= site.code %></td>
+    <td><%= site.principal %></td>
+  </tr>
+  <% end %>
+</table>

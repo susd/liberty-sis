@@ -1,5 +1,20 @@
 <%= bootstrap_form_for [:admin, @user] do |f| %>
 
-  
+  <h4>Roles</h4>
+  <div class="row">
+    <% @roles.in_groups(3, false) do |grp| %>
+      <div class="col-md-4">
+        <% grp.each do |role| %>
+          <div class="checkbox">
+            <%= label_tag dom_id(role) do %>
+              <%= check_box_tag 'user[role_ids][]', role.id, @user.role_ids.include?(role.id) %>
+              <%= role.name %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
 
 <% end %>

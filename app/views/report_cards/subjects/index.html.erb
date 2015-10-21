@@ -1,0 +1,44 @@
+<h1>Subjects for <%= @form.name %></h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Position</th>
+      <th>Name</th>
+      <th>Spanish</th>
+      <th>Slug</th>
+      <th>Major?</th>
+      <th>P-Score?</th>
+      <th>Show Score?</th>
+      <th>Show Effort?</th>
+      <th>Show Level?</th>
+      <th>Side Section?</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @subjects.each do |subject| %>
+      <tr>
+        <td><%= subject.id %></td>
+        <td><%= subject.position %></td>
+        <td><%= subject.name %></td>
+        <td><%= subject.spanish_name %></td>
+        <td><%= subject.slug %></td>
+        <td><% if subject.major? %><span class="glyphicon glyphicon-ok"></span><% end %></td>
+        <td><% if subject.positional_score? %><span class="glyphicon glyphicon-ok"></span><% end %></td>
+        <td><% if subject.show_score? %><span class="glyphicon glyphicon-ok"></span><% end %></td>
+        <td><% if subject.show_effort? %><span class="glyphicon glyphicon-ok"></span><% end %></td>
+        <td><% if subject.show_level? %><span class="glyphicon glyphicon-ok"></span><% end %></td>
+        <td><% if subject.side_section? %><span class="glyphicon glyphicon-ok"></span><% end %></td>
+        <td><%= link_to 'Edit', edit_report_cards_form_subject_path(@form, subject) %></td>
+        <td><%= link_to 'Destroy', report_cards_form_subject_path(@form, subject), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Subject', new_report_cards_form_subject_path(@form) %>
