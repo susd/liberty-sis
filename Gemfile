@@ -34,6 +34,7 @@ gem 'bootstrap_form'
 gem 'bootswatch-rails'
 gem 'capistrano-rails', group: :development
 gem 'devise'
+gem 'exception_notification'
 gem 'font-awesome-sass'
 gem 'omniauth-google-oauth2'
 gem 'puma'
