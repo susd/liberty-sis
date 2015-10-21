@@ -59,17 +59,17 @@ namespace :personas do
   end
 
   task import: :environment do
+    count = 0
     CSV.foreach('tmp/data/personas.csv') do |row|
-      count = 0
       # student = Student.find_by("import_details -> 'import_id' = ?", row[0].to_s)
-      personable = row[0].constantize.find_by(["import_details -> 'import_id' = ?", row[0].to_s])
-      persona = Persona.find_or_create_by(handler: row[1], username: row[2]) do |p|
+      personable = row[0].constantize.find_by(["import_details -> 'import_id' = ?", row[1].to_s])
+      persona = Persona.find_or_create_by(handler: row[2], username: row[3]) do |p|
         p.personable    = personable
-        p.password      = row[3]
-        p.state         = Persona.states.invert[row[4].to_i]
-        p.service_id    = row[5]
-        p.service_data  = JSON.parse(row[6])
-        p.synced_at     = (row[7].blank? ? nil : DateTime.parse(row[7]))
+        p.password      = row[4]
+        p.state         = Persona.states.invert[row[5].to_i]
+        p.service_id    = row[6]
+        p.service_data  = JSON.parse(row[7])
+        p.synced_at     = (row[8].blank? ? nil : DateTime.parse(row[8]))
       end
       count += 1
       progress(count)
