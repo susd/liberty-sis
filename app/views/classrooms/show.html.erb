@@ -1,12 +1,12 @@
 <header class="page-header">
   <div class="row">
-    <div class="col-md-10">
+    <div class="col-md-9">
       <h2><%= @classroom.name %></h2>
     </div>
-    <div class="col-md-2">
-      <% if @generated_pdf_path.present? %>
-        <%= link_to 'View Classroom PDF', @generated_pdf_path, class: 'btn btn-default' %>
-        <%= link_to 'Reset PDF', clear_classroom_path(@classroom), method: :patch, class: 'btn btn-link' %>
+    <div class="col-md-3">
+      <% if @cached_pdf_path.present? %>
+        <%= link_to 'View Classroom PDF', show_cached_classroom_path(@classroom, format: :pdf), class: 'btn btn-default btn-block' %>
+        <%= link_to 'Reset PDF', clear_classroom_path(@classroom), method: :patch, class: 'btn btn-link btn-block' %>
       <% else %>
         <%= job_polling_link('Generate Class PDF', generate_classroom_path(@classroom), check_classroom_path(@classroom)) %>
       <% end %>

@@ -8,7 +8,23 @@ class ClassroomsController < ApplicationController
   def show
     @classroom = Classroom.find(params[:id])
     @students = @classroom.students.order(:last_name)
+    check_for_pdf
 
+    authorize_to(:view, @classroom)
+  end
+
+  def show_cached
+    set_classroom
+    respond_to do |format|
+      format.pdf do
+        options = {
+          filename: @classroom.combined_pdf_name,
+          type: "application/pdf",
+          disposition: "inline"
+        }
+        send_file(@classroom.combined_pdf_path, options)
+      end
+    end
     authorize_to(:view, @classroom)
   end
 
@@ -31,11 +47,12 @@ class ClassroomsController < ApplicationController
     set_classroom
     authorize_to(:manage, @classroom)
 
-    ClassroomCombiner.new(@classroom).pdf_paths.each do |f|
+    ReportCard::ClassroomCombiner.new(@classroom).pdf_paths.each do |f|
       File.delete(f) if File.exists?(f)
     end
 
     File.delete(@classroom.combined_pdf_path)
+    redirect_to @classroom
   end
 
   def check
@@ -61,6 +78,12 @@ class ClassroomsController < ApplicationController
 
   def set_classroom
     @classroom = Classroom.find params[:id]
+  end
+
+  def check_for_pdf
+    if File.exists? @classroom.combined_pdf_path
+      @cached_pdf_path = @classroom.combined_pdf_path.to_s
+    end
   end
 
 end

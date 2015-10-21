@@ -55,6 +55,7 @@ class ReportCardsController < ApplicationController
   end
 
   def clear
+    set_report_card
     Dir["#{@report_card.cache_dir}/*"].each{|f| File.delete(f)}
     redirect_to student_report_card_path(@student, @report_card)
   end
