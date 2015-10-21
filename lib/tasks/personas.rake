@@ -68,7 +68,8 @@ namespace :personas do
         p.password      = row[4]
         p.state         = Persona.states.invert[row[5].to_i]
         p.service_id    = row[6]
-        p.service_data  = JSON.parse(row[7])
+        # p.service_data  = JSON.parse(row[7])
+        p.service_data  = eval %Q[#{row[7]}]
         p.synced_at     = (row[8].blank? ? nil : DateTime.parse(row[8]))
       end
       count += 1
