@@ -2,7 +2,7 @@ class ClassroomsController < ApplicationController
 
   def index
     load_classrooms
-    authorize{ current_user.can_generally?(:view, :all, :classrooms) }
+    authorize!{ current_user.can_generally?(:view, :all, :classrooms) }
   end
 
   def show
