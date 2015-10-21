@@ -15,7 +15,10 @@ module Aeries
     def create_or_update_teacher(additional_attrs = {})
       attrs = teacher.to_teacher.merge!(additional_attrs)
 
-      native_teacher = ::Teacher.find_or_initialize_by(native_selector)
+      native_teacher = ::Teacher.find_by(native_selector)
+      if native_teacher.nil?
+        native_teacher = ::Teacher.new
+      end
       native_teacher.assign_attributes(attrs)
       associate_user(native_teacher)
 
