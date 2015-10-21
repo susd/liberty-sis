@@ -50,8 +50,8 @@ namespace :personas do
 
     CSV.open('tmp/data/personas.csv', 'w') do |csv|
 
-      Persona.includes(:student).find_each.with_index do |persona, idx|
-        csv << [persona.student.import_details['import_id']] + persona.attributes.slice(*fields).values
+      Persona.includes(:personable).find_each.with_index do |persona, idx|
+        csv << [persona.personable_type, persona.personable.import_details['import_id']] + persona.attributes.slice(*fields).values
         progress(idx)
       end
 
@@ -61,9 +61,10 @@ namespace :personas do
   task import: :environment do
     CSV.foreach('tmp/data/personas.csv') do |row|
       count = 0
-      student = Student.find_by("import_details -> 'import_id' = ?", row[0].to_s)
+      # student = Student.find_by("import_details -> 'import_id' = ?", row[0].to_s)
+      personable = row[0].constantize.find_by(["import_details -> 'import_id' = ?", row[0].to_s])
       persona = Persona.find_or_create_by(handler: row[1], username: row[2]) do |p|
-        p.student       = student
+        p.personable    = personable
         p.password      = row[3]
         p.state         = Persona.states.invert[row[4].to_i]
         p.service_id    = row[5]
