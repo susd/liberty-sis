@@ -30,6 +30,8 @@ class User < ActiveRecord::Base
   has_one :employee
   has_many :sites, through: :employee
 
+  before_create :find_and_set_employee
+
   include PgSearch
   pg_search_scope :admin_search,
     against: [:email, :last_name, :first_name],
@@ -41,7 +43,7 @@ class User < ActiveRecord::Base
     user = find_or_create_by(auth.slice('provider', 'uid')) do |u|
       u.provider               = auth['provider']
       u.uid                    = auth['uid']
-      u.email                  = auth['info']["email"]
+      u.email                  = auth['info']['email']
       u.password               = pass
       u.password_confirmation  = pass
     end
@@ -74,6 +76,16 @@ class User < ActiveRecord::Base
   def add_role(role)
     unless roles.include?(role)
       roles << role
+    end
+  end
+
+  def find_and_set_employee
+    return true if self.employee.present?
+
+    if hit = Employee.find_by(email: self.email)
+      self.employee = hit
+    else
+      self.employee = Employee.find_by(first_name: self.first_name, last_name: self.last_name)
     end
   end
 

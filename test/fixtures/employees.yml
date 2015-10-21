@@ -82,3 +82,10 @@ hyphenated:
   last_name: Jingleheimer-Schmidt
   type: Teacher
   sites: west_creek
+
+ann_dekanter:
+  first_name: Ann
+  last_name: De Kanter
+  type: Teacher
+  email: adekanter-hough@saugususd.org
+  primary_site: cedarcreek

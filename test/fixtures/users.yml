@@ -64,3 +64,9 @@ same1:
 same2:
   email: chrisfinkleworth@example.com
   encrypted_password: <%= User.new.send(:password_digest, 'password') %>
+
+ann_dekanter:
+  email: adekanter-hough@saugususd.org
+  encrypted_password: <%= User.new.send(:password_digest, 'password') %>
+  first_name: Ann
+  last_name: DeKanter-Hough
