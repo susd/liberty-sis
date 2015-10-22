@@ -10,6 +10,21 @@ end
 
 namespace :report_cards do
 
+  task import_all: :environment do
+    Site.all.each do |site|
+      puts site.name
+      count = 0
+      site.classrooms.includes(:students).each do |classroom|
+        print classroom.name
+        classroom.students.each do |student|
+          Ischool::ReportCardImporter.all_for_student(student)
+          count += 1
+          progress(count)
+        end
+      end
+    end
+  end
+
   namespace :comments do
 
     task export: :environment do
@@ -82,7 +97,7 @@ namespace :report_cards do
 
     task import: :environment do
       raise RuntimeError, "No forms" unless ReportCard::Form.any?
-      
+
       count = 0
       CSV.foreach('tmp/data/rc/subjects.csv') do |row|
         if form = ReportCard::Form.find_by(name: row[0])
