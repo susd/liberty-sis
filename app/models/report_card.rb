@@ -23,7 +23,7 @@ class ReportCard < ActiveRecord::Base
 
   validates_presence_of :report_card_form_id
 
-  before_update :set_pdf_path
+  before_update :set_pdf_path, :update_attendance
 
   def self.cache_dir
     # Rails.root.join('tmp', 'data', 'pdfs')
@@ -54,9 +54,13 @@ class ReportCard < ActiveRecord::Base
     fetch_data(['attendance', period.to_s, key.to_s])
   end
 
-  def store_attendance(attedance_by_type)
+  def update_attendance
+    store_attendance(self.student.attendance_by_type)
+  end
+
+  def store_attendance(student_attedance_by_type)
     self.data['attendance'] ||= {}
-    attedance_by_type.each do |key, periods|
+    student_attedance_by_type.each do |key, periods|
       self.data['attendance'][key] = periods
     end
   end

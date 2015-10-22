@@ -64,4 +64,11 @@ class ReportCard::Presenter < BasePresenter
     report_card.year == ReportCard::GradingPeriod.school_year
   end
 
+  def attendance_updated_at
+    if editable?
+      last_sync = SyncEvent.where(label: 'attendance:recent').maximum(:updated_at) || Attendance.maximum(:updated_at)
+      time_ago_in_words last_sync
+    end
+  end
+
 end
