@@ -121,7 +121,7 @@ end
 
 
 roles = [
-  {name: 'admin'},
+  {name: 'admin', permissions:{ classrooms:{manage: :all}, students: {manage: :all}, employees: {manage: :all}, sites:{manage: :all} }},
   {name: 'teacher'},
   {name: 'office'},
   {name: 'principal'}

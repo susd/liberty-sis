@@ -12,6 +12,10 @@
 class Role < ActiveRecord::Base
   has_and_belongs_to_many :users
 
+  def self.admin
+    find_by(name: 'admin')
+  end
+
   def self.teacher
     find_by(name: 'teacher')
   end
