@@ -10,19 +10,23 @@ module Aeries
     end
 
     def self.import_recent!(since = nil)
+      event = SyncEvent.create(label: 'attendance:recent')
+
       since = since || ::Attendance.maximum(:created_at)
       students = Aeries::Student.active
         .joins("INNER JOIN ATT on STU.sc = ATT.sc AND STU.sn = ATT.sn")
         .where("ATT.dts > ?", since)
       students.find_each do |student|
-        new(student).import!
+        new(student, range: (since..Time.now)).import!
       end
+
+      event.update(state: 1)
     end
 
     attr_reader :student, :year
     attr_accessor :range
 
-    def initialize(aeries_student, year = nil, range = nil)
+    def initialize(aeries_student, year: nil, range: nil)
       @student = aeries_student
       @year  = year || ReportCard::GradingPeriod.school_year
       @range = range || ReportCard::GradingPeriod.current_year_range
@@ -36,6 +40,13 @@ module Aeries
         end
         native_attendance.assign_attributes(att_attrs(att))
         native_attendance.save
+        # TODO: Sync all attendance?
+        # if native_attendance.save
+        #   sync_state = 1
+        # else
+        #   sync_state = 2
+        # end
+        # SyncEvent.create(state: sync_state, syncable: native_attendance, label: 'attendance')
       end
     end
 

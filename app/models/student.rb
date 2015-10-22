@@ -42,10 +42,9 @@ class Student < ActiveRecord::Base
 
   has_many :classroom_memberships, dependent: :destroy
   has_many :classrooms, through: :classroom_memberships
-
   has_many :personas, as: :personable, dependent: :destroy
-
   has_many :attendances
+  has_many :sync_events, as: :syncable, dependent: :nullify
 
   aasm column: :state, enum: true do
     state :pending, initial: true

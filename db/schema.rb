@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151022165526) do
+ActiveRecord::Schema.define(version: 20151022214131) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -302,6 +302,21 @@ ActiveRecord::Schema.define(version: 20151022165526) do
   add_index "students", ["legacy_id"], name: "index_students_on_legacy_id", unique: true, using: :btree
   add_index "students", ["site_id"], name: "index_students_on_site_id", using: :btree
   add_index "students", ["state"], name: "index_students_on_state", using: :btree
+
+  create_table "sync_events", force: :cascade do |t|
+    t.string   "label"
+    t.integer  "state",         default: 0, null: false
+    t.integer  "action",        default: 0, null: false
+    t.integer  "syncable_id"
+    t.string   "syncable_type"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "sync_events", ["action"], name: "index_sync_events_on_action", using: :btree
+  add_index "sync_events", ["label"], name: "index_sync_events_on_label", using: :btree
+  add_index "sync_events", ["state"], name: "index_sync_events_on_state", using: :btree
+  add_index "sync_events", ["syncable_type", "syncable_id"], name: "index_sync_events_on_syncable_type_and_syncable_id", using: :btree
 
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"
