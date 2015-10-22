@@ -33,6 +33,10 @@ class ReportCard < ActiveRecord::Base
     where("created_at > ?", Period.current.starts_on)
   end
 
+  def editible?
+    self.year == ReportCard::GradingPeriod.school_year
+  end
+
   def fetch_data(keys = [])
     keys.inject(self.data){|data, key| data && data[key] }
   end
