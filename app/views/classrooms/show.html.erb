@@ -19,7 +19,7 @@
     <div class="col-md-4">
       <div class="list-group">
         <% grp.each do |student| %>
-        <%= link_to student.name, student, class: 'list-group-item' %>
+        <%= link_to student.name, student_report_cards_path(student), class: 'list-group-item' %>
         <% end %>
       </div>
     </div>
