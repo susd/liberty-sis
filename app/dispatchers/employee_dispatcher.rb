@@ -22,8 +22,10 @@ class EmployeeDispatcher
     case
     when employee.classrooms.count > 1
       classrooms_path
-    else
+    when employee.primary_classroom
       classroom_path(employee.primary_classroom)
+    else
+      classroom_path(employee.classrooms.first)
     end
   end
 end
