@@ -37,6 +37,10 @@ class Ischool::Employee < Ischool::Base
     where("FacultyType = ?", "Staff")
   end
 
+  def self.teacher
+    where("FacultyType = ?", "Teacher")
+  end
+
   def self.active
     where("Status = ?", 1)
   end

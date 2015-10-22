@@ -7,6 +7,13 @@ module Ischool
       end
     end
 
+    def self.import_titles(teacher_relation)
+      teacher_relation.find_each do |teacher|
+        ischool_employee = Ischool::Employee.find(teacher.import_details['import_id'])
+        teacher.update(title: ischool_employee.attributes['Title'])
+      end
+    end
+
     attr_reader :employee
 
     def initialize(ischool_employee)

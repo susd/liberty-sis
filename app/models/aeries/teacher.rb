@@ -80,8 +80,13 @@ module Aeries
         last_name:  attributes['tln'],
         sex: staff_record.sx,
         hired_on: staff_record.hired_on,
+        primary_site: site,
         import_details: {source: 'aeries', import_class: self.class.to_s, import_id: attributes['id']}
       }
+    end
+
+    def site
+      Site.find_by(code: attributes['sc'])
     end
   end
 end

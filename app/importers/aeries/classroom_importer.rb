@@ -37,16 +37,11 @@ module Aeries
     end
 
     def import_teacher
-      # if teacher = Teacher.find_by("import_details -> 'import_id' = ?", aeries_teacher.attributes['id'].to_s)
-      #   teacher.update(aeries_teacher.to_teacher.merge!(classroom: @classroom))
-      # else
-      #   teacher = Teacher.new(aeries_teacher.to_teacher)
-      #   teacher.classroom = @classroom
-      #   teacher.site = @site
-      #   teacher.save
-      # end
       teacher = TeacherImporter.new(aeries_teacher).create_or_update_teacher
       teacher.add_classroom @classroom
+      if teacher.primary_classroom.nil?
+        teacher.primary_classroom = @classroom
+      end
       teacher.sites << @site
       teacher.save
     end

@@ -1,6 +1,12 @@
 module Aeries
   class TeacherImporter
 
+    def self.import_each(aeries_teacher_relation)
+      aeries_teacher_relation.find_each do |tch|
+        new(tch).import!
+      end
+    end
+
     attr_reader :teacher, :site
 
     def initialize(aeries_teacher)
