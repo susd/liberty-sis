@@ -38,4 +38,6 @@
 
 <hr></hr>
 
-<p><%= delete_report_card_link(@student, @report_card) %></p>
+<% if @report_card.editible? %>
+  <p><%= delete_report_card_link(@student, @report_card) %></p>
+<% end %>
