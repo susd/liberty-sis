@@ -49,7 +49,7 @@ class Ischool::Employee < Ischool::Base
       email: email,
       birthdate: attributes['Birthdate'],
       title: attributes['Title'],
-      primary_site: Site.find_by(abbr: employee.attributes['SchoolID'].downcase),
+      primary_site: Site.find_by(abbr: attributes['SchoolID'].downcase),
       import_details: import_details
     }
   end
