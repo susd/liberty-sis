@@ -39,8 +39,10 @@ module Aeries
     self.table_name = "ATT"
     self.primary_keys = [:sc, :sn, :dy]
 
+    # T, L, D, I, E, X, Y, and N
+
     def self.absence_codes
-      %w{E I L M N R U}
+      %w{E I L M N R U X Y}
     end
 
     def self.tardy_codes
