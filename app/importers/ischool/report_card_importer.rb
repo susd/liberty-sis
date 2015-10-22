@@ -42,6 +42,7 @@ module Ischool
 
       card.form = native_form
       card.created_at = form.attributes['CreationDate']
+      card.legacy_id  = form.id
 
       card.save
     end
@@ -57,9 +58,14 @@ module Ischool
     private
 
     def corresponding_card
-      created_year = form.attributes['CreationDate'].year
-      attrs = {student: student, year: created_year}
-      ReportCard.where(attrs).first || ReportCard.new(attrs)
+      if hit = ReportCard.find_by(legacy_id: form.id)
+        corresponding = hit
+      else
+        created_year = form.attributes['CreationDate'].year
+        attrs = {student: student, year: created_year}
+        corresponding = ReportCard.where(attrs).first || ReportCard.new(attrs)
+      end
+      corresponding
     end
 
     def choose_parser
