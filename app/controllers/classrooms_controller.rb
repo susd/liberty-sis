@@ -7,7 +7,7 @@ class ClassroomsController < ApplicationController
 
   def show
     @classroom = Classroom.find(params[:id])
-    @students = @classroom.students.order(:last_name)
+    @students = @classroom.students.active.order(:last_name)
     check_for_pdf
 
     authorize_to(:view, @classroom)
