@@ -42,7 +42,7 @@ module Aeries
     # T, L, D, I, E, X, Y, and N
 
     def self.absence_codes
-      %w{E I L M N R U X Y}
+      %w{E I M N R S U}
     end
 
     def self.tardy_codes
