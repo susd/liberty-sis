@@ -1,8 +1,16 @@
 <table class="table table-striped">
+  <tr>
+    <th>User</th>
+    <th>Email</th>
+    <th>Assoc Employee?</th>
+    <th>Primary Site</th>
+  </tr>
   <% @users.each do |user| %>
   <tr>
     <td><%= link_to user.name, [:admin, user] %></td>
-    <td><%= user.employee.primary_site.try(:name) %></td>
+    <td><%= user.email %></td>
+    <td><% if user.employee.present? %><span class="glyphicon glyphicon-ok"></span><% end %></td>
+    <td><%= user.try(:employee).try(:primary_site).try(:name) %></td>
   </tr>
   <% end %>
 </table>

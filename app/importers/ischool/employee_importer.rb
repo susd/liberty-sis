@@ -28,7 +28,10 @@ module Ischool
       native_employee.assign_attributes(attrs)
       native_employee.user = user if user
       native_employee.save
-      native_employee.update_sites
+      native_employee.clean_sites
+      if native_employee.primary_site.nil?
+        native_employee.primary_site = native_employee.sites.first
+      end
 
       native_employee
     end

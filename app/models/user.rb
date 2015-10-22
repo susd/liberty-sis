@@ -87,6 +87,10 @@ class User < ActiveRecord::Base
     else
       self.employee = Employee.find_by(first_name: self.first_name, last_name: self.last_name)
     end
+
+    if self.employee.is_a? Teacher
+      roles << Role.teacher
+    end
   end
 
 end

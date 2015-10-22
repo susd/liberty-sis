@@ -99,7 +99,7 @@ class Employee < ActiveRecord::Base
     end
   end
 
-  def update_sites
+  def clean_sites
     if primary_site
       add_site(primary_site)
     end
@@ -112,5 +112,26 @@ class Employee < ActiveRecord::Base
 
   def multi_site?
     sites.count > 1
+  end
+
+  def reimport!
+    begin
+      import_from_source
+    rescue NameError
+      return false
+    end
+  end
+
+  private
+
+  #FIXME: too dependent on knowing how importer works
+  def import_from_source
+    if import_details['import_class'].nil?
+      false
+    else
+      klass = import_details['import_class'].constantize
+      import_id = import_details['import_id']
+      self.update(klass.find_by(id: import_id).to_teacher)
+    end
   end
 end
