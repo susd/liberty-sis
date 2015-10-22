@@ -14,6 +14,8 @@
 
 class Attendance < ActiveRecord::Base
   belongs_to :student
+  
+  has_many :sync_events, as: :syncable, dependent: :nullify
 
   enum kind: {present: 0, tardy: 1, absent: 2}
 

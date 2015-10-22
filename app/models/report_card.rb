@@ -17,6 +17,7 @@ class ReportCard < ActiveRecord::Base
   belongs_to :student
   belongs_to :form, class_name: 'ReportCard::Form', foreign_key: 'report_card_form_id'
 
+  has_many :sync_events, as: :syncable, dependent: :nullify
   has_many :comment_groups, through: :form
   has_and_belongs_to_many :report_card_comments, join_table: 'comments_report_cards'
 

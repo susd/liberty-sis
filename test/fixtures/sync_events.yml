@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  syncable_id: 
+  syncable_type: Syncable
+  state: 1
+  label: MyString
+  action: 1
+
+two:
+  syncable_id: 
+  syncable_type: Syncable
+  state: 1
+  label: MyString
+  action: 1

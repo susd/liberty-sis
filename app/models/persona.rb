@@ -22,6 +22,7 @@ class Persona < ActiveRecord::Base
   include AASM
 
   belongs_to :personable, polymorphic: true
+  has_many :sync_events, as: :syncable, dependent: :nullify
 
   aasm column: :state, enum: true do
     state :pending, initial: true
