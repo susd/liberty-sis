@@ -9,13 +9,23 @@ module Aeries
       end
     end
 
+    def self.import_recent!(since = nil)
+      since = since || ::Attendance.maximum(:created_at)
+      students = Aeries::Student.active
+        .joins("INNER JOIN ATT on STU.sc = ATT.sc AND STU.sn = ATT.sn")
+        .where("ATT.dts > ?", since)
+      students.find_each do |student|
+        new(student).import!
+      end
+    end
+
     attr_reader :student, :year
     attr_accessor :range
 
-    def initialize(aeries_student)
+    def initialize(aeries_student, year = nil, range = nil)
       @student = aeries_student
-      @year = ReportCard::GradingPeriod.school_year
-      @range = ReportCard::GradingPeriod.current_year_range
+      @year  = year || ReportCard::GradingPeriod.school_year
+      @range = range || ReportCard::GradingPeriod.current_year_range
     end
 
     def import!

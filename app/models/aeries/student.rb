@@ -221,7 +221,7 @@ module Aeries
     end
 
     def self.inactive
-      where("tg IN (?) OR sc = ? OR del = ?", INACTIVE, 999, 'true')
+      where("STU.tg IN (?) OR STU.sc = ? OR STU.del = ?", INACTIVE, 999, 'true')
     end
 
     def self.tkinder
