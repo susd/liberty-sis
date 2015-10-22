@@ -30,8 +30,12 @@ class ReportCardPdf
 
     data['attendance'] = tabulate_attendance
 
-    @report_card.fetch_data['comments'].each do |period, values|
-      data['comments'][period] = ReportCard::Comment.find(values['comment_ids']).map(&:english)
+    if @report_card.fetch_data['comments']
+      @report_card.fetch_data['comments'].each do |period, values|
+        data['comments'][period] = ReportCard::Comment.find(values['comment_ids']).map(&:english)
+      end
+    else
+      data['comments'] = {}
     end
 
     if student.home_lang.name == "Spanish"
@@ -52,7 +56,6 @@ class ReportCardPdf
     result = []
 
     subjects.each do |subject|
-
       if subject.show_level?
         # do major with level
         level_arr = [{content: title_for(subject, lang).mb_chars.upcase.to_s, font: PdfReportCard::DEFAULT_BOLD_FONT}]
@@ -66,8 +69,8 @@ class ReportCardPdf
       else
         result << subject_array(subject, columns, lang)
       end
-
     end
+
     result
   end
 
@@ -123,7 +126,7 @@ class ReportCardPdf
   end
 
   def positional_score(score)
-    (0..2).map{|i| i.to_s == score ? "✓" : ""}
+    (0..2).map{|i| i.to_s == score.to_s ? "✓" : ""}
   end
 
   def fetch(path = [])
@@ -152,7 +155,7 @@ class ReportCardPdf
   end
 
   def teacher_name
-    @report_card.fetch_data(['teacher_name']) || student.homeroom.primary_teacher.name
+    @report_card.fetch_data(['teacher_name']) || student.homeroom.primary_teacher.name || ""
   end
 
   def next_grade
