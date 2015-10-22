@@ -105,11 +105,17 @@ class ReportCardsController < ApplicationController
   end
 
   def destroy
-    @report_card.destroy
-    respond_to do |format|
-      format.html { redirect_to student_report_cards_path(@student), notice: 'Report card was successfully destroyed.' }
-      format.json { head :no_content }
+    set_report_card
+    if @report_card.editible?
+      @report_card.destroy
+      respond_to do |format|
+        format.html { redirect_to student_report_cards_path(@student), notice: 'Report card was successfully deleted.' }
+        format.json { head :no_content }
+      end
+    else
+      redirect_to student_report_cards_path(@student), alert: "Can't delete old report cards"
     end
+
   end
 
   private
