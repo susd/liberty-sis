@@ -4,6 +4,7 @@
     <th>Email</th>
     <th>Assoc Employee?</th>
     <th>Primary Site</th>
+    <th>Roles</th>
   </tr>
   <% @users.each do |user| %>
   <tr>
@@ -11,6 +12,7 @@
     <td><%= user.email %></td>
     <td><% if user.employee.present? %><span class="glyphicon glyphicon-ok"></span><% end %></td>
     <td><%= user.try(:employee).try(:primary_site).try(:name) %></td>
+    <td><%= user.roles.map(&:name).join(', ') %></td>
   </tr>
   <% end %>
 </table>

@@ -2,6 +2,7 @@
 
   <h4>Roles</h4>
   <div class="row">
+    <%= hidden_field_tag "user[role_ids][]", nil %>
     <% @roles.in_groups(3, false) do |grp| %>
       <div class="col-md-4">
         <% grp.each do |role| %>
@@ -14,6 +15,10 @@
         <% end %>
       </div>
     <% end %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
   </div>
 
 

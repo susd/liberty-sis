@@ -42,4 +42,8 @@ class Admin::UsersController < AdminController
   def set_roles
     @roles = Role.order(:name)
   end
+
+  def user_params
+    params.require(:user).permit!
+  end
 end
