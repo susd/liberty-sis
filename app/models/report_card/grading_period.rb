@@ -12,6 +12,20 @@
 #
 
 class ReportCard::GradingPeriod < ActiveRecord::Base
+  def self.create_year(start_dates, last_date)
+    start_dates.each_with_index do |d, idx|
+      p = new(starts_on: d)
+      if start_dates[idx + 1]
+        p.ends_on = start_dates[idx + 1] - 1.day
+      else
+        p.ends_on = last_date
+      end
+      p.year = start_dates.first.year
+      p.position = idx
+      p.save
+    end
+  end
+
   def self.current
     find_by("starts_on < :now AND ends_on > :now", {now: Time.now})
   end
