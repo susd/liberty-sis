@@ -3,7 +3,9 @@ module Aeries
 
     def self.import_classroom(classroom)
       classroom.students.each do |student|
-        new(student.aeries_student).import!
+        if a = student.aeries_student
+          new(a).import!
+        end
       end
     end
 

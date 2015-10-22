@@ -22,7 +22,7 @@ class ReportCard < ActiveRecord::Base
 
   validates_presence_of :report_card_form_id
 
-  before_save :set_pdf_path
+  before_update :set_pdf_path
 
   def self.cache_dir
     # Rails.root.join('tmp', 'data', 'pdfs')
