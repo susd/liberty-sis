@@ -16,4 +16,8 @@ module ReportCard::StudentMethods
   def latest_report_card
     report_cards.order(updated_at: :desc).first
   end
+
+  def has_report_card_for_this_year?
+    latest_report_card.year == ReportCard::GradingPeriod.school_year
+  end
 end
