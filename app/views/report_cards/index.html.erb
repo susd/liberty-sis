@@ -17,6 +17,7 @@
     <table class="table">
       <thead>
         <tr>
+          <th>School Year</th>
           <th>Created</th>
           <th>Updated</th>
           <th>Form</th>
@@ -26,8 +27,9 @@
       <tbody>
         <% @report_cards.each do |report_card| %>
           <tr>
-            <td><%= link_to report_card.created_at.strftime('%b %e, %Y'), student_report_card_path(@student, report_card) %></td>
-            <td><%= report_card.updated_at.to_s(:short) %></td>
+            <td><%= link_to report_card.year, student_report_card_path(@student, report_card) %></td>
+            <td><%= report_card.created_at.to_s(:mdy) %></td>
+            <td><%= report_card.updated_at.to_s(:mdy) %></td>
             <td><%= report_card.form.name %></td>
           </tr>
         <% end %>
