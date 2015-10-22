@@ -130,3 +130,15 @@ roles = [
 roles.each do |role|
   Role.where(name: role[:name]).first_or_create(role)
 end
+
+
+forms = [
+  {name: 'TK Report Card', renderer: 'tk'},
+  {name: 'Kindergarten Report Card', renderer: 'kinder'},
+  {name: 'Primary Report Card', renderer: 'primary'},
+  {name: 'Upper Report Card', renderer: 'upper'}
+]
+
+forms.each do |form|
+  ReportCard::Form.where(name: form[:name]).first_or_create(form)
+end

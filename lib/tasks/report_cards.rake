@@ -32,6 +32,8 @@ namespace :report_cards do
     end
 
     task import: :environment do
+      raise RuntimeError, "No forms" unless ReportCard::Form.any?
+
       count = 0
       CSV.foreach('tmp/data/rc/comments.csv') do |row|
         if form = ReportCard::Form.find_by(renderer: row[0])
@@ -79,6 +81,8 @@ namespace :report_cards do
     end
 
     task import: :environment do
+      raise RuntimeError, "No forms" unless ReportCard::Form.any?
+      
       count = 0
       CSV.foreach('tmp/data/rc/subjects.csv') do |row|
         if form = ReportCard::Form.find_by(name: row[0])
