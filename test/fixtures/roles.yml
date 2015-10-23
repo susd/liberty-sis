@@ -12,7 +12,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 teacher:
-  name: Teacher
+  name: teacher
   permissions:
     classrooms:
       edit: own
@@ -20,13 +20,13 @@ teacher:
       edit: own
 
 office:
-  name: Office
+  name: office
   permissions:
     classrooms:
       manage: site
 
 admin:
-  name: Admin
+  name: admin
   permissions:
     classrooms:
       manage: all
