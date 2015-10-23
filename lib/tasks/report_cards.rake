@@ -25,6 +25,10 @@ namespace :report_cards do
     end
   end
 
+  task import_json: :environment do
+    
+  end
+
   namespace :comments do
 
     task export: :environment do
