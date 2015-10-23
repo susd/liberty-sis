@@ -1,8 +1,28 @@
 module ReportCard::ClassroomMethods
   extend ActiveSupport::Concern
 
+  included do
+    has_many :report_cards, through: :students
+  end
+
+  class_methods do
+    def fresh_paths
+      fields = Classroom.includes(students: :report_cards).pluck('classrooms.id', 'report_cards.updated_at')
+      paths = fields.map{|id, stamp| "#{combined_pdf_dir}/#{id}-#{stamp}.pdf"}
+    end
+
+    def combined_pdf_dir
+      # File.expand_path('public/pdfs/classrooms', Rails.root)
+      Rails.configuration.pdf_path.join('classrooms')
+    end
+  end
+
   def latest_cards
     @cards ||= students.map(&:latest_report_card).compact
+  end
+
+  def current_cards
+    @current_cards ||= report_cards.where(year: ReportCard::GradingPeriod.school_year)
   end
 
   def latest_card_date
@@ -15,7 +35,8 @@ module ReportCard::ClassroomMethods
 
   def combined_pdf_dir
     # File.expand_path('public/pdfs/classrooms', Rails.root)
-    Rails.configuration.pdf_path.join('classrooms')
+    # Rails.configuration.pdf_path.join('classrooms')
+    self.class.combined_pdf_dir
   end
 
   def combined_pdf_path

@@ -41,8 +41,9 @@ class ReportCardsController < ApplicationController
   end
 
   def generate
+    set_report_card
     respond_to do |format|
-      if BuildStudentPdfJob.perform_later(@student)
+      if ReportCards::RenderCardPdfJob.perform_later(@report_card)
         format.html do
           redirect_to student_report_card_path(@student, @report_card), notice: "Started building PDF, check back in a sec."
         end

@@ -8,12 +8,12 @@ class ReportCard::ClassroomGenerator
   def perform!
     prep_destination
 
-    @classroom.students.each do |student|
+    @classroom.report_cards.where(year: ReportCard::GradingPeriod.school_year).each do |card|
 
-      gsp = ReportCard::StudentGenerator.new(student)
+      gen = ReportCard::CardGenerator.new(card)
 
-      if proceed_with_generation?(gsp)
-        gsp.perform!
+      if proceed_with_generation?(gen)
+        gen.perform!
       end
 
     end
@@ -27,7 +27,7 @@ class ReportCard::ClassroomGenerator
     end
   end
 
-  def proceed_with_generation?(gsp)
-    gsp.card && !File.exists?( gsp.destination )
+  def proceed_with_generation?(gen)
+    gen.card && !File.exists?( gen.destination )
   end
 end
