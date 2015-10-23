@@ -38,26 +38,16 @@
 
   </div>
   <div class="col-md-4">
-    <% if @student.has_report_card_for_this_year? %>
-      <div class="panel panel-default">
-        <div class="panel-heading">New Report Card</div>
-        <div class="panel-body">
-          Report card is already started for this student this school year.
-        </div>
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        New Report Card
       </div>
-    <% else %>
-      <div class="panel panel-primary">
-        <div class="panel-heading">
-          New Report Card
-        </div>
-        <div class="panel-body">
-          <%= bootstrap_form_for [@student, ReportCard.new] do |f| %>
-            <%= f.select :report_card_form_id, @forms, label: 'Which form?' %>
-            <%= f.submit 'Start new report card' %>
-          <% end %>
-        </div>
+      <div class="panel-body">
+        <%= bootstrap_form_for [@student, ReportCard.new] do |f| %>
+          <%= f.select :report_card_form_id, @forms, label: 'Which form?' %>
+          <%= f.submit 'Start new report card' %>
+        <% end %>
       </div>
-    <% end %>
-
+    </div>
   </div>
 </div>
