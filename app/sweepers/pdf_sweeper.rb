@@ -4,7 +4,9 @@ class PdfSweeper
   end
 
   def self.keep_set
-    Set.new ReportCard.pluck(:pdf_path)
+    set = Set.new ReportCard.pluck(:pdf_path)
+    set += Set.new Classroom.fresh_paths
+    set
   end
 
   def self.sweep_set
@@ -12,6 +14,6 @@ class PdfSweeper
   end
 
   def self.perform!
-    sweep_set.each{|f| File.delete(f) }
+    sweep_set.each{|f| File.delete(f) if File.exists?(f) }
   end
 end
