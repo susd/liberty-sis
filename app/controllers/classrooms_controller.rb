@@ -70,7 +70,7 @@ class ClassroomsController < ApplicationController
   def load_classrooms
     if params[:site_id]
       @site = Site.find(params[:site_id])
-      @classrooms = @site.classrooms
+      @classrooms = @site.classrooms.order(:name)
     else
       @classrooms = Classroom.all
     end
