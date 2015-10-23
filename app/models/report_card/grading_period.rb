@@ -43,14 +43,17 @@ class ReportCard::GradingPeriod < ActiveRecord::Base
   end
 
   def self.school_year
-    now = Time.now
-    case now.month
+    school_year_for(Time.now)
+  end
+
+  def self.school_year_for(date)
+    case date.month
     when 1..6
-      now.year - 1
+      date.year - 1
     when 7
-      now.day < 2 ? (now.year - 1) : now.year
+      date.day < 2 ? (date.year - 1) : date.year
     else
-      now.year
+      date.year
     end
   end
 

@@ -85,16 +85,17 @@ module Ischool
     end
 
     def school_year
-      d = form.attributes['CreationDate']
-      y = d.year
-      case d.month
-      when 1..6
-        y - 1
-      when 7
-        d.day < 2 ? (d.year - 1) : d.year
-      else
-        y
-      end
+      # d = form.attributes['CreationDate']
+      # y = d.year
+      # case d.month
+      # when 1..6
+      #   y - 1
+      # when 7
+      #   d.day < 2 ? (d.year - 1) : d.year
+      # else
+      #   y
+      # end
+      ReportCard::GradingPeriod.school_year_for(form.attributes['CreationDate'])
     end
 
   end
