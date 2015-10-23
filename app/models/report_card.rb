@@ -15,6 +15,7 @@
 
 class ReportCard < ActiveRecord::Base
   belongs_to :student
+  belongs_to :employee
   belongs_to :form, class_name: 'ReportCard::Form', foreign_key: 'report_card_form_id'
 
   has_many :sync_events, as: :syncable, dependent: :nullify
