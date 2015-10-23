@@ -175,7 +175,7 @@ class ReportCardPdf
     table.row(row_number).columns(pos_score_cols).align = :left
     table.row(row_number).columns(effort_cols).align = :center
 
-    table.row(row_number).columns(1..12).border_colors = [BLACK, WHITE]
+    table.row(row_number).columns(1..12).border_colors = [BLACK, GREY]
     table.row(row_number).columns(effort_cols).border_colors = [BLACK, DGREY]
     table.row(row_number).columns([1,5,9]).border_left_color = DGREY
   end
