@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151022214131) do
+ActiveRecord::Schema.define(version: 20151023025858) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -232,7 +232,6 @@ ActiveRecord::Schema.define(version: 20151022214131) do
   add_index "report_cards", ["employee_id"], name: "index_report_cards_on_employee_id", using: :btree
   add_index "report_cards", ["legacy_id"], name: "index_report_cards_on_legacy_id", using: :btree
   add_index "report_cards", ["report_card_form_id"], name: "index_report_cards_on_report_card_form_id", using: :btree
-  add_index "report_cards", ["student_id", "year"], name: "index_report_cards_on_student_id_and_year", unique: true, using: :btree
   add_index "report_cards", ["student_id"], name: "index_report_cards_on_student_id", using: :btree
 
   create_table "roles", force: :cascade do |t|
