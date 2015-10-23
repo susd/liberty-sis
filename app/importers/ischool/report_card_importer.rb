@@ -61,8 +61,7 @@ module Ischool
       if hit = ReportCard.find_by(legacy_id: form.id)
         corresponding = hit
       else
-        created_year = form.attributes['CreationDate'].year
-        attrs = {student: student, year: created_year}
+        attrs = {student: student, year: school_year}
         corresponding = ReportCard.where(attrs).first || ReportCard.new(attrs)
       end
       corresponding
@@ -82,6 +81,19 @@ module Ischool
       when 'RC_TK'
         @parser = Ischool::FormParsers::TkParser.new(raw_data)
         @native_form = ReportCard::Form.find_by(renderer: 'tk')
+      end
+    end
+
+    def school_year
+      d = form.attributes['CreationDate']
+      y = d.year
+      case d.month
+      when 1..6
+        y - 1
+      when 7
+        d.day < 2 ? (d.year - 1) : d.year
+      else
+        y
       end
     end
 
