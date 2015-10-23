@@ -20,7 +20,7 @@ module ReportCard::AttendanceQueries
   def attendance_by_period
     ReportCard::GradingPeriod.current_year.inject({}) do |result, p|
       result.merge!({
-        p.position => {
+        (p.position + 1) => {
           absences: absences_in_range(p.range),
           tardies: tardies_in_range(p.range)
         }
