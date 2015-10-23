@@ -17,14 +17,14 @@
     <div class="col-md-2">
       <% if @report_card.editible? %>
         <%= link_to 'Edit', edit_student_report_card_path(@student, @report_card), class: 'btn btn-primary btn-block' %>
+      <% end %>
 
-        <% if @cached_pdf_path.present? %>
-          <%= cached_pdf_button(@student, @report_card) %>
-          <%= link_to 'Reset PDF', clear_student_report_card_path(@student, @report_card), data: {method: :patch}, class: 'btn btn-default btn-block' %>
-        <% else %>
-          <%# link_to 'Generate PDF', generate_student_report_card_path(@student, @report_card), method: :patch, class: 'btn btn-default btn-block' %>
-          <%= job_polling_link('Generate PDF', generate_student_report_card_path(@student, @report_card), check_student_report_card_path(@student, @report_card), {class: 'btn btn-default btn-block'}) %>
-        <% end %>
+      <% if @cached_pdf_path.present? %>
+        <%= cached_pdf_button(@student, @report_card) %>
+        <%= link_to 'Reset PDF', clear_student_report_card_path(@student, @report_card), data: {method: :patch}, class: 'btn btn-default btn-block' %>
+      <% else %>
+        <%# link_to 'Generate PDF', generate_student_report_card_path(@student, @report_card), method: :patch, class: 'btn btn-default btn-block' %>
+        <%= job_polling_link('Generate PDF', generate_student_report_card_path(@student, @report_card), check_student_report_card_path(@student, @report_card), {class: 'btn btn-default btn-block'}) %>
       <% end %>
 
       <%= link_to 'Legend', '#', class: 'btn btn-link btn-block', data:{toggle: 'modal', target: '#legend'} %>

@@ -5,12 +5,8 @@ class ReportCard::ClassroomCombiner
     @classroom = classroom
   end
 
-  def report_cards
-    @cards ||= @classroom.students.order(:last_name).map(&:latest_report_card).compact
-  end
-
   def pdf_paths
-    @paths ||= report_cards.map(&:cache_path)
+    @paths ||= @classroom.current_cards.map(&:cache_path)
   end
 
   def perform!
