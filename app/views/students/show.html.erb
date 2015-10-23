@@ -9,3 +9,7 @@
 </div>
 
 <%= render 'tabs' %>
+
+<p><strong>Full name:</strong> <%= @student.full_name %></p>
+
+<p><strong>Birthdate:</strong> <%= @student.birthdate.strftime('%B %d, %Y') %></p>
