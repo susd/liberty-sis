@@ -7,43 +7,44 @@
   </header>
 
   <% if signed_in? %>
-  <div class="nav_area-user">
-    <article class="user">
-      <div class="user-avatar">
-        <% if current_user.image_url.present? %>
-          <%= image_tag current_user.image_url, class: 'avatar-sm' %>
+    <% cache(current_user) do %>
+      <div class="nav_area-user">
+        <article class="user">
+          <div class="user-avatar">
+            <% if current_user.image_url.present? %>
+              <%= image_tag current_user.image_url, class: 'avatar-sm' %>
+            <% end %>
+          </div>
+          <div class="user-name">
+            <%= current_user.name %><br>
+            <%= link_to 'Sign-out', destroy_user_session_path, method: :delete %>
+          </div>
+        </article>
+      </div>
+
+      <div class="nav_area-content">
+        <ul>
+          <li><%= link_to 'Home', root_path %></li>
+          <% if (current_employee && current_employee.multi_site?) || current_user.admin? %>
+            <li><%= link_to 'Sites', sites_path %></li>
+          <% end %>
+        </ul>
+
+        <% if current_user.admin? %>
+        <h4 class="nav_area-heading">Admin</h4>
+        <ul>
+          <li><%= link_to 'Users', admin_users_path %></li>
+          <li><%= link_to 'Employees', admin_employees_path %></li>
+          <li><%= link_to 'Roles', admin_roles_path %></li>
+        </ul>
+
+        <h4 class="nav_area-heading">Report Card Admin</h4>
+        <ul>
+          <li><%= link_to 'Grading Periods', report_cards_grading_periods_path %></li>
+          <li><%= link_to 'Forms', report_cards_forms_path %></li>
+        </ul>
         <% end %>
       </div>
-      <div class="user-name">
-        <%= current_user.name %><br>
-        <%= link_to 'Sign-out', destroy_user_session_path, method: :delete %>
-      </div>
-    </article>
-  </div>
-
-  <div class="nav_area-content">
-    <ul>
-      <li><%= link_to 'Home', root_path %></li>
-      <% if (current_employee && current_employee.multi_site?) || current_user.admin? %>
-        <li><%= link_to 'Sites', sites_path %></li>
-      <% end %>
-    </ul>
-
-    <% if current_user.admin? %>
-    <h4 class="nav_area-heading">Admin</h4>
-    <ul>
-      <li><%= link_to 'Users', admin_users_path %></li>
-      <li><%= link_to 'Employees', admin_employees_path %></li>
-      <li><%= link_to 'Roles', admin_roles_path %></li>
-    </ul>
-
-    <h4 class="nav_area-heading">Report Card Admin</h4>
-    <ul>
-      <li><%= link_to 'Grading Periods', report_cards_grading_periods_path %></li>
-      <li><%= link_to 'Forms', report_cards_forms_path %></li>
-    </ul>
     <% end %>
-  </div>
-
   <% end %>
 </div>

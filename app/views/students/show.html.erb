@@ -1,3 +1,5 @@
+<% cache(@student) do %>
+
 <ol class="breadcrumb">
   <li><%= link_to 'Home', root_path %></li>
   <li><%= link_to @student.homeroom.name, @student.homeroom %></li>
@@ -13,3 +15,7 @@
 <p><strong>Full name:</strong> <%= @student.full_name %></p>
 
 <p><strong>Birthdate:</strong> <%= @student.birthdate.strftime('%B %d, %Y') %></p>
+
+<p><strong>Home language:</strong> <%= @student.home_lang.name %></p>
+
+<% end %>

@@ -33,8 +33,9 @@
 </header>
 
 
-
-<%= render @report_card %>
+<% cache(@report_card) do %>
+  <%= render @report_card %>
+<% end %>
 
 <hr></hr>
 
