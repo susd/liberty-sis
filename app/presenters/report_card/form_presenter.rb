@@ -12,6 +12,7 @@ class ReportCard::FormPresenter < BasePresenter
   def subject_field(builder, subject, subject_key, period = 1, options = {})
     field_name = "report_card[data][subjects][#{subject.id}][periods][#{period}][#{subject_key}]"
     opts = field_defaults(subject_key).merge(options)
+    opts[:tabindex] = calc_tabindex(subject, subject_key, period)
     if report_card.has_subject?(period, subject)
       stored_value = report_card.fetch_data(['subjects', subject.id.to_s, 'periods', period.to_s, subject_key])
       unless stored_value.blank?
@@ -77,7 +78,7 @@ class ReportCard::FormPresenter < BasePresenter
   end
 
   def next_grade_field(builder)
-    next_grade = report_card.fetch_data(['next_grade']) || report_card.student.try(:grade).try(:succ).try(:name)
+    next_grade = report_card.fetch_data(['next_grade']) || report_card.student.try(:grade).try(:succ).try(:simple)
     builder.text_field("report_card[data][next_grade]", label: 'Next Grade', value: next_grade)
   end
 
@@ -86,12 +87,25 @@ class ReportCard::FormPresenter < BasePresenter
     builder.text_field("report_card[data][teacher_name]", label: 'Teacher Name', value: name)
   end
 
+  def subject_label_tag(subject, &block)
+    classes = ['report_card-label']
+    if subject.major?
+      classes << 'report_card-label-major'
+    else
+      classes << 'report_card-label-secondary'
+    end
+    options = {
+      class: classes.join(' ')
+    }
+    tpl.content_tag(:td, options, &block)
+  end
+
   private
 
   def position_radio_for(builder, subject, period, score)
     field_name = "report_card[data][subjects][#{subject.id}][periods][#{period}][score]"
 
-    tpl.radio_button_tag(field_name, score, position_checked?(subject, period, score))
+    tpl.radio_button_tag(field_name, score, position_checked?(subject, period, score), tabindex: calc_tabindex(subject, 'score', period))
   end
 
   def field_defaults(placeholder = nil)
@@ -103,6 +117,18 @@ class ReportCard::FormPresenter < BasePresenter
 
   def position_checked?(subject, period, score)
     report_card.fetch_data(['subjects', subject.id.to_s, 'periods', period.to_s, 'score']).to_s == score.to_s
+  end
+
+  def calc_tabindex(subject, subject_key, period, offset = nil)
+    keys = ['score', 'effort', 'level']
+    key_offset = offset ||= keys.index(subject_key)
+    col_offset = (period * subject.position) + subject_count
+    tab = "#{period}#{col_offset * period}#{key_offset}"
+    tab.to_i
+  end
+
+  def subject_count
+    @subject_count ||= report_card.form.subjects.count
   end
 
 end

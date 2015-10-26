@@ -5,9 +5,8 @@
 .form-actions{}
 
 .form-actions-affixed{
-  width: calc(100% - $app-side-width);
+  width: calc(100% - 30px);
   position:fixed;
-  left: $app-side-width;
   bottom: 0;
   padding: 1em 0;
   background-color: #eee;
@@ -34,6 +33,13 @@
   border: 1px solid #ff0;
 }
 
+@media (min-width: $screen-md-min){
+  .form-actions-affixed{
+    width: calc(100% - $app-side-width);
+    left: $app-side-width;
+  }
+}
+
 #report_card-subjects{
   td{
     width: 10%;
@@ -41,7 +47,7 @@
     text-align: center;
   }
   td:first-child, th:first-child{
-    width: 40%;
+    width: 30%;
     border-left: none;
     text-align: left;
   }
@@ -80,8 +86,14 @@
 }
 
 .report_card-label{
-  font-weight: bold;
   text-align: left;
+  &.report_card-label-major{
+    font-weight: bold;
+    font-size: 18px;
+  }
+  &.report_card-label-secondary{
+    padding-left: 2em;
+  }
 }
 
 .pos_score{
@@ -96,5 +108,16 @@
   &.selected{
     color: #fff;
     background-color: $brand-primary;
+  }
+}
+
+#fixed_scale{
+
+}
+
+@media (min-width: $screen-md-min){
+  #fixed_scale{
+    width: 12%;
+    position: fixed;
   }
 }
