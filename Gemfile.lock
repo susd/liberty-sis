@@ -313,6 +313,8 @@ GEM
       faraday (~> 0.9)
       jwt (~> 1.5)
       multi_json (~> 1.10)
+    skylight (0.6.0)
+      activesupport (>= 3.0.0)
     slop (3.6.0)
     spreadsheet (1.0.5)
       ruby-ole (>= 1.0)
@@ -399,6 +401,7 @@ DEPENDENCIES
   rails-assets-throttle-debounce!
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
+  skylight
   spreadsheet
   spring
   therubyracer

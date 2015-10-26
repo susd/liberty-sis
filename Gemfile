@@ -63,6 +63,9 @@ gem 'combine_pdf', require: false
 # Export Only
 gem 'spreadsheet', require: false
 
+# Perf monitoring
+gem 'skylight'
+
 group :test do
   gem 'capybara'
   gem 'guard'
