@@ -5,13 +5,13 @@ class App.OffCanvas extends App.Element
     @name = @element.attr('id')
 
   open: ->
-    $('.app').addClass('js-off_canvas-open')
+    $('.app').addClass('js-off_canvas-closed')
 
   close: ->
-    $('.app').addClass('js-off_canvas-open')
+    $('.app').removeClass('js-off_canvas-closed')
 
   toggle: ->
-    $('.app').toggleClass('js-off_canvas-open')
+    $('.app').toggleClass('js-off_canvas-closed')
 
 
 $(document).on 'ready page:load', ->

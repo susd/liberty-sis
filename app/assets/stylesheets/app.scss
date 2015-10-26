@@ -67,7 +67,7 @@ img{
   z-index: 2;
   width: $app-side-width;
   height: 100vh;
-  // background-color: $brand-primary;
+  background-color: $gray-lighter;
   // color: #fff;
   overflow: hidden;
   transform: translate(-$app-side-width, 0);
@@ -82,7 +82,7 @@ img{
   @include std-transition;
 }
 
-.js-off_canvas-open{
+.js-off_canvas-closed{
   #side{
     transform: translate(0, 0);
   }
@@ -117,7 +117,7 @@ img{
     height: auto;
   }
 
-  .js-off_canvas-open{
+  .js-off_canvas-closed{
     #main{
       opacity: 1;
     }
