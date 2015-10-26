@@ -5,9 +5,8 @@
 .form-actions{}
 
 .form-actions-affixed{
-  width: calc(100% - $app-side-width);
+  width: calc(100% - 30px);
   position:fixed;
-  left: $app-side-width;
   bottom: 0;
   padding: 1em 0;
   background-color: #eee;
@@ -32,6 +31,13 @@
   top: 600px;
   right: 10px;
   border: 1px solid #ff0;
+}
+
+@media (min-width: $screen-md-min){
+  .form-actions-affixed{
+    width: calc(100% - $app-side-width);
+    left: $app-side-width;
+  }
 }
 
 #report_card-subjects{
@@ -96,5 +102,16 @@
   &.selected{
     color: #fff;
     background-color: $brand-primary;
+  }
+}
+
+#fixed_scale{
+
+}
+
+@media (min-width: $screen-md-min){
+  #fixed_scale{
+    width: 12%;
+    position: fixed;
   }
 }
