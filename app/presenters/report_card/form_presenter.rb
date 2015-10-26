@@ -77,13 +77,26 @@ class ReportCard::FormPresenter < BasePresenter
   end
 
   def next_grade_field(builder)
-    next_grade = report_card.fetch_data(['next_grade']) || report_card.student.try(:grade).try(:succ).try(:name)
+    next_grade = report_card.fetch_data(['next_grade']) || report_card.student.try(:grade).try(:succ).try(:simple)
     builder.text_field("report_card[data][next_grade]", label: 'Next Grade', value: next_grade)
   end
 
   def teacher_name_field(builder)
     name = report_card.fetch_data(['teacher_name']) || report_card.student.homeroom.primary_teacher.try(:name)
     builder.text_field("report_card[data][teacher_name]", label: 'Teacher Name', value: name)
+  end
+
+  def subject_label_tag(subject, &block)
+    classes = ['report_card-label']
+    if subject.major?
+      classes << 'report_card-label-major'
+    else
+      classes << 'report_card-label-secondary'
+    end
+    options = {
+      class: classes.join(' ')
+    }
+    tpl.content_tag(:td, options, &block)
   end
 
   private

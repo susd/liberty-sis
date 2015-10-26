@@ -16,4 +16,15 @@ class Grade < ActiveRecord::Base
   def simple
     position ? position.floor : 0
   end
+
+  def succ
+    case position
+    when 0.0..0.5
+      Grade.find_by(position: 0.8)
+    when 0.8
+      Grade.find_by(position: 1.0)
+    else
+      Grade.find_by(position: self.position + 1)
+    end
+  end
 end

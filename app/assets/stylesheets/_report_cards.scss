@@ -47,7 +47,7 @@
     text-align: center;
   }
   td:first-child, th:first-child{
-    width: 40%;
+    width: 30%;
     border-left: none;
     text-align: left;
   }
@@ -86,8 +86,14 @@
 }
 
 .report_card-label{
-  font-weight: bold;
   text-align: left;
+  &.report_card-label-major{
+    font-weight: bold;
+    font-size: 18px;
+  }
+  &.report_card-label-secondary{
+    padding-left: 2em;
+  }
 }
 
 .pos_score{
