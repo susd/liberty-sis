@@ -1,0 +1,5 @@
+<%= bootstrap_form_for @form, url: report_cards_form_path(@form) do |f| %>
+  <%= f.text_field :name %>
+  <%= f.text_field :renderer %>
+  <%= f.submit %>
+<% end %>
