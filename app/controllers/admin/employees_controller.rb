@@ -5,7 +5,7 @@ class Admin::EmployeesController < AdminController
   end
 
   def search
-    @employees = Employee.admin_search(params[:query]).limit(50)
+    @employees = Employee.includes(:primary_site).admin_search(params[:query]).limit(50)
     respond_to do |format|
       format.js
     end
