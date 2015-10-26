@@ -16,4 +16,9 @@ module ReportCardsHelper
     }
     link_to( 'View PDF', show_cached_student_report_card_path(student, report_card, format: :pdf), options )
   end
+
+  def rc_collection_cache_key(student, collection)
+    max = collection.maximum(:updated_at)
+    ['report_cards', student.id, max].join('/')
+  end
 end
