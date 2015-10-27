@@ -39,7 +39,7 @@ module ReportCards
     end
 
     def extract_attendance
-
+      data['data']['attendance']
     end
 
   end
