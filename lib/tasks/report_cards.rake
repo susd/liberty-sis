@@ -26,7 +26,17 @@ namespace :report_cards do
   end
 
   task import_json: :environment do
-    
+    path = Rails.root.join('tmp', 'data', 'rc_export')
+    files = Dir["#{path}/*.json"]
+    errors = []
+    files.each_with_index do |f, idx|
+      if ReportCards::JsonImporter.new(f).import!
+        progress(idx)
+      else
+        errors << f
+        print 'E'
+      end
+    end
   end
 
   namespace :comments do
