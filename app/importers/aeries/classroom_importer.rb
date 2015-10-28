@@ -16,9 +16,20 @@ module Aeries
     end
 
     def import!
-      import_classroom
-      import_teacher
-      import_students
+      with_sync_event('classroom'){ import_classroom }
+      with_sync_event('teacher'){ import_teacher }
+      with_sync_event('students'){ import_students(aeries_students) }
+    end
+
+    def import_recent!(since = nil)
+      with_sync_event('classroom'){ import_classroom }
+      with_sync_event('teacher'){ import_teacher }
+
+      last_import = since || ::Student.maximum(:updated_at)
+
+      with_sync_event('students:recent') do
+        import_students(aeries_students.where("DTS > ?", since))
+      end
     end
 
     private
@@ -46,8 +57,8 @@ module Aeries
       teacher.save
     end
 
-    def import_students
-      aeries_students.each do |stu|
+    def import_students(student_relation)
+      student_relation.each do |stu|
         if student = ::Student.find_by("import_details -> 'import_id' = ?", stu.attributes['id'].to_s)
           attrs = stu.to_student.merge(homeroom: @classroom)
           student.update(attrs)
@@ -65,6 +76,16 @@ module Aeries
       q = "import_details -> 'import_school_code' = :code"
       q << " AND import_details -> 'import_teacher_num' = :tn"
       q
+    end
+
+    private
+
+    def with_sync_event(label)
+      if block_given?
+        event = SyncEvent.create(label: label)
+        yield
+        event.update(state: 1)
+      end
     end
 
     # /ClassroomImporter

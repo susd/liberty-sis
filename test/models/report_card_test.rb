@@ -5,12 +5,14 @@
 #  id                  :integer          not null, primary key
 #  student_id          :integer
 #  report_card_form_id :integer
-#  data                :jsonb
+#  data                :jsonb            default({}), not null
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  import_details      :jsonb            default({}), not null
 #  year                :integer          default(2015), not null
 #  employee_id         :integer
+#  pdf_path            :text
+#  legacy_id           :integer
 #
 
 require 'test_helper'
