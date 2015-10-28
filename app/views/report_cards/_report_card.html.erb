@@ -1,5 +1,12 @@
 <% present(@report_card, ReportCard::Presenter) do |presenter| %>
 
+<section class="legend">
+  <% if presenter.value_form? %>
+    <%= render 'report_cards/subjects/positional_scale' %>
+  <% else %>
+    <%= render 'report_cards/subjects/value_scale' %>
+  <% end %>
+</section>
 
 <table class="table" id="report_card-subjects">
   <tr>

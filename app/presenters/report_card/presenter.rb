@@ -71,4 +71,8 @@ class ReportCard::Presenter < BasePresenter
     end
   end
 
+  def value_form?
+    report_card.form.renderer == 'upper'
+  end
+
 end
