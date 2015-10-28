@@ -61,10 +61,11 @@ module Aeries
       student_relation.each do |stu|
         if student = ::Student.find_by("import_details -> 'import_id' = ?", stu.attributes['id'].to_s)
           attrs = stu.to_student.merge(homeroom: @classroom)
+          student.add_classroom(@classroom)
           student.update(attrs)
         else
           student = ::Student.new(stu.to_student)
-          student.add_classroom @classroom
+          student.add_classroom(@classroom)
           student.homeroom = @classroom
           # student.site = @site # already loaded
           student.save
