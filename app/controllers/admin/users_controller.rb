@@ -5,12 +5,13 @@ class Admin::UsersController < AdminController
   end
 
   def search
-    @users = User.admin_search(params[:term]).limit(10)
+    @users = User.includes(employee: :primary_site).admin_search(params[:query]).limit(10)
 
     respond_to do |format|
       format.json do
         render json: @users.map{|u| {id: u.id, value: "#{u.first_name} #{u.last_name} / #{u.email}"}}
       end
+      format.js
     end
   end
 
