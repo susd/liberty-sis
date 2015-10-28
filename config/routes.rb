@@ -26,6 +26,10 @@ Rails.application.routes.draw do
   resources :students do
     resources :personas
     resources :report_cards, concerns: :pdfs
+
+    scope module: 'students' do
+      resources :classrooms, only: [:index, :destroy]
+    end
   end
 
   namespace :admin do
