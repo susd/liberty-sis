@@ -5,7 +5,8 @@ class Admin::UsersController < AdminController
   end
 
   def search
-    @users = User.includes(employee: :primary_site).admin_search(params[:query]).limit(10)
+    query = params[:term] || params[:query]
+    @users = User.includes(employee: :primary_site).admin_search(query).limit(10)
 
     respond_to do |format|
       format.json do
