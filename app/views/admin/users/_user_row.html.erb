@@ -1,0 +1,7 @@
+<tr>
+  <td><%= link_to user.name, [:admin, user] %></td>
+  <td><%= user.email %></td>
+  <td><% if user.employee.present? %><span class="glyphicon glyphicon-ok"></span><% end %></td>
+  <td><%= user.try(:employee).try(:primary_site).try(:name) %></td>
+  <td><%= user.roles.map(&:name).join(', ') %></td>
+</tr>
