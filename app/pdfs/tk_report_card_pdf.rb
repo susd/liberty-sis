@@ -7,7 +7,7 @@ class TkReportCardPdf < ReportCardPdf
   def render
     # @layout.fill_page_areas
     @layout.render_details(data['name'], data['school'], data['year'])
-    @layout.render_title_address("Transitional Kindergarten Progress Report Card")
+    @layout.render_title_address(lang_strings(:title_address, :english))
     @layout.render_header
 
     @layout.main_section(data) do |sec|
@@ -84,7 +84,7 @@ class TkReportCardPdf < ReportCardPdf
     if data['comments'].any?
       @layout.start_new_page
 
-      @layout.render_details
+      @layout.render_details(data['name'], data['school'], data['year'])
       @layout.render_comments(data['comments'])
     end
 
