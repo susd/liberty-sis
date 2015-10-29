@@ -232,6 +232,14 @@ module Aeries
       where("ID" => student.import_details['import_id'])
     end
 
+    def self.active_somewhere?(student_id)
+      active.where(id: student_id).any?
+    end
+
+    def active_somewhere?
+      @active_somewhere ||= self.class.active_somewhere?(self.attributes['id'])
+    end
+
     def school_code
       attributes['sc']
     end
@@ -280,12 +288,11 @@ module Aeries
     end
 
     def state
-      if INACTIVE.include?(self.tg) || self.del
-        2
-      elsif self.tg == '*'
-        0
+      case
+      when self.active_somewhere? then 1
+      when self.tg == '*' then 0
       else
-        1
+        2
       end
     end
 
