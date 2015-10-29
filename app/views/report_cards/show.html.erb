@@ -11,6 +11,7 @@
       <h3>Report Card for <%= @student.name %></h3>
 
       <p>
+        <em><%= @report_card.form.renderer.titlecase %></em> |
         Started on: <%= @report_card.created_at.to_s(:mdy) %>
       </p>
     </div>
