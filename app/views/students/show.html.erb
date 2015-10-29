@@ -16,6 +16,6 @@
 
 <p><strong>Birthdate:</strong> <%= @student.birthdate.strftime('%B %d, %Y') %></p>
 
-<p><strong>Home language:</strong> <%= @student.home_lang.name %></p>
+<p><strong>Home language:</strong> <%= @student.home_lang.try(:name) %></p>
 
 <% end %>

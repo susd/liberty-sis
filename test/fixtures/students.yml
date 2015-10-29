@@ -32,6 +32,7 @@ long_name:
   last_name: Salvador
   grade: 5th_grade
   classrooms: std_classroom
+  birthdate: <%= Time.now - 11.years %>
   import_details:
     :import_id: 123456789
 
@@ -42,6 +43,8 @@ long_name:
   grade: 4th_grade
   classrooms: ashleys_class
   homeroom: ashleys_class
+  birthdate: <%= Time.now - 10.years %>
+  home_lang: en
 <% end %>
 
 
@@ -52,4 +55,5 @@ long_name:
   grade: 5th_grade
   classrooms: alices_class
   homeroom: alices_class
+  birthdate: <%= Time.now - 11.years %>
 <% end %>

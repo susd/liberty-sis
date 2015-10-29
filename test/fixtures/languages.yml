@@ -13,14 +13,14 @@
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyText
-  calpads_name: MyText
-  calpads_code: 1
-  aeries_code: 1
+en:
+  name: English
+  calpads_name: English
+  calpads_code: 0
+  aeries_code: 0
 
-two:
-  name: MyText
-  calpads_name: MyText
+es:
+  name: Spanish
+  calpads_name: Spanish
   calpads_code: 1
   aeries_code: 1
