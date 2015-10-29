@@ -27,7 +27,7 @@ module Aeries
 
       last_import = since || ::Student.maximum(:updated_at)
 
-      with_sync_event('students:recent') do
+      with_sync_event("students:recent/#{@school_code}") do
         import_students(aeries_students.where("DTS > ?", since))
       end
     end
