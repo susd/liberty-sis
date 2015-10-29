@@ -1,32 +1,19 @@
-<div class="modal fade" id="legend" tabindex="-1" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <h4 class="modal-title" id="legend_title">Report Card Legend</h4>
-      </div>
-      <div class="modal-body">
-        <h3>Positional (checkbox) Scores</h3>
-        <ul>
-          <li><strong>R</strong>equires additional support</li>
-          <li><strong>W</strong>orks within grade-level standards</li>
-          <li><strong>D</strong>emonstrates strenghts</li>
-        </ul>
+<section class="card_legend">
+  <div id="card_legend-toggle">
+    <%= link_to 'Legend', '#card_legend-collapsible',
+        class: 'btn btn-default btn-sm', data: {toggle: 'collapse'} %>
+  </div>
 
-        <h3>Effort</h3>
-        <ul>
-          <li>Outstanding</li>
-          <li>Good</li>
-          <li>Satisfactory</li>
-          <li>Needs Improvement</li>
-          <li>Unsatisfactory</li>
-        </ul>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+  <% present(@report_card, ReportCard::LegendPresenter) do |legend| %>
+    <div class="collapse" id="card_legend-collapsible">
+      <div class="row">
+        <div class="col-sm-6">
+          <%= legend.score_scale %>
+        </div>
+        <div class="col-sm-6">
+          <%= legend.effort_scale %>
+        </div>
       </div>
     </div>
-  </div>
-</div>
+  <% end %>
+</section>

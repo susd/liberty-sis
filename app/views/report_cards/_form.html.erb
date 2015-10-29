@@ -13,34 +13,33 @@
     </div>
   <% end %>
 
-  <div class="row">
-    <div class="col-md-2">
-      <%= render 'report_cards/subjects/positional_scale' if presenter.positional_form? %>
-      <%= render 'report_cards/subjects/value_scale' unless presenter.positional_form? %>
-    </div>
+  <%= render 'legend' %>
 
-    <div class="col-md-10">
+  <div class="card_fields">
+    <div class="card_fields-subjects">
       <% if presenter.positional_form? %>
         <%= render partial: 'positional_fields',  locals: presenter.partial_locals(f) %>
       <% else %>
         <%= render partial: 'value_fields',  locals: presenter.partial_locals(f) %>
       <% end %>
+    </div>
 
+    <div class="card_fields-comments">
       <hr>
         <h3>Comments</h3>
       <hr>
 
       <div id="report_card-comments">
-
         <% @comment_groups.each do |comment_group| %>
           <h4><%= comment_group.name %></h4>
           <fieldset class="comment-checkboxes">
             <%= presenter.render_comments(f, comment_group) %>
           </fieldset>
         <% end %>
-
       </div>
+    </div>
 
+    <div class="card_fields-additional">
       <hr>
         <h3>Additional</h3>
       <hr>
@@ -61,7 +60,6 @@
           </div>
         </div>
       </div>
-
     </div>
   </div>
 

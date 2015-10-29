@@ -111,13 +111,25 @@
   }
 }
 
-#fixed_scale{
-
-}
-
 @media (min-width: $screen-md-min){
   #fixed_scale{
     width: 12%;
     position: fixed;
   }
+}
+
+.card_legend{
+  padding: 2em 0;
+  @include clearfix;
+}
+
+#card_legend-toggle{
+  @include clearfix;
+  a{
+    float: right;
+  }
+}
+
+#card_legend-collapsible{
+  @include clearfix;
 }
