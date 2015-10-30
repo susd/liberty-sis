@@ -65,10 +65,11 @@ class ReportCard::Presenter < BasePresenter
   end
 
   def attendance_updated_at
-    if editable?
-      last_sync = SyncEvent.where(label: 'attendance:recent').maximum(:updated_at) || Attendance.maximum(:updated_at)
-      time_ago_in_words last_sync
-    end
+    # if editable?
+    #   last_sync = SyncEvent.where(label: 'attendance:recent').maximum(:updated_at) || Attendance.maximum(:updated_at)
+    #   time_ago_in_words last_sync
+    # end
+    time_ago_in_words report_card.updated_at
   end
 
   def value_form?
