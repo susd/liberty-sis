@@ -53,6 +53,10 @@ module Aeries
       where.not(al: '')
     end
 
+    def self.by_student(aeries_student)
+      where(sc: aeries_student.attributes['sc'], sn: aeries_student.attributes['sn'])
+    end
+
     def absence?
       self.class.absence_codes.include? attributes['al']
     end

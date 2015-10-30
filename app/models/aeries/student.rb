@@ -236,8 +236,24 @@ module Aeries
       active.where(id: student_id).any?
     end
 
+    def enrollments
+      Aeries::Enrollment.by_student(self)
+    end
+
+    def attendances
+      Aeries::Attendance.by_student(self)
+    end
+
+    def active?
+      attributes['tg'].blank? && !attributes['del'] && (attributes['sc'] != 999)
+    end
+
     def active_somewhere?
       @active_somewhere ||= self.class.active_somewhere?(self.attributes['id'])
+    end
+
+    def active_version
+      @activev ||= (active? ? self : self.class.active.find_by(id: attributes['id']))
     end
 
     def school_code
@@ -255,11 +271,12 @@ module Aeries
         last_name:    attributes['ln'],
         sex:          attributes['sx'],
         birthdate:    convert_birthdate,
-        home_lang:    find_home_lang,
-        grade:        find_liberty_grade,
-        site:         find_liberty_site,
+        home_lang:    home_lang,
+        homeroom:     liberty_homeroom,
+        grade:        liberty_grade,
+        site:         liberty_site,
         state:        state,
-        import_details: {source: 'aeries', import_class: self.class.to_s, import_id: attributes['id']}
+        import_details: {source: 'aeries', import_class: self.class.to_s}.merge(import_ids)
       }
     end
 
@@ -267,7 +284,11 @@ module Aeries
       ::Student.where("import_details -> 'import_id' = ?", attributes['id'].to_json)
     end
 
-    def find_liberty_grade
+    def import_ids
+      {import_id: attributes['id']}
+    end
+
+    def liberty_grade
       if ['T', 'U'].include? attributes['sp']
         Grade.find_by(position: 0.5)
       else
@@ -275,12 +296,27 @@ module Aeries
       end
     end
 
-    def find_liberty_site
+    def liberty_site
       Site.find_by(code: sc)
     end
 
-    def find_home_lang
+    def home_lang
       Language.find_by(aeries_code: attributes['hl'].to_i)
+    end
+
+    def liberty_homeroom
+      if active_version.present?
+        lookup_hsh = {
+          import_school_code: active_version.attributes['sc'],
+          import_teacher_num: active_version.attributes['cu']
+        }
+      else
+        lookup_hsh = {
+          import_school_code: attributes['sc'],
+          import_teacher_num: attributes['cu']
+        }
+      end
+      ::Classroom.find_by(["import_details @> ?", lookup_hsh.to_json])
     end
 
     def convert_birthdate

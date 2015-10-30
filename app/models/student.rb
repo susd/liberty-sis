@@ -44,6 +44,10 @@ class Student < ActiveRecord::Base
   has_many :classrooms, through: :classroom_memberships
   has_many :personas, as: :personable, dependent: :destroy
   has_many :attendances
+
+  has_many :enrollments
+  has_many :inactive_sites, -> { where(enrollments: {state: 0}) }, source: :site, through: :enrollments
+
   has_many :sync_events, as: :syncable, dependent: :nullify
 
   aasm column: :state, enum: true do
@@ -104,6 +108,11 @@ class Student < ActiveRecord::Base
     unless classrooms.include? new_classroom
       classrooms << new_classroom
     end
+  end
+
+  def reset_classrooms
+    classroom_memberships.destroy_all
+    add_classroom(homeroom)
   end
 
   def reimport!
