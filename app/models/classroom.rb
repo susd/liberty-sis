@@ -21,6 +21,8 @@ class Classroom < ActiveRecord::Base
   has_many :classroom_memberships, dependent: :destroy
   has_many :students, through: :classroom_memberships
 
+  has_many :home_students, class_name: 'Student', foreign_key: 'homeroom_id', inverse_of: :homeroom
+
   has_many :sync_events, as: :syncable, dependent: :nullify
 
   include ReportCard::ClassroomMethods
@@ -34,7 +36,7 @@ class Classroom < ActiveRecord::Base
   end
 
   def reset_memberships
-    students.each do |student|
+    home_students.each do |student|
       student.reset_classrooms
     end
   end
