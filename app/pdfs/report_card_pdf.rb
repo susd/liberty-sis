@@ -159,7 +159,11 @@ class ReportCardPdf
   end
 
   def next_grade
-    @report_card.fetch_data(['next_grade']) || (student.grade.simple + 1).to_s
+    if ReportCard::GradingPeriod.current && (ReportCard::GradingPeriod.current.position == 2)
+      @report_card.fetch_data(['next_grade']) || (student.grade.simple + 1).to_s
+    else
+      ""
+    end
   end
 
   def effort_cols
