@@ -204,7 +204,7 @@ GEM
     multi_json (1.11.2)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
-    mysql2 (0.4.1)
+    mysql2 (0.3.18)
     nenv (0.2.0)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
@@ -390,7 +390,7 @@ DEPENDENCIES
   kaminari
   meta_request
   minitest-reporters
-  mysql2
+  mysql2 (= 0.3.18)
   nokogiri
   omniauth-google-oauth2
   pg
