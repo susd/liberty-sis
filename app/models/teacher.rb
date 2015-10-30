@@ -29,6 +29,8 @@ class Teacher < Employee
 
   has_one :primary_classroom, class_name: 'Classroom', foreign_key: 'primary_teacher_id'
 
+  has_many :sync_events, as: :syncable, dependent: :nullify
+
   def add_classroom(new_classroom)
     unless classrooms.include? new_classroom
       classrooms << new_classroom

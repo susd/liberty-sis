@@ -21,6 +21,8 @@ class Classroom < ActiveRecord::Base
   has_many :classroom_memberships, dependent: :destroy
   has_many :students, through: :classroom_memberships
 
+  has_many :sync_events, as: :syncable, dependent: :nullify
+
   include ReportCard::ClassroomMethods
 
   def reimport!
@@ -28,6 +30,12 @@ class Classroom < ActiveRecord::Base
       import_from_source
     rescue NameError
       return false
+    end
+  end
+
+  def reset_memberships
+    students.each do |student|
+      student.reset_classrooms
     end
   end
 

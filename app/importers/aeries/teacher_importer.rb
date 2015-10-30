@@ -15,38 +15,60 @@ module Aeries
     end
 
     def import!
-      create_or_update_teacher
-    end
+      event = SyncEvent.create(label: 'teacher')
 
-    def create_or_update_teacher(additional_attrs = {})
-      attrs = teacher.to_teacher.merge!(additional_attrs)
+      attrs = teacher.to_teacher
 
-      native_teacher = ::Teacher.find_by(native_selector)
-      if native_teacher.nil?
-        native_teacher = ::Teacher.new
+      if exists?
+        native.assign_attributes(attrs)
+      else
+        @native = ::Teacher.new(attrs)
       end
-      native_teacher.assign_attributes(attrs)
-      associate_user(native_teacher)
 
-      native_teacher.save
-      native_teacher
+      associate_user
+      native.save
+
+      event.update(state: 1, syncable: native)
+
+      native
     end
 
-    private
+    def import_if_fresh!
+      if fresh?
+        import!
+      end
 
-    def associate_user(native_teacher)
-      if native_teacher.user.nil?
+      native
+    end
 
-        if user = User.find_by(email: native_teacher.email)
-          native_teacher.user = user
-          native_teacher.user.add_role ::Role.teacher
+    def fresh?
+      return true if native.nil?
+
+      aeries_stamp = teacher.dts
+      last_import = native.sync_events.maximum(:created_at)
+
+      (aeries_stamp && last_import) && (aeries_stamp > last_import)
+    end
+
+    def native
+      @native ||= find_native
+    end
+
+    def find_native
+      ::Teacher.find_by(["import_details @> ?", @teacher.import_ids.to_json])
+    end
+
+    def exists?
+      native.present?
+    end
+
+    def associate_user
+      if native.user.nil?
+        if user = User.find_by(email: native.email)
+          native.user = user
+          native.user.add_role ::Role.teacher
         end
-
       end
-    end
-
-    def native_selector
-      ["import_details -> 'import_id' = ?", teacher.attributes['id'].to_s]
     end
 
   end

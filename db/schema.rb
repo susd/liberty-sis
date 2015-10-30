@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151023025858) do
+ActiveRecord::Schema.define(version: 20151030163600) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -117,6 +117,25 @@ ActiveRecord::Schema.define(version: 20151023025858) do
 
   add_index "employees_sites", ["employee_id"], name: "index_employees_sites_on_employee_id", using: :btree
   add_index "employees_sites", ["site_id"], name: "index_employees_sites_on_site_id", using: :btree
+
+  create_table "enrollments", force: :cascade do |t|
+    t.integer  "student_id"
+    t.integer  "site_id"
+    t.integer  "classroom_id"
+    t.integer  "grade_id"
+    t.integer  "year",           default: 2015
+    t.integer  "state",          default: 0,    null: false
+    t.date     "starts_on"
+    t.date     "ends_on"
+    t.jsonb    "import_details", default: {},   null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
+
+  add_index "enrollments", ["classroom_id"], name: "index_enrollments_on_classroom_id", using: :btree
+  add_index "enrollments", ["grade_id"], name: "index_enrollments_on_grade_id", using: :btree
+  add_index "enrollments", ["site_id"], name: "index_enrollments_on_site_id", using: :btree
+  add_index "enrollments", ["student_id"], name: "index_enrollments_on_student_id", using: :btree
 
   create_table "grades", force: :cascade do |t|
     t.text     "name"
@@ -363,6 +382,10 @@ ActiveRecord::Schema.define(version: 20151023025858) do
   add_foreign_key "classroom_memberships", "classrooms"
   add_foreign_key "classroom_memberships", "students"
   add_foreign_key "classrooms", "sites"
+  add_foreign_key "enrollments", "classrooms"
+  add_foreign_key "enrollments", "grades"
+  add_foreign_key "enrollments", "sites"
+  add_foreign_key "enrollments", "students"
   add_foreign_key "personas", "students"
   add_foreign_key "report_card_comment_groups", "report_card_forms"
   add_foreign_key "report_card_comments", "report_card_comment_groups"

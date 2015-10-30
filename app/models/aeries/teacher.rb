@@ -81,12 +81,20 @@ module Aeries
         sex: staff_record.sx,
         hired_on: staff_record.hired_on,
         primary_site: site,
-        import_details: {source: 'aeries', import_class: self.class.to_s, import_id: attributes['id']}
+        import_details: {source: 'aeries', import_class: self.class.to_s}.merge(import_ids)
       }
+    end
+
+    def import_ids
+      {import_id: attributes['id']}
     end
 
     def site
       Site.find_by(code: attributes['sc'])
+    end
+
+    def liberty_classroom
+      ::Classroom.find_by(["import_details @> ?", {import_school_code: attributes['sc'], import_teacher_num: attributes['tn']}])
     end
   end
 end
