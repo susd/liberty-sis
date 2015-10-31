@@ -1,3 +1,28 @@
 #student_tabs{
   margin-bottom: 2em;
 }
+
+.student_list-controls{
+  margin-bottom: 1em;
+  @include clearfix;
+  a {
+    display: block;
+    float: right;
+  }
+}
+
+.student_list-items{
+  @include clearfix;
+}
+
+.student_item-inactive{
+  background-color: #eee;
+  color: #ccc;
+  display: none;
+}
+
+.js-show-inactives{
+  .student_item-inactive{
+    display: block;
+  }
+}
