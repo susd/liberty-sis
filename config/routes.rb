@@ -21,11 +21,20 @@ Rails.application.routes.draw do
     resources :classrooms, only: :index
   end
 
-  resources :classrooms, only: [:index, :show], concerns: :pdfs
+  resources :classrooms, only: [:index, :show], concerns: :pdfs do
+
+    scope module: 'classrooms' do
+      resources :memberships, only: [:index, :destroy]
+    end
+  end
 
   resources :students do
     resources :personas
     resources :report_cards, concerns: :pdfs
+
+    scope module: 'students' do
+      resources :classrooms, only: [:index, :destroy]
+    end
   end
 
   namespace :admin do

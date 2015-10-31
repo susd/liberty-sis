@@ -28,5 +28,7 @@
 //= require _table_filter
 //= require _job_poller
 
+//= require _classroom
+
 
 Turbolinks.enableProgressBar();

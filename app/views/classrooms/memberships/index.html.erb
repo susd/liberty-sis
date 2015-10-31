@@ -1,0 +1,23 @@
+<%= render 'header' %>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Date Added</th>
+      <th>Remove</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @memberships.each do |membership| %>
+    <tr>
+      <td><%= link_to membership.student.name, membership.student %></td>
+      <td><%= membership.created_at.to_s(:mdy) %></td>
+      <td>
+        <%= link_to 'Remove', classroom_membership_path(@classroom, membership), method: :delete %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
