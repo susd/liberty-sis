@@ -27,26 +27,14 @@ class ReportCardPdf
 
     data['main_subjects'] = tabulate_subjects(main_subjects)
     data['side_subjects'] = tabulate_subjects(side_subjects, 3)
-
-    data['attendance'] = tabulate_attendance
-
-    if @report_card.fetch_data['comments']
-      @report_card.fetch_data['comments'].each do |period, values|
-        data['comments'][period] = ReportCard::Comment.find(values['comment_ids']).map(&:english)
-      end
-    else
-      data['comments'] = {}
-    end
+    data['attendance']    = tabulate_attendance
+    data['comments']      = extract_comments(:english)
 
     if student.home_lang.name == "Spanish"
-      data['spanish_main'] = tabulate_subjects(main_subjects, 12, :spanish)
-      data['spanish_side'] = tabulate_subjects(side_subjects, 3, :spanish)
-
-      @report_card.fetch_data['comments'].each do |period, values|
-        data['spanish_comments'][period] = ReportCard::Comment.find(values['comment_ids']).map(&:spanish)
-      end
-
-      data['spanish_attendance'] = tabulate_attendance(:spanish)
+      data['spanish_main']        = tabulate_subjects(main_subjects, 12, :spanish)
+      data['spanish_side']        = tabulate_subjects(side_subjects, 3, :spanish)
+      data['spanish_comments']    = extract_comments(:spanish)
+      data['spanish_attendance']  = tabulate_attendance(:spanish)
     end
 
     data
@@ -82,6 +70,16 @@ class ReportCardPdf
       [abs_title, @att_hsh[:absences]].flatten,
       [tar_title, @att_hsh[:tardies]].flatten
     ]
+  end
+
+  def extract_comments(lang = :english)
+    cmnts = {}
+    if fetch(['comments'])
+      fetch(['comments']).each do |period, values|
+        cmnts[period] = ReportCard::Comment.find(values['comment_ids']).map(&lang)
+      end
+    end
+    cmnts
   end
 
   # Build an array of subject marks
