@@ -1,0 +1,10 @@
+App.$orig = $('[data-behavior="filter-original"]')
+App.$results = $('[data-behavior="filter-results"]')
+
+App.$orig.hide();
+App.$results.html('');
+App.$results.show();
+
+App.$results.append('<%= j render(partial: "employee_row", collection: @employees, as: :employee) %>');
+
+$('.pagination').hide();
