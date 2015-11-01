@@ -25,6 +25,7 @@ Rails.application.routes.draw do
 
     scope module: 'classrooms' do
       resources :memberships, only: [:index, :destroy]
+      resources :leaderships, only: [:index, :create, :destroy]
     end
   end
 
@@ -36,6 +37,8 @@ Rails.application.routes.draw do
       resources :classrooms, only: [:index, :destroy]
     end
   end
+
+  get 'employees/search', to: 'employees#search', as: :search_employees
 
   namespace :admin do
     resources :users, except: [:new, :create], concerns: [:searchable]
@@ -51,8 +54,6 @@ Rails.application.routes.draw do
       resources :comments
     end
   end
-
-  resources :employees
 
   root to: 'dashboard#index'
 

@@ -1,13 +1,12 @@
 module Classrooms
   class MembershipsController < BaseController
+    before_action :set_classroom
 
     def index
-      set_classroom
       @memberships = @classroom.classroom_memberships.includes(:student)
     end
 
     def destroy
-      set_classroom
       @membership = @classroom.classroom_memberships.find(params[:id])
       @membership.destroy
 

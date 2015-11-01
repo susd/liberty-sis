@@ -1,0 +1,41 @@
+<%= render 'header' %>
+
+<div class="page-header">
+  <h2><%= @classroom.name %></h2>
+  <h4>Teachers</h4>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Date Added</th>
+      <th>Remove</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @leaderships.each do |leadership| %>
+    <tr>
+      <td><%= leadership.employee.name %></td>
+      <td><%= leadership.created_at.to_s(:mdy) %></td>
+      <td>
+        <%= link_to 'Remove', classroom_leadership_path(@classroom, leadership), method: :delete %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h5>Add a teacher</h5>
+
+<%= bootstrap_form_for @new_leadership do |f| %>
+
+  <%= f.hidden_field :employee_id, data: {bind: 'autocomplete_select'} %>
+  <%= text_field_tag :employee_query, nil, class: 'form-control', placeholder: 'Type a name or email',
+      data: {behavior: 'autocomplete', target: '#employee_id', source_url: search_employees_path } %>
+
+
+  <%= f.submit 'Add teacher' %>
+
+<% end %>
