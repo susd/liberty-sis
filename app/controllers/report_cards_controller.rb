@@ -150,7 +150,7 @@ class ReportCardsController < ApplicationController
   end
 
   def load_form_options
-    @forms = ReportCard::Form.all.map{|f| [f.name, f.id]}
+    @forms = ReportCard::Form.order(:name).map{|f| [f.name, f.id]}
   end
 
   def check_for_pdf
