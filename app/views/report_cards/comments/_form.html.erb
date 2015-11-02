@@ -1,0 +1,10 @@
+<%= bootstrap_form_for @comment, url: submit_path_for(@form, @comment) do |f| %>
+
+  <%= f.text_area :english %>
+  <%= f.text_area :spanish %>
+
+  <%= f.select :report_card_comment_group_id, @form.comment_groups.map{|g| [g.name, g.id]} %>
+
+  <%= f.submit %>
+
+<% end %>
