@@ -66,7 +66,8 @@ class ReportCard::FormPresenter < BasePresenter
   end
 
   def instruction_level(subject)
-    report_card.student.grade.simple
+    gr = report_card.student.grade.simple
+    gr == 0 ? 'K' : gr
   end
 
   def positional_form?
