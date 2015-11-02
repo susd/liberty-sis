@@ -111,7 +111,7 @@ class PrimaryReportCardPdf < ReportCardPdf
     layout.side_section(data) do |sec|
 
       data['side_subjects'].insert(0, [lang_strings(:wsh, lang).mb_chars.upcase.to_s, lang_strings(:ordinals, lang)].flatten)
-      data['side_subjects'].insert(9, [lang_strings(:cit, lang).mb_chars.upcase.to_s, lang_strings(:ordinals, lang)].flatten)
+      data['side_subjects'].insert(10, [lang_strings(:cit, lang).mb_chars.upcase.to_s, lang_strings(:ordinals, lang)].flatten)
 
       sec.add_table(data['side_subjects']) do |tbl|
         tbl.width = sec.rect.w
@@ -123,7 +123,7 @@ class PrimaryReportCardPdf < ReportCardPdf
         tbl.columns(1..3).align = :center
 
         tbl.row(0).border_color = WHITE
-        tbl.row(9).border_color = [BLACK, WHITE]
+        tbl.row(10).border_color = [BLACK, WHITE]
         # tbl.row([0,9]).height = 26
       end
 
