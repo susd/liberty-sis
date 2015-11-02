@@ -87,7 +87,7 @@ class ReportCards::SubjectsController < ApplicationController
       :show_effort, :show_level,
       :side_section, :position, :spanish_name
     ]
-    params.require(:subject).permit(*permitted)
+    params.require(:report_card_subject).permit(*permitted)
   end
 
   def adjusted_subject_form_path
