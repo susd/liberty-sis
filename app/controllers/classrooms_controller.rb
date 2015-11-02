@@ -2,7 +2,7 @@ class ClassroomsController < ApplicationController
 
   def index
     load_classrooms
-    authorize!{ current_user.can_generally?(:view, :all, :classrooms) }
+    authorize!{ current_user.can_generally?(:view, :own, :classrooms) }
   end
 
   def show
@@ -70,9 +70,9 @@ class ClassroomsController < ApplicationController
   def load_classrooms
     if params[:site_id]
       @site = Site.find(params[:site_id])
-      @classrooms = @site.classrooms.order(:name)
+      @classrooms = ViewableClassroomsQuery.new(current_user, @site.classrooms.order(:name)).user_classrooms
     else
-      @classrooms = Classroom.all
+      @classrooms = ViewableClassroomsQuery.new(current_user).user_classrooms
     end
   end
 
