@@ -1,6 +1,18 @@
+<ol class="breadcrumb">
+  <li><%= link_to 'Employees', admin_employees_path %></li>
+  <li class="active"><%= @employee.name %></li>
+</ol>
+
 
 <h2><%= @employee.name %></h2>
 
+<h4><%= @employee.title %></h4>
+
+<p><%= @employee.sites.map(&:name).join(', ') %></p>
+
 <p><%= @employee.type %></p>
+
+<p><%= @employee.email %></p>
+
 
 <%= link_to 'Edit', edit_admin_employee_path(@employee), class: 'btn btn-default' %>

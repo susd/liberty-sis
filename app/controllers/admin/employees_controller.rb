@@ -1,4 +1,5 @@
 class Admin::EmployeesController < AdminController
+  helper_method :submit_path_for
 
   def index
     @employees = Employee.includes(:user).order(:last_name).page(params[:page]).per(50)
@@ -15,9 +16,24 @@ class Admin::EmployeesController < AdminController
     set_employee
   end
 
+  def new
+    @employee = Employee.new
+    set_sites
+  end
+
   def edit
     set_employee
     set_sites
+  end
+
+  def create
+    @employee = Employee.new(employee_params)
+    if @employee.save
+      redirect_to admin_employee_path(@employee), notice: "Employee created."
+    else
+      set_sites
+      render :new
+    end
   end
 
   def update
@@ -25,6 +41,7 @@ class Admin::EmployeesController < AdminController
     if @employee.update(employee_params)
       redirect_to admin_employees_path, notice: "Employee updated"
     else
+      set_sites
       render :edit
     end
   end
@@ -45,6 +62,14 @@ class Admin::EmployeesController < AdminController
       params.require(:teacher).permit!
     else
       params.require(:employee).permit!
+    end
+  end
+
+  def submit_path_for(employee)
+    if employee.new_record?
+      admin_employees_path
+    else
+      admin_employee_path(employee)
     end
   end
 end

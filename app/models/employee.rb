@@ -42,9 +42,9 @@ class Employee < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
-  def email
-    attributes['email'] || guess_email
-  end
+  # def email
+  #   attributes['email'] || guess_email
+  # end
 
   def persona_domain
     "saugususd.org"
