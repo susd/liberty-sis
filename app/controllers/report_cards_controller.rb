@@ -1,6 +1,6 @@
 class ReportCardsController < ApplicationController
   before_action :set_student
-  after_action :authorize_teacher
+  before_action :authorize_teacher
 
   def index
     @report_cards = report_card_scope
