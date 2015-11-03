@@ -8,4 +8,9 @@ module ClassroomHelper
 
     link_to student.name, student_report_cards_path(student), class: classes.join(' ')
   end
+
+  def classrooms_cache_key(classroom_relation, site = nil)
+    max = classroom_relation.maximum(:updated_at)
+    ['classrooms', site.id, 'index', max].compact.join('/')
+  end
 end

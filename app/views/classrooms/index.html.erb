@@ -1,6 +1,26 @@
+
+
 <div class="page-header">
-  <h1>Classrooms</h1>
+  <h2>
+    Classrooms
+  </h2>
 </div>
+
+<% unless @sites.nil? %>
+
+<ul class="nav nav-tabs">
+  <% @sites.each do |site| %>
+    <%= active_li(site == @site) do %>
+      <%= link_to site.abbr, site_classrooms_path(site) %>
+    <% end %>
+  <% end %>
+</ul>
+
+<p></p>
+
+<% end %>
+
+<% cache(classrooms_cache_key(@classrooms, @site)) do %>
 
 <table class="table table-striped">
   <tr>
@@ -14,3 +34,8 @@
     </tr>
   <% end %>
 </table>
+
+
+<%= paginate(@classrooms) %>
+
+<% end %>
