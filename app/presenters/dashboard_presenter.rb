@@ -13,6 +13,9 @@ class DashboardPresenter
   end
 
   def rc_period_count
-    ReportCard.where(created_at: ReportCard::GradingPeriod.current_year_range).count
+    ReportCard.where(
+      created_at: ReportCard::GradingPeriod.current_year_range,
+      year: ReportCard::GradingPeriod.school_year
+      ).count
   end
 end
