@@ -11,6 +11,6 @@ module ClassroomHelper
 
   def classrooms_cache_key(classroom_relation, site = nil)
     max = classroom_relation.maximum(:updated_at).try(:to_i)
-    ['classrooms', site.id, 'index', max].compact.join('/')
+    ['classrooms', site.try(:id), 'index', max].compact.join('/')
   end
 end
