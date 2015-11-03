@@ -1,7 +1,8 @@
 class ClassroomsController < ApplicationController
 
   def index
-    load_classrooms
+    load_sites
+    scope_classrooms
     authorize!{ current_user.can_generally?(:view, :own, :classrooms) }
   end
 
@@ -67,17 +68,24 @@ class ClassroomsController < ApplicationController
 
   private
 
-  def load_classrooms
+  def scope_classrooms
     if params[:site_id]
       @site = Site.find(params[:site_id])
-      @classrooms = ViewableClassroomsQuery.new(current_user, @site.classrooms.order(:name)).user_classrooms
+      criteria = ViewableClassroomsQuery.new(current_user, @site.classrooms).user_classrooms
     else
-      @classrooms = ViewableClassroomsQuery.new(current_user).user_classrooms
+      criteria = ViewableClassroomsQuery.new(current_user).user_classrooms
     end
+    @classrooms = criteria.page(params[:page]).per(40)
   end
 
   def set_classroom
     @classroom = Classroom.find params[:id]
+  end
+
+  def load_sites
+    if current_employee.multisite?
+      @sites = current_employee.sites.order(:abbr)
+    end
   end
 
   def check_for_pdf

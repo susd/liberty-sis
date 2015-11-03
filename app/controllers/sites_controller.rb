@@ -1,7 +1,7 @@
 class SitesController < ApplicationController
   def index
-    @sites = Site.order(:code)
-    authorize_general(:view, :all, :sites)
+    @sites = ViewableSitesQuery.new(current_user).sites
+    authorize_general(:view, :own, :sites)
   end
 
   def show

@@ -6,8 +6,14 @@ module ApplicationHelper
     presenter
   end
 
-  def active_li(name, &block)
-    css_class = (controller_name == name) ? 'active' : nil
+  def active_li(name_or_condition, &block)
+    if name_or_condition.is_a? String
+      condition = (controller_name == name_or_condition)
+    else
+      condition = name_or_condition
+    end
+
+    css_class = condition ? 'active' : nil
     content_tag(:li, class: css_class, &block)
   end
 

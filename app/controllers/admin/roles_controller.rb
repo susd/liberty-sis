@@ -52,7 +52,7 @@ class Admin::RolesController < AdminController
   end
 
   def permission_resources
-    %w{sites employees classrooms students}
+    %w{roles sites employees classrooms students}
   end
 
   def permission_abilities

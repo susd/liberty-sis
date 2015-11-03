@@ -110,7 +110,7 @@ class Employee < ActiveRecord::Base
     sites.count == 1
   end
 
-  def multi_site?
+  def multisite?
     sites.count > 1
   end
 

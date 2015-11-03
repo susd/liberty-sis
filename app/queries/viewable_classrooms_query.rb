@@ -1,7 +1,7 @@
 class ViewableClassroomsQuery
   attr_reader :user, :employee, :relation
 
-  def initialize(current_user, classroom_relation = Classroom.order(:name))
+  def initialize(current_user, classroom_relation = Classroom.all)
     @user = current_user
     @employee = current_user.employee
     @relation = classroom_relation
@@ -20,11 +20,11 @@ class ViewableClassroomsQuery
   def scoped_classrooms
     case
     when user.can_generally?(:view, :all, :classrooms)
-      relation
+      relation.order(:site_id, :name)
     when user.can_generally?(:view, :site, :classrooms)
-      relation.where(site: employee.sites)
+      relation.where(site: employee.sites).order(:site_id, :name)
     else
-      relation.where(id: employee.classrooms)
+      relation.where(id: employee.classrooms).order(:name)
     end
   end
 end
