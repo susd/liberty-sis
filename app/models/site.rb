@@ -16,4 +16,8 @@ class Site < ActiveRecord::Base
   has_many :teachers, foreign_key: :primary_site_id
   has_many :classrooms
   has_many :students
+
+  def self.with_classrooms
+    where(id: Classroom.distinct(:site_id).select(:site_id))
+  end
 end

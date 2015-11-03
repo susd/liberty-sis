@@ -84,7 +84,7 @@ class ClassroomsController < ApplicationController
 
   def load_sites
     if current_employee.multisite?
-      @sites = current_employee.sites.order(:abbr)
+      @sites = current_employee.sites.with_classrooms.order(:abbr)
     end
   end
 
