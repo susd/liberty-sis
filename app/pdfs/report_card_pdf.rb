@@ -47,12 +47,16 @@ class ReportCardPdf
       if subject.show_level?
         # do major with level
         level_arr = [{content: title_for(subject, lang).mb_chars.upcase.to_s, font: PdfReportCard::DEFAULT_BOLD_FONT}]
-        level_arr += fetch(['subjects', subject.id.to_s, 'periods']).flat_map do |p, pdata|
-          [
-            {content: "Instructional Level: #{pdata['level']}", colspan: (columns/3) - 1},
-            {content: pdata['effort']}
-          ]
+
+        unless fetch(['subjects', subject.id.to_s, 'periods']).nil?
+          level_arr += fetch(['subjects', subject.id.to_s, 'periods']).flat_map do |p, pdata|
+            [
+              {content: "Instructional Level: #{pdata['level']}", colspan: (columns/3) - 1},
+              {content: pdata['effort']}
+            ]
+          end
         end
+
         result << level_arr
       else
         result << subject_array(subject, columns, lang)
