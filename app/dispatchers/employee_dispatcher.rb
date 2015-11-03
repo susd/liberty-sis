@@ -20,6 +20,8 @@ class EmployeeDispatcher
 
   def teacher_path
     case
+    when employee.user.can_generally?(:view, :site, :classrooms)
+      classrooms_path
     when employee.classrooms.count > 1
       classrooms_path
     when employee.primary_classroom

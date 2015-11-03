@@ -34,3 +34,15 @@ admin:
       manage: all
     employees:
       manage: all
+
+rsp:
+  name: rsp
+  permissions:
+    classrooms:
+      view: site
+    sites:
+      view: own
+    employees:
+      none: none
+    students:
+      view: site

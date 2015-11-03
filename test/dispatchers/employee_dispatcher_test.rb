@@ -11,6 +11,11 @@ class EmployeeDispatcherTest < ActiveSupport::TestCase
     assert_equal classrooms_path, EmployeeDispatcher.new(employees(:multi_teacher)).path
   end
 
+  test "Send those who can view all classrooms to classroom index" do
+    assert users(:rsp_teacher).can_generally?(:view, :site, :classrooms)
+    assert_equal classrooms_path, EmployeeDispatcher.new(employees(:rsp_teacher)).path
+  end
+
   test "Employee without classrooms" do
     assert_not EmployeeDispatcher.new(employees(:no_class)).dispatch?
   end
