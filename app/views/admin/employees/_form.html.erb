@@ -1,4 +1,4 @@
-<%= bootstrap_form_for [:admin, @employee] do |f| %>
+<%= bootstrap_form_for @employee, url: submit_path_for(@employee) do |f| %>
 
   <div class="row">
     <div class="col-md-6">
