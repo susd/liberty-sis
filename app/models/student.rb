@@ -28,6 +28,7 @@ class Student < ActiveRecord::Base
   include ReportCard::StudentMethods
   include ReportCard::AttendanceQueries
   include Aeries::StudentConvenience
+  include PgSearch
 
   enum state: {pending: 0, active: 1, inactive: 2}
 
@@ -63,6 +64,11 @@ class Student < ActiveRecord::Base
       transitions to: :inactive
     end
   end
+
+  pg_search_scope :admin_search,
+    against: [:first_name, :middle_name, :last_name],
+    using: { tsearch: {prefix: true}, trigram: {only: [:last_name, :first_name]} },
+    :ignoring => :accents
 
   def name
     "#{first_name} #{last_name}"
