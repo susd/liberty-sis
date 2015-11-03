@@ -30,7 +30,9 @@ Rails.application.routes.draw do
   end
 
   resources :students do
-    resources :personas
+    resources :personas do
+      patch :sync, on: :member
+    end
     resources :report_cards, concerns: :pdfs
 
     scope module: 'students' do

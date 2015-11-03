@@ -1,0 +1,7 @@
+<ol class="breadcrumb">
+  <li><%= link_to @student.homeroom.name, @student.homeroom %></li>
+  <li><%= link_to @student.name, @student %></li>
+  <li><%= link_to 'Accounts', student_personas_path(@student) %></li>
+</ol>
+
+<%= render 'form' %>
