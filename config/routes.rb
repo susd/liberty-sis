@@ -29,7 +29,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :students do
+  resources :students, concerns: :searchable do
     resources :personas do
       patch :sync, on: :member
     end

@@ -3,6 +3,7 @@ class DashboardController < ApplicationController
     if dispatch?
       redirect_to employee_path
     end
+    @dash = DashboardPresenter.new
     authorize_signed_in_user!
   end
 

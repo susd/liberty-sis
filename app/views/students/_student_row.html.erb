@@ -1,0 +1,5 @@
+<tr>
+  <td><%= link_to student.full_name, student %></td>
+  <td><%= link_to student.homeroom.name, student.homeroom %></td>
+  <td><%= student.site.try(:name) %></td>
+</tr>

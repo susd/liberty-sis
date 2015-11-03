@@ -18,7 +18,7 @@ module ReportCardsHelper
   end
 
   def rc_collection_cache_key(student, collection)
-    max = collection.maximum(:updated_at)
+    max = collection.maximum(:updated_at).try(:to_i)
     ['report_cards', student.id, max].join('/')
   end
 end

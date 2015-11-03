@@ -8,7 +8,7 @@
 
 <% unless @sites.nil? %>
 
-<ul class="nav nav-tabs">
+<ul class="nav nav-pills">
   <% @sites.each do |site| %>
     <%= active_li(site == @site) do %>
       <%= link_to site.abbr, site_classrooms_path(site) %>
