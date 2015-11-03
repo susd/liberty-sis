@@ -18,6 +18,10 @@ class Admin::UsersController < AdminController
 
   def show
     set_user
+    employees = Employee.where(user: @user)
+    if employees.count > 1
+      @employees = employees
+    end
   end
 
   def edit
