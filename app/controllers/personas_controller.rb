@@ -1,14 +1,49 @@
 class PersonasController < ApplicationController
-  before_action :load_student
+  before_action :set_student
+  after_action :authorize_persona
 
   def index
-    @personas = @student.personas
-    authorize_to(:view, @student)
+    @personas = @student.personas.order(:handler)
+  end
+
+  def edit
+    set_persona
+  end
+
+  def update
+    set_persona
+    if @persona.update(persona_params)
+      redirect_to student_personas_path(@student), notice: 'Account updated.'
+    else
+      render :edit
+    end
+  end
+
+  def sync
+    @persona = @student.personas.find(params[:id])
+    if @persona.handler == 'gapps'
+      SyncGappsPersonaJob.perform_later(@student)
+      redirect_to student_personas_path(@student), notice: "Account scheduled to be synced."
+    else
+      redirect_to student_personas_path(@student), alert: "Can't sync #{@persona.handler}"
+    end
   end
 
   private
 
-  def load_student
+  def set_student
     @student = Student.find(params[:student_id])
+  end
+
+  def set_persona
+    @persona = @student.personas.find(params[:id])
+  end
+
+  def persona_params
+    params.require(:persona).permit(:username, :password, :handler)
+  end
+
+  def authorize_persona
+    authorize_to(:manage, @student)
   end
 end

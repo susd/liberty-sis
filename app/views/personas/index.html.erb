@@ -15,7 +15,9 @@
     <th>Service</th>
     <th>Username</th>
     <th>Password</th>
-    <th>Sync'd at</th>
+    <th>Edit</th>
+    <th>Sync</th>
+    <th>Synced at</th>
   </tr>
 
   <% @personas.each do |persona| %>
@@ -23,6 +25,12 @@
       <td><%= persona.handler %></td>
       <td><%= persona.username %></td>
       <td><%= persona.password %></td>
+      <td><%= link_to 'Edit', edit_student_persona_path(@student, persona), class: 'btn btn-default btn-sm' %></td>
+      <td>
+        <% if persona.handler == 'gapps' %>
+          <%= sync_button(@student, persona) %>
+        <% end %>
+      </td>
       <td><%= persona.synced_at %></td>
     </tr>
   <% end %>

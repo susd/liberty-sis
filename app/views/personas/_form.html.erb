@@ -1,0 +1,10 @@
+<%= bootstrap_form_for [@student, @persona] do |f| %>
+
+  <%= f.text_field :username %>
+  <%= f.text_field :password %>
+
+  <%= f.select :handler, %w{gapps renplace scholastic successnet mcgraw typing_club ole} %>
+
+  <%= f.submit 'Save' %>
+
+<% end %>

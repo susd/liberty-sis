@@ -39,4 +39,8 @@ class Persona < ActiveRecord::Base
     end
   end
 
+  def behind?
+    updated_at > synced_at
+  end
+
 end
