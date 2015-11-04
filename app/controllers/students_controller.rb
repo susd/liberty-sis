@@ -5,13 +5,14 @@ class StudentsController < ApplicationController
   end
 
   def search
+    authorize_general(:view, :all, :students)
+    
     query = params[:term] || params[:query]
     @students = Student.includes(:homeroom, :site).admin_search(query).limit(20)
 
     respond_to do |format|
       format.js
     end
-    authorize_general(:view, :all, :students)
   end
 
   private
