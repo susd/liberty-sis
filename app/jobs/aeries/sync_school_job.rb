@@ -1,6 +1,6 @@
 module Aeries
   class SyncSchoolJob < ActiveJob::Base
-    queue_as :pdf
+    queue_as :sync
 
     after_perform do |job|
       SyncSchoolJob.set(wait: 2.hours).perform_later(*job.arguments)
