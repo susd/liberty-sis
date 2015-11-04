@@ -51,6 +51,7 @@ Rails.application.routes.draw do
     resources :employees, concerns: [:searchable]
     resources :roles
     resources :sites
+    resources :sync_events
   end
 
   namespace :report_cards do

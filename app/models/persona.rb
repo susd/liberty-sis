@@ -24,6 +24,8 @@ class Persona < ActiveRecord::Base
   belongs_to :personable, polymorphic: true
   has_many :sync_events, as: :syncable, dependent: :nullify
 
+  validate :must_be_unique_username_and_handler
+
   aasm column: :state, enum: true do
     state :pending, initial: true
     state :active
@@ -40,7 +42,15 @@ class Persona < ActiveRecord::Base
   end
 
   def behind?
+    return true if synced_at.nil?
+
     updated_at > synced_at
+  end
+
+  def must_be_unique_username_and_handler
+    if Persona.where(handler: handler, username: username).exists?
+      errors.add(:handler, "Username and handler already exists")
+    end
   end
 
 end

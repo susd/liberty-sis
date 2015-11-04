@@ -6,8 +6,21 @@ class PersonasController < ApplicationController
     @personas = @student.personas.order(:handler)
   end
 
+  def new
+    @persona = @student.personas.new(username: @student.persona_email, password: @student.persona_init_password)
+  end
+
   def edit
     set_persona
+  end
+
+  def create
+    @persona = @student.personas.new(persona_params)
+    if @persona.save
+      redirect_to student_personas_path(@student), notice: 'Account created.'
+    else
+      render :new
+    end
   end
 
   def update

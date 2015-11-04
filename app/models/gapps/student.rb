@@ -35,21 +35,27 @@ module Gapps
     end
 
     def insert!
-      service.insert_user(dir_user(student_attrs)) do |resp, err|
-        if err
-          Rails.logger.error err
-        else
-          @persona.update(state: 1, service_id: resp.id)
+      SyncEvent.wrap(label: 'gapps:student:insert', action: 1, syncable: @student) do
+        service.insert_user(dir_user(student_attrs)) do |resp, err|
+          if err
+            Rails.logger.error err
+            false
+          else
+            @persona.update(state: 1, service_id: resp.id)
+          end
         end
       end
     end
 
     def update!
-      service.patch_user(@persona.service_id, dir_user(student_attrs)) do |resp, err|
-        if err
-          Rails.logger.error err
-        else
-          @persona.touch(:synced_at)
+      SyncEvent.wrap(label: 'gapps:student:update', action: 1, syncable: @student) do
+        service.patch_user(@persona.service_id, dir_user(student_attrs)) do |resp, err|
+          if err
+            Rails.logger.error err
+            false
+          else
+            @persona.touch(:synced_at)
+          end
         end
       end
     end
