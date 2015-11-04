@@ -31,7 +31,7 @@ class ClassroomsController < ApplicationController
 
   def generate
     set_classroom
-    authorize_to(:manage, @classroom)
+    authorize_to(:view, @classroom)
 
     respond_to do |format|
       if BuildClassroomPdfJob.perform_later(@classroom)
@@ -46,7 +46,7 @@ class ClassroomsController < ApplicationController
 
   def clear
     set_classroom
-    authorize_to(:manage, @classroom)
+    authorize_to(:view, @classroom)
 
     ReportCard::ClassroomCombiner.new(@classroom).pdf_paths.each do |f|
       File.delete(f) if File.exists?(f)
@@ -58,7 +58,7 @@ class ClassroomsController < ApplicationController
 
   def check
     set_classroom
-    authorize_to(:manage, @classroom)
+    authorize_to(:view, @classroom)
     check_for_pdf
     respond_to do |format|
       format.html { redirect_to @classroom }
