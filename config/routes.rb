@@ -2,6 +2,10 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: { omniauth_callbacks: "omniauth_callbacks", sessions: 'sessions' }
 
+  authenticated :user, -> user { user.admin? } do
+    mount Delayed::Web::Engine, at: '/jobs'
+  end
+
   get 'forbidden', to: 'pages#forbidden', as: :forbidden
 
   concern :searchable do
