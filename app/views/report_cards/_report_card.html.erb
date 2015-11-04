@@ -2,26 +2,28 @@
 
 <%= render 'legend' %>
 
-<table class="table" id="report_card-subjects">
-  <tr>
-    <th></th>
-    <th colspan="2">1st Period</th>
-    <th colspan="2">2nd Period</th>
-    <th colspan="2">3rd Period</th>
-  </tr>
-  <tr>
-    <th>Subject</th>
-    <% 3.times do %>
-      <th>Quality</th>
-      <th>Effort</th>
-    <% end %>
-  </tr>
-  <tbody>
-    <% presenter.subjects.each do |subject| %>
-      <%= render partial: 'report_cards/subjects/subject_row', locals: {presenter: presenter, subject: subject} %>
-    <% end %>
-  </tbody>
-</table>
+<% cache([@report_card, 'subjects']) do %>
+  <table class="table" id="report_card-subjects">
+    <tr>
+      <th></th>
+      <th colspan="2">1st Period</th>
+      <th colspan="2">2nd Period</th>
+      <th colspan="2">3rd Period</th>
+    </tr>
+    <tr>
+      <th>Subject</th>
+      <% 3.times do %>
+        <th>Quality</th>
+        <th>Effort</th>
+      <% end %>
+    </tr>
+    <tbody>
+      <% presenter.subjects.each do |subject| %>
+        <%= render partial: 'report_cards/subjects/subject_row', locals: {presenter: presenter, subject: subject} %>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
 
 <hr>
 
