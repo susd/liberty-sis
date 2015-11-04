@@ -1,3 +1,5 @@
+
+
 <header class="page-header">
   <div class="row">
     <div class="col-md-9">
@@ -13,6 +15,8 @@
     </div>
   </div>
 </header>
+
+<% cache classroom_cache_key(@classroom, @students) do %>
 
 <section class="student_list" data-behavior="state_list">
   <div class="student_list-controls">
@@ -32,3 +36,5 @@
     </div>
   </div>
 </section>
+
+<% end %>
