@@ -58,9 +58,13 @@ class UpperReportCardPdf < ReportCardPdf
 
       if subject.show_level?
         level_arr = [{content: lang_strings(:level, lang), align: :right, font: PdfReportCard::DEFAULT_ITALIC_FONT}]
-        level_arr += fetch(['subjects', subject.id.to_s, 'periods']).map do |p, pdata|
-          {content: pdata['level'], colspan: 2}
+
+        unless fetch(['subjects', subject.id.to_s, 'periods']).nil?
+          level_arr += fetch(['subjects', subject.id.to_s, 'periods']).map do |p, pdata|
+            {content: pdata['level'], colspan: 2}
+          end
         end
+        
         result << level_arr
       end
 
