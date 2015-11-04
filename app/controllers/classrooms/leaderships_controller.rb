@@ -1,6 +1,7 @@
 module Classrooms
   class LeadershipsController < BaseController
     before_action :set_classroom
+    before_action :authorize_classroom
 
     def index
       @leaderships = @classroom.classroom_leaderships.includes(:employee)

@@ -23,7 +23,7 @@ module Permissions
       if permissions.empty?
         false
       else
-        has_ability_over?(target)
+        has_ability_over?(target) && sufficient_ability?(ability, resource)
       end
     end
 
@@ -35,6 +35,11 @@ module Permissions
         level = permissions[resource][resource_ability(resource).to_s]
         self.send("match_#{level}_scope", target)
       end
+    end
+
+    def sufficient_ability?(ability, resource)
+      user_ability = resource_ability(resource)
+      user_ability >= Ability.new(ability)
     end
 
     def resource_ability(resource)

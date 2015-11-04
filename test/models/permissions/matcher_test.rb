@@ -50,4 +50,10 @@ class Permissions::MatcherTest < ActiveSupport::TestCase
     assert_not @matcher.match_general?(:manage, :all, :classrooms)
   end
 
+  test "RSP should not be able to manage a classroom she can view" do
+    matcher = Permissions::Matcher.new(users(:rsp_teacher))
+    assert matcher.match_target?(:view, @classroom)
+    assert_not matcher.match_target?(:manage, @classroom)
+  end
+
 end
