@@ -75,7 +75,7 @@ module Aeries
 
     def import_students(student_relation)
       student_relation.each do |stu|
-        Aeries::StudentImporter.new(stu).import_if_fresh!
+        Aeries::StudentImporter.new(stu).import!
       end
     end
 
