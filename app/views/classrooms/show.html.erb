@@ -16,6 +16,17 @@
   </div>
 </header>
 
+<% if current_user.can?(:manage, @classroom) %>
+
+  <ul class="nav nav-pills">
+    <li><%= link_to 'Class Leaders', classroom_leaderships_path(@classroom) %></li>
+    <li><%= link_to 'Class Members', classroom_memberships_path(@classroom) %></li>
+  </ul>
+
+  <hr>
+
+<% end %>
+
 <% cache classroom_cache_key(@classroom, @students) do %>
 
 <section class="student_list" data-behavior="state_list">
