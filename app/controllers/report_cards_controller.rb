@@ -160,7 +160,7 @@ class ReportCardsController < ApplicationController
   end
 
   def authorize_teacher
-    authorize_to(:edit, @student)
+    authorize_to(:view, @student)
   end
 
 end
