@@ -1,0 +1,23 @@
+<table class="table table-striped">
+  <tr>
+    <th>ID</th>
+    <th>Updated</th>
+    <th>Label</th>
+    <th>Syncable</th>
+    <th>Action</th>
+    <th>State</th>
+  </tr>
+
+  <% @sync_events.each do |sync_event| %>
+    <tr>
+      <td><%= sync_event.id %></td>
+      <td><%= sync_event.updated_at %></td>
+      <td><%= sync_event.label %></td>
+      <td><%= sync_event.syncable.try(:name) %></td>
+      <td><%= sync_event.action %></td>
+      <td><%= sync_event.state %></td>
+    </tr>
+  <% end %>
+</table>
+
+<%= paginate(@sync_events) %>

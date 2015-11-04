@@ -17,4 +17,15 @@ class SyncEvent < ActiveRecord::Base
 
   enum state: {pending: 0, succeeded: 1, failed: 2}
   enum action: {read: 0, write: 1, export: 2}
+
+  def self.wrap(opts, &block)
+    if block_given?
+      event = create(opts)
+      if yield
+        event.update(state: 1)
+      else
+        event.update(state: 2)
+      end
+    end
+  end
 end
