@@ -1,6 +1,6 @@
 module Classrooms
   class BaseController < ApplicationController
-    after_action :authorize_classroom
+    # after_action :authorize_classroom
 
     private
 

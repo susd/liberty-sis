@@ -1,6 +1,7 @@
 module Classrooms
   class MembershipsController < BaseController
     before_action :set_classroom
+    before_action :authorize_classroom
 
     def index
       @memberships = @classroom.classroom_memberships.includes(:student)
