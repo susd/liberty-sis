@@ -40,6 +40,8 @@ class Persona < ActiveRecord::Base
   end
 
   def behind?
+    return true if synced_at.nil?
+    
     updated_at > synced_at
   end
 
