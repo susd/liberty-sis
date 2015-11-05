@@ -7,11 +7,16 @@ class EmployeeDispatcher
   end
 
   def dispatch?
-    true
+    dispatched_role?
   end
 
   def path
-    # can view site classrooms?
-    # no roles or rights?
+    classrooms_path
+  end
+
+  def dispatched_role?
+    employee.user.roles.any? do |r|
+      ['principal', 'office'].include? r.name
+    end
   end
 end

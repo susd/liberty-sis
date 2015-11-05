@@ -1,66 +1,15 @@
 
 <% if current_employee %>
 
-<div class="row">
-  <div class="col-md-6">
+  <% if @dash.show_adoption? %>
+    <%= render 'adoption' %>
+  <% end %>
 
-    <div class="panel panel-primary">
-      <div class="panel-heading">
-        <h3 class="panel-title">Adoption</h3>
-      </div>
-      <table class="table">
-        <tr>
-          <th>Users</th>
-          <th>Teachers</th>
-        </tr>
-        <tr>
-          <td><%= @dash.user_count %></td>
-          <td><%= @dash.teacher_count %></td>
-        </tr>
-      </table>
-    </div>
-
-  </div>
-  <div class="col-md-6">
-
-    <div class="panel panel-primary">
-      <div class="panel-heading">
-        <h3 class="panel-title">Report Cards</h3>
-      </div>
-      <table class="table">
-        <tr>
-          <th>Period</th>
-          <th>Year</th>
-        </tr>
-        <tr>
-          <td><%= @dash.rc_period_count %></td>
-          <td><%= @dash.rc_year_count %></td>
-        </tr>
-      </table>
-    </div>
-
-  </div>
-</div>
-
-<section data-behavior="filtered_table" data-source-url="<%= search_students_path %>">
-  <h5>Search students</h5>
-
-  <div class="page_search">
-    <div class="form-group">
-      <%= text_field_tag 'query', nil,
-            {
-              size: 30, placeholder: 'Search by name', autocomplete: "off",
-              data: {behavior: "filter-query"},
-              class: 'form-control'
-            }
-            %>
-    </div>
-  </div>
-
-  <table class="table table-striped">
-    <tbody data-behavior="filter-results"></tbody>
-  </table>
-</section>
+  <% if @dash.show_student_search? %>
+    <%= render 'student_search' %>
+  <% else %>
+    <p>Sorry, nothing for you to do here.</p>
+  <% end %>
 
 <% else %>
 

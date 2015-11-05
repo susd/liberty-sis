@@ -1,4 +1,9 @@
 class DashboardPresenter
+  attr_reader :user
+
+  def initialize(user)
+    @user = user
+  end
 
   def user_count
     User.count
@@ -18,4 +23,17 @@ class DashboardPresenter
       year: ReportCard::GradingPeriod.school_year
       ).count
   end
+
+  def show_adoption?
+    user.roles.any? do |r|
+      ['admin', 'tosa'].include? r.name
+    end
+  end
+
+  def show_student_search?
+    user.roles.any? do |r|
+      ['admin', 'tosa'].include? r.name
+    end
+  end
+
 end

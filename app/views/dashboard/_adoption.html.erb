@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="col-md-6">
+
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Adoption</h3>
+      </div>
+      <table class="table">
+        <tr>
+          <th>Users</th>
+          <th>Teachers</th>
+        </tr>
+        <tr>
+          <td><%= @dash.user_count %></td>
+          <td><%= @dash.teacher_count %></td>
+        </tr>
+      </table>
+    </div>
+
+  </div>
+  <div class="col-md-6">
+
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Report Cards</h3>
+      </div>
+      <table class="table">
+        <tr>
+          <th>Period</th>
+          <th>Year</th>
+        </tr>
+        <tr>
+          <td><%= @dash.rc_period_count %></td>
+          <td><%= @dash.rc_year_count %></td>
+        </tr>
+      </table>
+    </div>
+
+  </div>
+</div>
