@@ -6,12 +6,12 @@
   </h2>
 </div>
 
-<% unless @sites.nil? %>
+<% if @sites && @sites.count > 1 %>
 
 <ul class="nav nav-pills">
   <% @sites.each do |site| %>
     <%= active_li(site == @site) do %>
-      <%= link_to site.abbr, site_classrooms_path(site) %>
+      <%= link_to site.abbr.upcase, site_classrooms_path(site) %>
     <% end %>
   <% end %>
 </ul>

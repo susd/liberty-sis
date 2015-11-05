@@ -69,7 +69,7 @@ rsp_teacher:
   first_name: Wendy
   last_name: Wenderson
   user: rsp_teacher
-  sites: west_creek
+  sites: west_creek, cedarcreek
   classrooms: multi_class_1
 
 office:

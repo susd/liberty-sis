@@ -83,9 +83,7 @@ class ClassroomsController < ApplicationController
   end
 
   def load_sites
-    if current_employee.multisite?
-      @sites = current_employee.sites.with_classrooms.order(:abbr)
-    end
+    @sites = ViewableSitesQuery.new(current_user).sites
   end
 
   def check_for_pdf
