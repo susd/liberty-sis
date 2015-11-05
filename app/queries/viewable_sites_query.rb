@@ -16,14 +16,12 @@ class ViewableSitesQuery
   end
 
   def scoped_sites
-    case
-    when user.can_generally?(:view, :all, :sites)
-      relation
-    when user.can_generally?(:view, :own, :sites)
-      relation.where(id: employee.sites.select(:id))
+    criteria = relation
+    if user.can_generally?(:view, :all, :sites)
+      criteria
     else
-      relation.where(id: employee.primary_site_id)
+      criteria = relation.merge( relation.where(id: employee.sites.select(:id)) )
     end
-    relation.order(:code)
+    criteria.order(:code)
   end
 end

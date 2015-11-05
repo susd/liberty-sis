@@ -6,10 +6,10 @@
       <%= f.text_field :last_name %>
 
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-8">
           <%= f.date_select :birthdate %>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
           <%= f.select :sex, {'Female' => 'f', 'Male' => 'm'} %>
         </div>
       </div>
@@ -24,6 +24,8 @@
     </div>
   </div>
 
+  <hr>
+
   <h4>Sites</h4>
   <div class="row">
     <% @sites.in_groups(3, false) do |grp| %>
@@ -31,7 +33,7 @@
         <% grp.each do |site| %>
           <div class="checkbox">
             <%= label_tag dom_id(site) do %>
-              <%= check_box_tag 'employee[site_ids][]', site.id, @employee.site_ids.include?(site.id) %>
+              <%= check_box_tag "#{@employee.type.downcase || 'employee'}[site_ids][]", site.id, @employee.site_ids.include?(site.id) %>
               <%= site.name %>
             <% end %>
           </div>
@@ -39,6 +41,11 @@
       </div>
     <% end %>
   </div>
+
+  <h4>Primary Site</h4>
+  <%= f.select :primary_site_id, Site.order(:code).map{|s| [s.name, s.id]} %>
+
+  <hr>
 
   <div class="form-group">
     <label for="user_query">User</label>
