@@ -33,7 +33,7 @@
         <% grp.each do |site| %>
           <div class="checkbox">
             <%= label_tag dom_id(site) do %>
-              <%= check_box_tag "#{@employee.type.downcase || 'employee'}[site_ids][]", site.id, @employee.site_ids.include?(site.id) %>
+              <%= check_box_tag "#{@employee.class.to_s.downcase}[site_ids][]", site.id, @employee.site_ids.include?(site.id) %>
               <%= site.name %>
             <% end %>
           </div>

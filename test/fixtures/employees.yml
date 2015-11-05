@@ -77,6 +77,11 @@ office:
   user: office
   sites: west_creek
 
+principal:
+  type: Employee
+  user: principal
+  sites: west_creek
+
 admin:
   type: Employee
   user: admin

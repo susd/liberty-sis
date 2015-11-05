@@ -53,6 +53,11 @@ office:
   encrypted_password: <%= User.new.send(:password_digest, 'password') %>
   roles: office
 
+principal:
+  email: pal@example.com
+  encrypted_password: <%= User.new.send(:password_digest, 'password') %>
+  roles: principal
+
 admin:
   email: admin@example.com
   encrypted_password: <%= User.new.send(:password_digest, 'password') %>

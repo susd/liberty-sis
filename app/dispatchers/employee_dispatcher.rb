@@ -7,27 +7,16 @@ class EmployeeDispatcher
   end
 
   def dispatch?
-    employee.is_a?(Teacher) && employee.classrooms.any?
+    dispatched_role?
   end
 
   def path
-    if dispatch?
-      teacher_path
-    end
+    classrooms_path
   end
 
-  private
-
-  def teacher_path
-    case
-    when employee.user.can_generally?(:view, :site, :classrooms)
-      classrooms_path
-    when employee.classrooms.count > 1
-      classrooms_path
-    when employee.primary_classroom
-      classroom_path(employee.primary_classroom)
-    else
-      classroom_path(employee.classrooms.first)
+  def dispatched_role?
+    employee.user.roles.any? do |r|
+      ['principal', 'office'].include? r.name
     end
   end
 end
