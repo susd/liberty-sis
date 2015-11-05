@@ -23,8 +23,10 @@ class ViewableClassroomsQuery
       relation.order(:site_id, :name)
     when user.can_generally?(:view, :site, :classrooms)
       relation.where(site: employee.sites).order(:site_id, :name)
-    else
+    when user.can_generally?(:view, :own, :classrooms)
       relation.where(id: employee.classrooms).order(:name)
+    else
+      relation.none
     end
   end
 end
