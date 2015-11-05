@@ -25,9 +25,9 @@ module Aeries
       import_teacher
       import_classroom
 
-      last_import = since || ::Student.maximum(:updated_at)
+      last_import = since || SyncEvent.where(syncable: native).maximum(:created_at) || aeries_students.minimum("DTS")
 
-      SyncEvent.wrap(label: "students:recent/#{@school_code}") do
+      SyncEvent.wrap(label: "classroom", syncable: native) do
         import_students(aeries_students.where("DTS > ?", since))
       end
     end

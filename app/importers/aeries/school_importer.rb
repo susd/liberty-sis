@@ -14,9 +14,9 @@ module Aeries
     def import_recent!
       Aeries::Teacher.active_by_site(@code).pluck(:tn).each do |teacher_num|
         if SyncEvent.where(label: "students:recent/#{@code}").any?
-          since = SyncEvent.where(label: "students:recent/#{@code}").maximum(:updated_at)
+          since = SyncEvent.where(label: "students:recent/#{@code}").maximum(:created_at)
         else
-          since = ::Student.where(site: Site.find_by(code: @code)).maximum(:updated_at)
+          since = ::Student.where(site: Site.find_by(code: @code)).maximum(:created_at)
         end
         ClassroomImporter.new(@code, teacher_num).import_recent!(since)
       end
