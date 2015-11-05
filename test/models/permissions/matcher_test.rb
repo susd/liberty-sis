@@ -56,4 +56,12 @@ class Permissions::MatcherTest < ActiveSupport::TestCase
     assert_not matcher.match_target?(:manage, @classroom)
   end
 
+  test "Principal should be able to view students" do
+    user = users(:principal)
+    matcher = Permissions::Matcher.new(user)
+
+    assert matcher.match_target?(:view, @classroom.students.first)
+    assert matcher.match_general?(:view, :site, :students)
+  end
+
 end

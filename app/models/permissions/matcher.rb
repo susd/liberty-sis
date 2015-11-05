@@ -81,7 +81,9 @@ module Permissions
 
     def match_own_scope(target)
       resource = resource_from_target(target)
-      @user.employee && @user.employee.send(resource.to_sym).include?(target)
+      @user.employee &&
+      @user.employee.respond_to?(resource.to_sym) &&
+      @user.employee.send(resource.to_sym).include?(target)
     end
 
     def match_self_scope(target)

@@ -45,6 +45,7 @@ long_name:
   homeroom: ashleys_class
   birthdate: <%= Time.now - 10.years %>
   home_lang: en
+  site: west_creek
 <% end %>
 
 

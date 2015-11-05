@@ -46,3 +46,15 @@ rsp:
       none: none
     students:
       view: site
+
+principal:
+  name: principal
+  permissions:
+    classrooms:
+      view: site
+    sites:
+      view: own
+    employees:
+      view: site
+    students:
+      view: site
