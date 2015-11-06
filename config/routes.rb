@@ -50,7 +50,7 @@ Rails.application.routes.draw do
     resources :users, except: [:new, :create], concerns: [:searchable]
     resources :employees, concerns: [:searchable]
     resources :roles
-    resources :sites
+    resources :sites, except: [:destroy]
     resources :sync_events
   end
 
