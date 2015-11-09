@@ -39,7 +39,6 @@ module Aeries
     self.table_name = "ATT"
     self.primary_keys = [:sc, :sn, :dy]
 
-    # T, L, D, I, E, X, Y, and N
 
     def self.absence_codes
       %w{E I M N R S U}
@@ -50,7 +49,7 @@ module Aeries
     end
 
     def self.confirmed
-      where.not(al: '')
+      where(al: absence_codes + tardy_codes).where.not(al: '')
     end
 
     def self.by_student(aeries_student)
