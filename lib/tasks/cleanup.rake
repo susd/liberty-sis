@@ -64,4 +64,25 @@ namespace :cleanup do
     end
   end
 
+  task reset_attendance: :environment do
+    puts "Clearing attendance"
+    Attendance.destroy_all
+
+    puts "Reimporting"
+    Student.find_each.with_index do |student, idx|
+      if a = student.aeries_student
+        Aeries::AttendanceImporter.new(a).import!
+      end
+      progress(idx)
+    end
+
+    puts "Updating cards"
+    ReportCard.where(student_id: nil).destroy_all
+    ReportCard.find_each.with_index do |card, idx|
+      card.update_attendance
+      card.save
+      progress(idx)
+    end
+  end
+
 end
