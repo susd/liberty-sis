@@ -41,14 +41,17 @@ class Student < ActiveRecord::Base
   belongs_to :home_lang, foreign_key: 'home_lang_id', class_name: 'Language'
   belongs_to :homeroom, foreign_key: 'homeroom_id', class_name: 'Classroom'
 
+  has_many :attendances
+
   has_many :classroom_memberships, dependent: :destroy
   has_many :classrooms, through: :classroom_memberships
-  has_many :personas, as: :personable, dependent: :destroy
-  has_many :attendances
+
+  has_many :contacts, as: :contactable, dependent: :destroy
 
   has_many :enrollments
   has_many :inactive_sites, -> { where(enrollments: {state: 0}) }, source: :site, through: :enrollments
 
+  has_many :personas, as: :personable, dependent: :destroy
   has_many :sync_events, as: :syncable, dependent: :nullify
 
   aasm column: :state, enum: true do

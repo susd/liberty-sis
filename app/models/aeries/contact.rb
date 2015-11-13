@@ -13,6 +13,7 @@ module Aeries
 
     def contact_attrs
       {
+        contactable: find_contactable,
         first_name: attributes['fn'],
         last_name: attributes['ln'],
         email: attributes['em'],
@@ -36,13 +37,17 @@ module Aeries
 
     def phone_attrs
       phone_map.map do |k, label|
-        {label: label, original: attributes[k], number: attributes[k].to_i}
+        {label: label, original: attributes[k]}
       end
     end
 
     def relationship
       # map Aeries code to string
       relationship_map[attributes['rl']]
+    end
+
+    def find_contactable
+      ::Student.active.find_by(["import_details @> ?", {import_id: attributes['pid']}.to_json])
     end
 
     private
@@ -78,6 +83,6 @@ module Aeries
         'cp' => 'Mobile'
       }
     end
-    
+
   end
 end

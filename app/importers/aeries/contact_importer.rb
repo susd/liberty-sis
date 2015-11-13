@@ -1,5 +1,14 @@
 module Aeries
   class ContactImporter
+
+    def for_student(student)
+      if a = student.aeries_student
+        aeries_student.contacts.each do |c|
+          new(c).import!
+        end
+      end
+    end
+
     attr_reader :contact
 
     def initialize(aeries_contact)
@@ -7,11 +16,11 @@ module Aeries
     end
 
     def import!
-      SyncEvent.wrap(label: 'aeries:contact') do
+      SyncEvent.wrap(label: 'aeries:contact', syncable: native) do
         if exists?
-          native.update(contact.to_native)
+          update_native_records
         else
-          @native = ::Contact.create(contact.to_native)
+          create_native_records
         end
       end
     end
@@ -35,6 +44,39 @@ module Aeries
       native.nil? || last_import.nil? || (aeries_stamp > last_import)
     end
 
+    def update_native_records
+      native.update(contact.contact_attrs)
+      create_or_update_address
+      create_or_update_phones
+    end
+
+    def create_native_records
+      create_contact
+      create_or_update_address
+      create_or_update_phones
+    end
+
+    def create_contact
+      ::Contact.create(contact.contact_attrs)
+    end
+
+    def create_or_update_address
+      if native_addr = native.addresses.find_by(label: contact.relationship)
+        native_addr.update(contact.address_attrs)
+      else
+        native_addr = native.addresses.create(contact.address_attrs)
+      end
+    end
+
+    def create_or_update_phones
+      contact.phone_attrs.each do |phone|
+        if native_phone = native.phones.find_by(label: phone[:label])
+          native_phone.update(phone)
+        else
+          native.phones.create(phone)
+        end
+      end
+    end
 
   end
 end

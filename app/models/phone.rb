@@ -5,28 +5,37 @@
 #  id            :integer          not null, primary key
 #  label         :string
 #  original      :string
-#  number        :integer
 #  callable_id   :integer
 #  callable_type :string
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
+#  normal        :text
 #
 
 class Phone < ActiveRecord::Base
   belongs_to :callable, polymorphic: true
 
-  def set_number
-    self.number = original.gsub(/\D/, '')
+  before_save :update_normal
+
+  def number
+    original.gsub(/\D/, '').to_i
   end
 
-  def normalize
-    case number.size
+  def to_s
+    case normal.size
     when 7
-      "#{number[0..2]}-#{number[3..6]}"
+      "#{normal[0..2]}-#{normal[3..6]}"
     when 10
-      "(#{number[0..2]}) #{number[3..5]}-#{number[6..9]}"
+      "(#{normal[0..2]}) #{normal[3..5]}-#{normal[6..9]}"
     else
       self.original
     end
   end
+
+  def update_normal
+    if original_changed?
+      self.normal = number
+    end
+  end
+
 end

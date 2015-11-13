@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151112225119) do
+ActiveRecord::Schema.define(version: 20151113225150) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -221,16 +221,16 @@ ActiveRecord::Schema.define(version: 20151112225119) do
   create_table "phones", force: :cascade do |t|
     t.string   "label"
     t.string   "original"
-    t.integer  "number"
     t.integer  "callable_id"
     t.string   "callable_type"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.text     "normal"
   end
 
   add_index "phones", ["callable_type", "callable_id"], name: "index_phones_on_callable_type_and_callable_id", using: :btree
   add_index "phones", ["label"], name: "index_phones_on_label", using: :btree
-  add_index "phones", ["number"], name: "index_phones_on_number", using: :btree
+  add_index "phones", ["normal"], name: "index_phones_on_normal", using: :btree
   add_index "phones", ["original"], name: "index_phones_on_original", using: :btree
 
   create_table "report_card_comment_groups", force: :cascade do |t|
