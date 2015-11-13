@@ -11,7 +11,7 @@ class EmployeeDispatcher
   end
 
   def path
-    classrooms_path
+    sites_path
   end
 
   def dispatched_role?
