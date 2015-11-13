@@ -15,8 +15,8 @@
 class Phone < ActiveRecord::Base
   belongs_to :callable, polymorphic: true
 
-  def number
-    self.original.gsub(/\D/, '')
+  def set_number
+    self.number = original.gsub(/\D/, '')
   end
 
   def normalize

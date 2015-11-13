@@ -15,7 +15,7 @@ module Aeries
     end
 
     def import!
-      event = SyncEvent.create(label: 'student')
+      event = SyncEvent.create(label: 'aeries:student')
 
       attrs = student.to_student
 
