@@ -13,6 +13,8 @@
 #  updated_at       :datetime         not null
 #  addressable_id   :integer
 #  addressable_type :string
+#  name             :text
+#  street2          :text
 #
 
 class Address < ActiveRecord::Base

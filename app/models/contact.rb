@@ -13,6 +13,7 @@
 #  import_details   :jsonb
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  relationship     :string
 #
 
 class Contact < ActiveRecord::Base
