@@ -1,0 +1,28 @@
+<ol class="breadcrumb">
+  <li><%= link_to 'Home', root_path %></li>
+  <li><%= link_to @student.homeroom.name, @student.homeroom %></li>
+  <li><%= link_to @student.name, @student %></li>
+</ol>
+
+<%= bootstrap_form_for @student do |f| %>
+
+  <div class="row">
+    <div class="col-md-4">
+      <%= f.select :home_lang_id, @langs %>
+      <%= f.submit %>
+    </div>
+    <div class="col-md-6 col-md-offset-2">
+      <div class="alert alert-info">
+        <h5>Heads up!</h5>
+        <p>
+          This setting will be changed back to the Aeries setting
+          the next time this student is synced.
+          Change the language right before generating the report card PDF.
+        </p>
+      </div>
+    </div>
+  </div>
+
+
+
+<% end %>

@@ -18,4 +18,6 @@
 
 <p><strong>Home language:</strong> <%= @student.home_lang.try(:name) %></p>
 
+<p><%= link_to 'Edit', edit_student_path(@student), class: 'btn btn-primary' %></p>
+
 <% end %>
