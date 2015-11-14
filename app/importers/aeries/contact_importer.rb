@@ -1,9 +1,9 @@
 module Aeries
   class ContactImporter
 
-    def for_student(student)
+    def self.for_student(student)
       if a = student.aeries_student
-        aeries_student.contacts.each do |c|
+        a.contacts.each do |c|
           new(c).import!
         end
       end
