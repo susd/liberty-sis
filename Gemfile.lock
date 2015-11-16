@@ -207,6 +207,7 @@ GEM
     multi_xml (0.5.5)
     multipart-post (2.0.0)
     mysql2 (0.3.18)
+    namae (0.10.1)
     nenv (0.2.0)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
@@ -394,6 +395,7 @@ DEPENDENCIES
   meta_request
   minitest-reporters
   mysql2 (= 0.3.18)
+  namae
   nokogiri
   omniauth-google-oauth2
   pg

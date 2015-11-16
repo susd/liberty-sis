@@ -46,6 +46,7 @@ gem 'delayed-web'
 gem 'kaminari'
 gem 'jquery-ui-rails'
 gem 'pg_search'
+gem 'namae'
 
 # For Aeries
 gem 'tiny_tds', '~> 0.6.3.rc1'

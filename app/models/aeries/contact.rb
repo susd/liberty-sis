@@ -55,11 +55,15 @@ module Aeries
     end
 
     def first_name
-      # attributes['fn'] or attempt to pull from mailing name
+      attributes['fn'].blank? ? parsed_name.given : attributes['fn']
     end
 
     def last_name
-      # attributes['ln'] or attempt to pull from mailing name
+      attributes['ln'].blank? ? parsed_name.family : attributes['fn']
+    end
+
+    def parsed_name
+      Namae::Name.parse attributes['nm']
     end
 
     private
