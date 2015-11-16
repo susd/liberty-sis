@@ -14,8 +14,8 @@ module Aeries
     def contact_attrs
       {
         contactable: find_contactable,
-        first_name: attributes['fn'],
-        last_name: attributes['ln'],
+        first_name: first_name,
+        last_name: last_name,
         email: attributes['em'],
         note: attributes['me'],
         relationship: relationship,
@@ -30,7 +30,7 @@ module Aeries
         street2: attributes['ad2'],
         city: attributes['cy'],
         state: attributes['st'],
-        zip: attributes['zc'],
+        zip: zip_code,
         name: attributes['nm']
       }
     end
@@ -48,6 +48,18 @@ module Aeries
 
     def find_contactable
       ::Student.active.find_by(["import_details @> ?", {import_id: attributes['pid']}.to_json])
+    end
+
+    def zip_code
+      attributes['zc'].blank? ? 0 : attributes['zc']
+    end
+
+    def first_name
+      # attributes['fn'] or attempt to pull from mailing name
+    end
+
+    def last_name
+      # attributes['ln'] or attempt to pull from mailing name
     end
 
     private

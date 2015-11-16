@@ -18,6 +18,10 @@
 
 class Contact < ActiveRecord::Base
   belongs_to :contactable, polymorphic: true
-  has_many :addresses, as: :addressable
-  has_many :phones, as: :callable
+  has_many :addresses, as: :addressable, dependent: :destroy
+  has_many :phones, as: :callable, dependent: :destroy
+
+  def name
+    "#{first_name} #{last_name}"
+  end
 end

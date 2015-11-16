@@ -64,7 +64,9 @@ module Aeries
       if native_addr = native.addresses.find_by(label: contact.relationship)
         native_addr.update(contact.address_attrs)
       else
-        native_addr = native.addresses.create(contact.address_attrs)
+        unless contact.address_attrs[:street].blank?
+          native_addr = native.addresses.create(contact.address_attrs)
+        end
       end
     end
 
@@ -73,7 +75,9 @@ module Aeries
         if native_phone = native.phones.find_by(label: phone[:label])
           native_phone.update(phone)
         else
-          native.phones.create(phone)
+          unless phone[:original].blank?
+            native.phones.create(phone)
+          end
         end
       end
     end

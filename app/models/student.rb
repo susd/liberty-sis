@@ -47,6 +47,8 @@ class Student < ActiveRecord::Base
   has_many :classrooms, through: :classroom_memberships
 
   has_many :contacts, as: :contactable, dependent: :destroy
+  has_many :addresses, -> { includes(:addressable) }, through: :contacts
+  has_many :phones, -> { includes(:callable) }, through: :contacts
 
   has_many :enrollments
   has_many :inactive_sites, -> { where(enrollments: {state: 0}) }, source: :site, through: :enrollments
