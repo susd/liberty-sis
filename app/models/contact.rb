@@ -14,6 +14,7 @@
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  relationship     :string
+#  position         :integer
 #
 
 class Contact < ActiveRecord::Base

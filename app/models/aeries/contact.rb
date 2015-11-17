@@ -19,6 +19,8 @@ module Aeries
         email: attributes['em'],
         note: attributes['me'],
         relationship: relationship,
+        label: relationship,
+        position: attributes['sq'],
         import_details: {source: 'aeries', import_class: self.class.to_s}.merge(import_ids)
       }
     end
