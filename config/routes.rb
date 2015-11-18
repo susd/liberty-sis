@@ -41,6 +41,7 @@ Rails.application.routes.draw do
 
     scope module: 'students' do
       resources :classrooms, only: [:index, :destroy]
+      resources :contacts, only: [:index]
     end
   end
 
