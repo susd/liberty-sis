@@ -10,9 +10,43 @@ class TkReportCardPdf < ReportCardPdf
     @layout.render_title_address(lang_strings(:title_address, :english))
     @layout.render_header
 
-    @layout.main_section(data) do |sec|
+    format_main_section(@layout, data['main_subjects'])
+    format_side_section(@layout, data.slice('side_subjects', 'attendance'))
 
-      sec.add_table(data['main_subjects'], coords: [sec.rect.x, sec.rect.y - @layout.legend_rect.h]) do |tbl|
+    @layout.render_footer(data['teacher'], data['principal'], data['next_grade'])
+
+    render_comments(data, :english)
+
+    if @report_card.student.home_lang.name == 'Spanish'
+      @layout.start_new_page
+      @layout.render_details(data['name'], data['school'], data['year'])
+      @layout.render_title_address(lang_strings(:title_address, :spanish))
+      @layout.render_spanish_header
+
+      format_main_section(@layout, data['spanish_main'])
+      format_side_section(@layout, {'side_subjects' => data['spanish_side'], 'attendance' => data['spanish_attendance']}, :spanish)
+
+      @layout.render_spanish_footer(data['teacher'], data['principal'], data['next_grade'])
+
+      render_comments(data, :spanish)
+
+    end
+
+    @layout.render
+  end
+
+  def english_title
+    "Transitional Kindergarten Progress Report Card"
+  end
+
+  def spanish_title
+    "Reporte de Progreso"
+  end
+
+  def format_main_section(layout, data, lang = :english)
+
+    layout.main_section(data) do |sec|
+      sec.add_table(data, coords: [sec.rect.x, sec.rect.y - @layout.legend_rect.h]) do |tbl|
         tbl.width = sec.rect.w
         tbl.cells.border_width = 0.25
         tbl.cells.border_colors = [BLACK, DGREY]
@@ -44,8 +78,11 @@ class TkReportCardPdf < ReportCardPdf
       end
     end
 
-    @layout.side_section(data) do |sec|
+  end
 
+  def format_side_section(layout, data, lang = :english, att_offset = 288, pol_offset = 360)
+
+    @layout.side_section(data['side_subjects']) do |sec|
       data['side_subjects'].insert(0, ['Work/Study Habits'.upcase, '1st', '2nd', '3rd'])
       data['side_subjects'].insert(8, ['Citizenship'.upcase, '1st', '2nd', '3rd'])
 
@@ -76,27 +113,24 @@ class TkReportCardPdf < ReportCardPdf
       end
 
       sec.add_policy
-
     end
 
-    @layout.render_footer(data['teacher'], data['principal'], data['next_grade'])
+  end
 
+  def render_comments(data, lang = :english)
     if data['comments'].any?
       @layout.start_new_page
-
       @layout.render_details(data['name'], data['school'], data['year'])
-      @layout.render_comments(data['comments'])
+      if lang == :spanish
+        @layout.render_comments(data['spanish_comments'], :spanish)
+      else
+        @layout.render_comments(data['comments'], :english)
+      end
+
+      if data['comments'].values.flatten.count > 34
+        @layout.start_new_page
+      end
     end
-
-    @layout.render
-  end
-
-  def english_title
-    "Transitional Kindergarten Progress Report Card"
-  end
-
-  def spanish_title
-    "Reporte de Progreso"
   end
 
 end
