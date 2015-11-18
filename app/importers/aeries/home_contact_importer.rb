@@ -1,6 +1,6 @@
 module Aeries
   class HomeContactImporter
-    def self.from_student(native_student)
+    def self.for_student(native_student)
       if a = native_student.aeries_student
         new(a).import!
       end

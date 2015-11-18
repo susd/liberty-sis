@@ -45,7 +45,7 @@ module Aeries
 
     def relationship
       # map Aeries code to string
-      relationship_map[attributes['rl']]
+      relationship_map[attributes['rl']] || "Other"
     end
 
     def find_contactable
