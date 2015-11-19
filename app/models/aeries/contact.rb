@@ -61,7 +61,7 @@ module Aeries
     end
 
     def last_name
-      attributes['ln'].blank? ? parsed_name.family : attributes['fn']
+      attributes['ln'].blank? ? parsed_name.family : attributes['ln']
     end
 
     def parsed_name
