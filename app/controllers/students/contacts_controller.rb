@@ -1,7 +1,9 @@
 module Students
-  class ContactsController
+  class ContactsController < ApplicationController
+    before_action :set_student
 
     def index
+      authorize_to(:view, @student)
       @contacts = @student.contacts.order(:position)
     end
 
