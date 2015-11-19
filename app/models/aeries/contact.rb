@@ -13,27 +13,27 @@ module Aeries
 
     def contact_attrs
       {
-        contactable: find_contactable,
-        first_name: first_name,
-        last_name: last_name,
-        email: attributes['em'],
-        note: attributes['me'],
+        contactable:  find_contactable,
+        first_name:   first_name,
+        last_name:    last_name,
+        email:        attributes['em'],
+        note:         attributes['me'],
         relationship: relationship,
-        label: relationship,
-        position: attributes['sq'],
+        label:        relationship,
+        position:     attributes['sq'],
         import_details: {source: 'aeries', import_class: self.class.to_s}.merge(import_ids)
       }
     end
 
     def address_attrs
       {
-        label: relationship,
-        street: attributes['ad'],
-        street2: attributes['ad2'],
-        city: attributes['cy'],
-        state: attributes['st'],
-        zip: zip_code,
-        name: attributes['nm']
+        label:    relationship,
+        street:   attributes['ad'],
+        street2:  attributes['ad2'],
+        city:     attributes['cy'],
+        state:    attributes['st'],
+        zip:      zip_code,
+        name:     attributes['nm']
       }
     end
 

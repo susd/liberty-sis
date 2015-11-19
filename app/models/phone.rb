@@ -13,7 +13,7 @@
 #
 
 class Phone < ActiveRecord::Base
-  belongs_to :callable, polymorphic: true
+  belongs_to :callable, polymorphic: true, touch: true
 
   before_save :update_normal
 
