@@ -27,7 +27,13 @@ module Aeries
     end
 
     def find_native
-      ::Contact.find_by(["import_details @> ?", {import_ids: [student.attributes['id'], 'home']}.to_json])
+      ::Contact.find_by([
+        "import_details @> ?", {
+          import_ids: [
+            [student.attributes['id'], 'home']
+          ]
+        }.to_json
+      ])
     end
 
     def exists?
@@ -71,7 +77,9 @@ module Aeries
         first_name: student.attributes['fn'],
         last_name: student.attributes['ln'],
         email: student.attributes['pem'],
+        label: 'home',
         relationship: 'home',
+        position: 0,
         import_details: {source: 'aeries', import_class: self.class.to_s}.merge(student.import_ids)
       }
     end
