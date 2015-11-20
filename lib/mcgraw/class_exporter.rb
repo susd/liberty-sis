@@ -35,7 +35,7 @@ module Mcgraw
     end
 
     def students
-      teacher.students.order(:last_name)
+      teacher.students.active.order(:last_name)
     end
 
   end
