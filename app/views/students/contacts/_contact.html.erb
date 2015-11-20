@@ -7,6 +7,9 @@
       <%= contact.label %>
     </div>
   </header>
+  <div class="contact-email">
+    <%= mail_to contact.email %>
+  </div>
   <% if contact.addresses.any? %>
   <section class="contact-addresses">
     <div class="contact-section_label">

@@ -4,7 +4,7 @@ module Students
 
     def index
       authorize_to(:view, @student)
-      @contacts = @student.contacts.order(:position)
+      @contacts = @student.contacts.order(position: :asc)
     end
 
     private
