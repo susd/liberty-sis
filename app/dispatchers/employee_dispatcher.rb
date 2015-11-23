@@ -16,7 +16,7 @@ class EmployeeDispatcher
 
   def dispatched_role?
     employee.user.roles.any? do |r|
-      ['principal', 'office'].include? r.name
+      ['principal', 'office', 'sst-teacher'].include? r.name
     end
   end
 end
