@@ -57,6 +57,9 @@ gem 'activerecord-sqlserver-adapter'
 gem 'mysql2', '0.3.18'
 gem 'nokogiri'
 
+# For BBConnect
+gem 'curb', require: false
+
 # PDFs
 gem 'prawn'
 gem 'prawn-table'

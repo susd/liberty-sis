@@ -14,7 +14,7 @@
 
 class Phone < ActiveRecord::Base
   belongs_to :callable, polymorphic: true, touch: true
-
+  validates_presence_of :original
   before_save :update_normal
 
   def number

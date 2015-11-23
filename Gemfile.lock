@@ -97,6 +97,7 @@ GEM
       ruby-rc4 (>= 0.1.5)
     composite_primary_keys (8.1.1)
       activerecord (~> 4.2.0)
+    curb (0.8.6)
     daemons (1.2.3)
     debug_inspector (0.0.2)
     delayed-web (0.3.0)
@@ -379,6 +380,7 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   combine_pdf
   composite_primary_keys
+  curb
   daemons
   delayed-web
   delayed_job_active_record
