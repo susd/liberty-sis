@@ -15,6 +15,7 @@ class EmployeeDispatcher
   end
 
   def dispatched_role?
+    #FIXME: Remove magic
     employee.user.roles.any? do |r|
       ['principal', 'office', 'sst-teacher'].include? r.name
     end
