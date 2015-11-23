@@ -27,7 +27,7 @@ $contact-highlight: #767A7D;
 }
 
 .contact-section_label{
-  color: $contact-highlight;
+  font-weight: bold;
   border-bottom: 1px solid $contact-border-color;
   margin: 1em 0;
 }
@@ -51,7 +51,7 @@ $contact-highlight: #767A7D;
 
 .address-label{
   font-size: 14px;
-  color: #757575;
+  font-weight: bold;
 }
 
 .phone_table{
