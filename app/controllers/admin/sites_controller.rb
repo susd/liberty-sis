@@ -4,8 +4,21 @@ class Admin::SitesController < AdminController
     @sites = Site.order(:code)
   end
 
+  def new
+    @site = Site.new
+  end
+
   def edit
     set_site
+  end
+
+  def create
+    @site = Site.new(site_params)
+    if @site.save
+      redirect_to admin_sites_path, notice: 'Site saved'
+    else
+      render :new
+    end
   end
 
   def update

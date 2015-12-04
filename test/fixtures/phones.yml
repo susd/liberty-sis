@@ -1,0 +1,29 @@
+# == Schema Information
+#
+# Table name: phones
+#
+#  id            :integer          not null, primary key
+#  label         :string
+#  original      :string
+#  callable_id   :integer
+#  callable_type :string
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  normal        :text
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  label: MyString
+  original: MyString
+  normal: 1
+  callable_id: 
+  callable_type: Callable
+
+two:
+  label: MyString
+  original: MyString
+  normal: 1
+  callable_id: 
+  callable_type: Callable

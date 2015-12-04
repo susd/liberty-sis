@@ -1,0 +1,23 @@
+<% cache(address) do %>
+<article class="address">
+  <header class="address-header">
+    <% unless address.label == address.addressable.label %>
+    <div class="address-label">
+      <%= address.label.try(:humanize) %>
+    </div>
+    <% end %>
+
+    <% unless address.name.blank? %>
+    <div class="address-name">
+      <%= address.name %>
+    </div>
+    <% end %>
+  </header>
+
+  <div class="address-body">
+    <%= address.street %><br>
+    <%= address.city %> <%= address.state %> <%= address.zip %><br>
+    <%= address.country %>
+  </div>
+</article>
+<% end %>

@@ -1,0 +1,31 @@
+<div class="contact" id="<%= dom_id(contact) %>">
+  <header class="contact-header">
+    <h1 class="contact-name">
+      <%= contact.name %>
+    </h1>
+    <div class="contact-label">
+      <%= contact.label %>
+    </div>
+  </header>
+  <div class="contact-email">
+    <%= mail_to contact.email %>
+  </div>
+  <% if contact.addresses.any? %>
+  <section class="contact-addresses">
+    <div class="contact-section_label">
+      Addresses
+    </div>
+    <%= render partial: 'addresses/address', collection: contact.addresses, as: :address %>
+  </section>
+  <% end %>
+  <% if contact.phones.any? %>
+  <section class="contact-phones">
+    <div class="contact-section_label">
+      Phone numbers
+    </div>
+    <div class="phone_table">
+      <%= render partial: 'phones/phone', collection: contact.phones, as: :phone %>
+    </div>
+  </section>
+  <% end %>
+</div>

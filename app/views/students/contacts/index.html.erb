@@ -1,0 +1,15 @@
+<ol class="breadcrumb">
+  <li><%= link_to 'Home', root_path %></li>
+  <li><%= link_to @student.homeroom.name, @student.homeroom %></li>
+</ol>
+
+<div class="page-header">
+  <h2><%= @student.name %></h2>
+  <p>Homeroom: <%= @student.homeroom.name %></p>
+</div>
+
+<%= render 'students/tabs' %>
+
+<div class="contacts">
+  <%= render @contacts %>
+</div>

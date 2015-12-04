@@ -11,12 +11,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151102223226) do
+ActiveRecord::Schema.define(version: 20151117190900) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "unaccent"
   enable_extension "pg_trgm"
+
+  create_table "addresses", force: :cascade do |t|
+    t.text     "label",            default: "mailing", null: false
+    t.text     "street"
+    t.text     "city"
+    t.text     "state",            default: "CA",      null: false
+    t.text     "country",          default: "USA",     null: false
+    t.integer  "zip",              default: 91355,     null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.integer  "addressable_id"
+    t.string   "addressable_type"
+    t.text     "name"
+    t.text     "street2"
+  end
+
+  add_index "addresses", ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable_type_and_addressable_id", using: :btree
+  add_index "addresses", ["city"], name: "index_addresses_on_city", using: :btree
+  add_index "addresses", ["label"], name: "index_addresses_on_label", using: :btree
+  add_index "addresses", ["street"], name: "index_addresses_on_street", using: :btree
 
   create_table "attendances", force: :cascade do |t|
     t.integer  "student_id"
@@ -67,6 +87,23 @@ ActiveRecord::Schema.define(version: 20151102223226) do
   end
 
   add_index "comments_report_cards", ["report_card_comment_id", "report_card_id"], name: "index_comments_report_cards", unique: true, using: :btree
+
+  create_table "contacts", force: :cascade do |t|
+    t.integer  "contactable_id"
+    t.string   "contactable_type"
+    t.string   "label"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "email"
+    t.text     "note"
+    t.jsonb    "import_details"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.string   "relationship"
+    t.integer  "position"
+  end
+
+  add_index "contacts", ["contactable_type", "contactable_id"], name: "index_contacts_on_contactable_type_and_contactable_id", using: :btree
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   default: 0, null: false
@@ -181,6 +218,21 @@ ActiveRecord::Schema.define(version: 20151102223226) do
   add_index "personas", ["handler", "username"], name: "index_personas_on_handler_and_username", unique: true, using: :btree
   add_index "personas", ["personable_id", "personable_type"], name: "index_personas_on_personable_id_and_personable_type", using: :btree
   add_index "personas", ["student_id"], name: "index_personas_on_student_id", using: :btree
+
+  create_table "phones", force: :cascade do |t|
+    t.string   "label"
+    t.string   "original"
+    t.integer  "callable_id"
+    t.string   "callable_type"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.text     "normal"
+  end
+
+  add_index "phones", ["callable_type", "callable_id"], name: "index_phones_on_callable_type_and_callable_id", using: :btree
+  add_index "phones", ["label"], name: "index_phones_on_label", using: :btree
+  add_index "phones", ["normal"], name: "index_phones_on_normal", using: :btree
+  add_index "phones", ["original"], name: "index_phones_on_original", using: :btree
 
   create_table "report_card_comment_groups", force: :cascade do |t|
     t.string   "name"

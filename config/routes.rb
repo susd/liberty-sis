@@ -41,6 +41,7 @@ Rails.application.routes.draw do
 
     scope module: 'students' do
       resources :classrooms, only: [:index, :destroy]
+      resources :contacts, only: [:index]
     end
   end
 
@@ -50,7 +51,7 @@ Rails.application.routes.draw do
     resources :users, except: [:new, :create], concerns: [:searchable]
     resources :employees, concerns: [:searchable]
     resources :roles
-    resources :sites
+    resources :sites, except: [:destroy]
     resources :sync_events
   end
 

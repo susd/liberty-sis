@@ -46,6 +46,7 @@ gem 'delayed-web'
 gem 'kaminari'
 gem 'jquery-ui-rails'
 gem 'pg_search'
+gem 'namae'
 
 # For Aeries
 gem 'tiny_tds', '~> 0.6.3.rc1'
@@ -55,6 +56,9 @@ gem 'activerecord-sqlserver-adapter'
 # For iSchool
 gem 'mysql2', '0.3.18'
 gem 'nokogiri'
+
+# For BBConnect
+gem 'curb', require: false
 
 # PDFs
 gem 'prawn'

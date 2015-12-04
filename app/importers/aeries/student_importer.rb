@@ -15,7 +15,7 @@ module Aeries
     end
 
     def import!
-      event = SyncEvent.create(label: 'student')
+      event = SyncEvent.create(label: 'aeries:student')
 
       attrs = student.to_student
 
@@ -27,6 +27,7 @@ module Aeries
 
       import_enrollments!
       import_attendance!
+      import_contacts!
 
       event.update(state: 1, syncable: native)
 
@@ -49,6 +50,11 @@ module Aeries
 
     def import_attendance!
       Aeries::AttendanceImporter.new(student).import!
+    end
+
+    def import_contacts!
+      Aeries::HomeContactImporter.new(student).import!
+      Aeries::ContactImporter.for_student(native)
     end
 
     def native

@@ -332,5 +332,9 @@ module Aeries
       end
     end
 
+    def contacts
+      Aeries::Contact.where(pid: self.attributes['id'])
+    end
+
   end
 end

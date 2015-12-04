@@ -97,6 +97,7 @@ GEM
       ruby-rc4 (>= 0.1.5)
     composite_primary_keys (8.1.1)
       activerecord (~> 4.2.0)
+    curb (0.8.6)
     daemons (1.2.3)
     debug_inspector (0.0.2)
     delayed-web (0.3.0)
@@ -207,6 +208,7 @@ GEM
     multi_xml (0.5.5)
     multipart-post (2.0.0)
     mysql2 (0.3.18)
+    namae (0.10.1)
     nenv (0.2.0)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
@@ -378,6 +380,7 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   combine_pdf
   composite_primary_keys
+  curb
   daemons
   delayed-web
   delayed_job_active_record
@@ -394,6 +397,7 @@ DEPENDENCIES
   meta_request
   minitest-reporters
   mysql2 (= 0.3.18)
+  namae
   nokogiri
   omniauth-google-oauth2
   pg
