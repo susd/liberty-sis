@@ -12,12 +12,32 @@
 
 <%= render 'tabs' %>
 
-<p><strong>Full name:</strong> <%= @student.full_name %></p>
+<div class="row">
+  <div class="col-md-8">
+    <p><strong>Full name:</strong> <%= @student.full_name %></p>
 
-<p><strong>Birthdate:</strong> <%= @student.birthdate.strftime('%B %d, %Y') %></p>
+    <p><strong>Birthdate:</strong> <%= @student.birthdate.strftime('%B %d, %Y') %></p>
 
-<p><strong>Home language:</strong> <%= @student.home_lang.try(:name) %></p>
+    <p><strong>Home language:</strong> <%= @student.home_lang.try(:name) %></p>
 
-<p><%= link_to 'Edit', edit_student_path(@student), class: 'btn btn-primary' %></p>
+    <p><%= link_to 'Edit', edit_student_path(@student), class: 'btn btn-primary' %></p>
+  </div>
+  <div class="col-md-4">
+
+    <div class="info_group">
+      <div class="info_group-label">
+        <h4>Import Details</h4>
+      </div>
+      <div class="info_group-content">
+        <ul>
+          <% @student.import_details.each do |key, value| %>
+            <li><strong><%= key %></strong>: <%= value %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>
 
 <% end %>
