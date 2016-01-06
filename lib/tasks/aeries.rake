@@ -15,4 +15,11 @@ namespace :aeries do
     end
   end
 
+  task contacts: :environment do
+    Student.order(:site).find_each.with_index do |student, idx|
+      Aeries::SyncContactsJob.set(wait_until: 8.hours.ago).perform_later(student)
+      progress(idx)
+    end
+  end
+
 end
