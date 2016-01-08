@@ -1,5 +1,5 @@
 module Aeries
-  class SyncSchoolJob < ActiveJob::Base
+  class SyncSchoolRecentsJob < ActiveJob::Base
     queue_as :sync
 
     after_perform do |job|
@@ -7,7 +7,7 @@ module Aeries
     end
 
     def perform(school_code)
-      Aeries::SchoolImporter.new(school_code).import!
+      Aeries::SchoolImporter.new(school_code).import_recent!
     end
   end
 end
