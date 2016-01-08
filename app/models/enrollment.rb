@@ -11,7 +11,7 @@
 #  state          :integer          default(0), not null
 #  starts_on      :date
 #  ends_on        :date
-#  import_details :jsonb            default({}), not null
+#  import_details :jsonb            not null
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #

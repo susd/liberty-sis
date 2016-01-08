@@ -9,7 +9,7 @@
 #  kind           :integer          default(0), not null
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
-#  import_details :jsonb            default({}), not null
+#  import_details :jsonb            not null
 #
 
 class Attendance < ActiveRecord::Base
