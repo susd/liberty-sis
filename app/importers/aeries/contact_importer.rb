@@ -46,13 +46,13 @@ module Aeries
 
     def update_native_records
       native.update(contact.contact_attrs)
-      create_or_update_address
+      import_address
       create_or_update_phones
     end
 
     def create_native_records
       create_contact
-      create_or_update_address
+      import_address
       create_or_update_phones
     end
 
@@ -60,14 +60,8 @@ module Aeries
       ::Contact.create(contact.contact_attrs)
     end
 
-    def create_or_update_address
-      if native_addr = native.addresses.find_by(label: contact.relationship)
-        native_addr.update(contact.address_attrs)
-      else
-        unless contact.address_attrs[:street].blank?
-          native_addr = native.addresses.create(contact.address_attrs)
-        end
-      end
+    def import_address
+      Aeries::AddressImporter.new(self, contact.address_attrs).import
     end
 
     def create_or_update_phones
