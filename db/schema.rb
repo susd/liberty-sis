@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151117190900) do
+ActiveRecord::Schema.define(version: 20160108192724) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -361,6 +361,7 @@ ActiveRecord::Schema.define(version: 20151117190900) do
     t.datetime "updated_at",                     null: false
     t.jsonb    "import_details",    default: {}, null: false
     t.integer  "state",             default: 0,  null: false
+    t.integer  "ssid"
   end
 
   add_index "students", ["birthdate"], name: "index_students_on_birthdate", using: :btree
@@ -371,6 +372,7 @@ ActiveRecord::Schema.define(version: 20151117190900) do
   add_index "students", ["last_name"], name: "index_students_on_last_name", using: :btree
   add_index "students", ["legacy_id"], name: "index_students_on_legacy_id", unique: true, using: :btree
   add_index "students", ["site_id"], name: "index_students_on_site_id", using: :btree
+  add_index "students", ["ssid"], name: "index_students_on_ssid", using: :btree
   add_index "students", ["state"], name: "index_students_on_state", using: :btree
 
   create_table "sync_events", force: :cascade do |t|

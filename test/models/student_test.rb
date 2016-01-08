@@ -20,8 +20,9 @@
 #  legacy_id         :integer
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
-#  import_details    :jsonb            default({}), not null
+#  import_details    :jsonb            not null
 #  state             :integer          default(0), not null
+#  ssid              :integer
 #
 
 require 'test_helper'
