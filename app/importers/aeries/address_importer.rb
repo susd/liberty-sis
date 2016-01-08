@@ -17,7 +17,9 @@ module Aeries
 
     def attrs
       @attrs ||= begin
-        @address_attrs[:zip] ||= DEFAULT_ZIP
+        if @address_attrs[:zip].blank?
+          @address_attrs[:zip] = DEFAULT_ZIP
+        end
         @address_attrs
       end
     end
