@@ -23,7 +23,7 @@ module Aeries
     end
 
     def native_contact
-      @native_contact ||= find_native_contact
+      @contact_importer.native
     end
 
     def native
@@ -35,10 +35,6 @@ module Aeries
     end
 
     private
-
-    def find_native_contact
-      @contact_importer.native
-    end
 
     def find_native_address
       native_contact.addresses.find_by(label: attrs[:label])

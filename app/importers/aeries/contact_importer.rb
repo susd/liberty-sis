@@ -66,13 +66,7 @@ module Aeries
 
     def create_or_update_phones
       contact.phone_attrs.each do |phone|
-        if native_phone = native.phones.find_by(label: phone[:label])
-          native_phone.update(phone)
-        else
-          unless phone[:original].blank?
-            native.phones.create(phone)
-          end
-        end
+        Aeries::PhoneImporter.new(self, phone).import
       end
     end
 
