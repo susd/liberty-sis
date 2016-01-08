@@ -8,7 +8,7 @@ module Bbconnect
       path ||= PATH
       CSV.open(path, 'w') do |csv|
         csv << header
-        student_relation.includes(:contacts, :site, :grade).order(:site, :grade).find_each do |student|
+        student_relation.includes(:contacts, :site, :grade).find_each do |student|
           csv << new(student).export
         end
       end
@@ -39,21 +39,27 @@ module Bbconnect
     end
 
     def export
-      [
+      row = [
         import_id,
         "Student",
         student.first_name,
         student.last_name,
         student.grade.simple,
         language,
-        student.sex,
-        primary_phone,
-        home_phone,
-        workphone,
-        workphone_alt,
-        email,
-        student.site.abbr.upcase
+        student.sex
       ]
+      if home_contact
+        row += [
+          primary_phone,
+          home_phone,
+          workphone,
+          workphone_alt,
+          email,
+          student.site.abbr.upcase
+        ]
+      end
+      
+      row
     end
 
     def import_id

@@ -53,21 +53,13 @@ module Aeries
 
     def create_or_update_addresses
       address_attrs.each do |addr_hsh|
-        if ntv = native.addresses.find_by(label: addr_hsh[:label])
-          ntv.update(addr_hsh)
-        else
-          native.addresses.create(addr_hsh)
-        end
+        Aeries::AddressImporter.new(self, addr_hsh).import
       end
     end
 
     def create_or_update_phones
       phone_attrs.each do |ph_hsh|
-        if ntv = native.phones.find_by(label: ph_hsh[:label])
-          ntv.update(ph_hsh)
-        else
-          native.phones.create(ph_hsh)
-        end
+        Aeries::PhoneImporter.new(self, ph_hsh).import
       end
     end
 
