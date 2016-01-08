@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: classrooms
+#
+#  id                 :integer          not null, primary key
+#  name               :string
+#  site_id            :integer
+#  import_details     :jsonb            not null
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  primary_teacher_id :integer
+#
+
 class ClassroomsController < ApplicationController
 
   def index

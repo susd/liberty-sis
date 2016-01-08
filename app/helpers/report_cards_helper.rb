@@ -1,3 +1,20 @@
+# == Schema Information
+#
+# Table name: report_cards
+#
+#  id                  :integer          not null, primary key
+#  student_id          :integer
+#  report_card_form_id :integer
+#  data                :jsonb            not null
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  import_details      :jsonb            not null
+#  year                :integer          default(2015), not null
+#  employee_id         :integer
+#  pdf_path            :text
+#  legacy_id           :integer
+#
+
 module ReportCardsHelper
   def delete_report_card_link(student, report_card)
     options = {

@@ -4,7 +4,7 @@
 #
 #  id          :integer          not null, primary key
 #  name        :text
-#  permissions :jsonb            default({}), not null
+#  permissions :jsonb            not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #

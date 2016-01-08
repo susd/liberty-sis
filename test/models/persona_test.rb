@@ -11,7 +11,7 @@
 #  updated_at      :datetime         not null
 #  state           :integer          default(0), not null
 #  service_id      :string
-#  service_data    :jsonb            default({}), not null
+#  service_data    :jsonb            not null
 #  synced_at       :datetime
 #  personable_id   :integer
 #  personable_type :string           default("Student")

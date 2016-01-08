@@ -18,7 +18,7 @@
 #  user_id         :integer
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
-#  import_details  :jsonb            default({}), not null
+#  import_details  :jsonb            not null
 #  primary_site_id :integer
 #
 
