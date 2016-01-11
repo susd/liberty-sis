@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160108204811) do
+ActiveRecord::Schema.define(version: 20160109003521) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,19 @@ ActiveRecord::Schema.define(version: 20160108204811) do
   add_index "addresses", ["city"], name: "index_addresses_on_city", using: :btree
   add_index "addresses", ["label"], name: "index_addresses_on_label", using: :btree
   add_index "addresses", ["street"], name: "index_addresses_on_street", using: :btree
+
+  create_table "assessments", force: :cascade do |t|
+    t.integer  "student_id"
+    t.string   "name"
+    t.jsonb    "data",       default: {}, null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.date     "taken_on"
+  end
+
+  add_index "assessments", ["data"], name: "index_assessments_on_data", using: :gin
+  add_index "assessments", ["student_id"], name: "index_assessments_on_student_id", using: :btree
+  add_index "assessments", ["taken_on"], name: "index_assessments_on_taken_on", using: :btree
 
   create_table "attendances", force: :cascade do |t|
     t.integer  "student_id"
@@ -430,6 +443,7 @@ ActiveRecord::Schema.define(version: 20160108204811) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
+  add_foreign_key "assessments", "students"
   add_foreign_key "attendances", "students"
   add_foreign_key "classroom_leaderships", "classrooms"
   add_foreign_key "classroom_leaderships", "employees"
