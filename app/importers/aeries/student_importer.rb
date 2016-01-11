@@ -20,7 +20,8 @@ module Aeries
       attrs = student.to_student
 
       if exists?
-        update_if_active(attrs)
+        # update_if_active(attrs)
+        native.update(attrs)
       else
         @native = ::Student.create(attrs)
       end

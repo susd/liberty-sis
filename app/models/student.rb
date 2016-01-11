@@ -56,6 +56,7 @@ class Student < ActiveRecord::Base
 
   has_many :personas, as: :personable, dependent: :destroy
   has_many :sync_events, as: :syncable, dependent: :nullify
+  has_many :assessments
 
   aasm column: :state, enum: true do
     state :pending, initial: true

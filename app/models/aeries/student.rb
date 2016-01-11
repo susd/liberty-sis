@@ -276,7 +276,7 @@ module Aeries
         grade:        liberty_grade,
         site:         liberty_site,
         state:        state,
-        ssid:         attributes['cid'],
+        ssid:         attributes['cid'].to_i,
         import_details: {source: 'aeries', import_class: self.class.to_s}.merge(import_ids)
       }
     end
