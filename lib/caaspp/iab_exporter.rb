@@ -3,12 +3,12 @@ module Caaspp
     def self.header
       # A,I, K, M, AQ, AR, AS, AT
       %w{
-        AssessmentGuid NameOfInstitution StudentIdentifier FirstName LastName
-        AssessmentAdministrationFinishDate
-        AssessmentSubtestResultScoreClaim1Value
-        AssessmentClaim1PerformanceLevelIdentifier
-        AssessmentSubtestClaim1MinimumValue
-        AssessmentSubtestClaim1MaximumValue
+        FirstName LastName
+        FinishDate
+        Result
+        Level
+        Minimum
+        Maximum
       }
     end
 
@@ -24,9 +24,6 @@ module Caaspp
 
     def export
       [
-        assessment.name,
-        student.site.name,
-        student.ssid,
         student.first_name,
         student.last_name,
         assessment.taken_on.to_s,

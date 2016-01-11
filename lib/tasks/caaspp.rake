@@ -30,6 +30,7 @@ namespace :caaspp do
     end
   end
 
+  #FIXME: Don't assume all assessments are the same
   task export: :environment do
     # rel = Assessment.includes(student: :homeroom).order("students.site_id students.homeroom_id")
     path_prefix = Rails.root.join('tmp', 'data', 'caaspp', 'export')
