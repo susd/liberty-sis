@@ -144,13 +144,8 @@ class ReportCardPdf
   end
 
   def subject_scope
-    # Subject.where(id: @report_card.data['subjects'].keys).order(:position)
     @report_card.form.subjects.order(:position)
   end
-
-  # def aeries_student
-  #   @aeries_student ||= Aeries::Student.active.find_by(id: @report_card.student.aeries_id)
-  # end
 
   def student
     @student ||= @report_card.student

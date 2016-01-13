@@ -138,7 +138,6 @@ class Student < ActiveRecord::Base
 
   private
 
-  #FIXME: too dependent on knowing how importer works
   def import_from_source
     if import_details['import_class'].nil?
       false

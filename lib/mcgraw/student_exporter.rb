@@ -36,13 +36,6 @@ module Mcgraw
       gr == 0 ? 'K' : gr.to_s
     end
 
-    # TODO: allow teachers to input redemption code for export here
-    # currently this the *Master Code* which does not work
-    #
-    # def redemp_code
-    #   # setting by grade
-    #   Setting.find_by(name: "mcg_codes").data[grade]
-    # end
   end
 
 end

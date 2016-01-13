@@ -42,10 +42,6 @@ class Employee < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
-  # def email
-  #   attributes['email'] || guess_email
-  # end
-
   def persona_domain
     "saugususd.org"
   end
@@ -66,7 +62,6 @@ class Employee < ActiveRecord::Base
     pass
   end
 
-  # FIXME: This is great idea, if there were any emails in the table to begin with!
   def guess_email
     if user.nil?
       attempt = "#{first_name[0]}#{lastest_name}@#{persona_domain}".downcase
@@ -124,7 +119,6 @@ class Employee < ActiveRecord::Base
 
   private
 
-  #FIXME: too dependent on knowing how importer works
   def import_from_source
     if import_details['import_class'].nil?
       false

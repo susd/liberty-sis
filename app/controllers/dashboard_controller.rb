@@ -1,6 +1,5 @@
 class DashboardController < ApplicationController
   def index
-    # TODO: send different users to different dashboards?
     if dispatch?
       redirect_to teacher_path
     end
@@ -19,7 +18,6 @@ class DashboardController < ApplicationController
   end
 
   def dispatcher
-    # @dispatcher ||= TeacherDispatcher.new(current_employee)
     klass = "#{current_employee.class.to_s.titlecase}Dispatcher".safe_constantize || EmployeeDispatcher
     @dispatcher ||= klass.new(current_employee)
   end
