@@ -29,6 +29,7 @@ module Aeries
       import_enrollments!
       import_attendance!
       import_contacts!
+      set_native_membership
 
       event.update(state: 1, syncable: native)
 
@@ -85,6 +86,10 @@ module Aeries
 
     def reset_native_memberships
       native.classroom_memberships.destroy_all
+      set_native_membership
+    end
+
+    def set_native_membership
       native.add_classroom(enrollments.active.first.liberty_classroom)
     end
 
