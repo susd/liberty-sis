@@ -40,13 +40,6 @@ module Aeries
         end
         native_attendance.assign_attributes(att_attrs(att))
         native_attendance.save
-        # TODO: Sync all attendance?
-        # if native_attendance.save
-        #   sync_state = 1
-        # else
-        #   sync_state = 2
-        # end
-        # SyncEvent.create(state: sync_state, syncable: native_attendance, label: 'attendance')
       end
     end
 
