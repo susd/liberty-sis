@@ -90,7 +90,9 @@ module Aeries
     end
 
     def set_native_membership
-      native.add_classroom(enrollments.active.first.liberty_classroom)
+      if classroom = enrollments.try(:active).try(:first).try(:liberty_classroom)
+        native.add_classroom(classroom)
+      end
     end
 
     private
