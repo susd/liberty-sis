@@ -39,7 +39,7 @@ class ReportCard < ActiveRecord::Base
   end
 
   def editible?
-    self.year == ReportCard::GradingPeriod.school_year
+    self.year == SchoolYear.this_year
   end
 
   def fetch_data(keys = [])

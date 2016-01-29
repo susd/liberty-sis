@@ -32,16 +32,4 @@ class ReportCard::GradingPeriodTest < ActiveSupport::TestCase
       assert_equal last_date, ReportCard::GradingPeriod.current_year.last.ends_on
     end
   end
-
-  test "finding school year" do
-    Timecop.travel(Date.new(2015, 8, 12)) do
-      assert_equal 2015, ReportCard::GradingPeriod.school_year
-    end
-    Timecop.travel(Date.new(2016, 2, 28)) do
-      assert_equal 2015, ReportCard::GradingPeriod.school_year
-    end
-    Timecop.travel(Date.new(2016, 7, 15)) do
-      assert_equal 2016, ReportCard::GradingPeriod.school_year
-    end
-  end
 end

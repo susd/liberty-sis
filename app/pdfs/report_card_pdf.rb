@@ -16,7 +16,7 @@ class ReportCardPdf
   def collate_data
     data = {
       'name'        => student.name,
-      'year'        => ReportCard::GradingPeriod.school_year,
+      'year'        => SchoolYear.this_year,
       'school'      => student.site.name,
       'teacher'     => teacher_name,
       'principal'   => student.site.principal,

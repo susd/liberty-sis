@@ -35,26 +35,11 @@ class ReportCard::GradingPeriod < ActiveRecord::Base
   end
 
   def self.current_year
-    where(year: school_year).order(:position)
+    where(year: SchoolYear.this_year).order(:position)
   end
 
   def self.current_year_range
     (current_year.first.starts_on..current_year.last.ends_on)
-  end
-
-  def self.school_year
-    school_year_for(Time.now)
-  end
-
-  def self.school_year_for(date)
-    case date.month
-    when 1..6
-      date.year - 1
-    when 7
-      date.day < 2 ? (date.year - 1) : date.year
-    else
-      date.year
-    end
   end
 
   def range

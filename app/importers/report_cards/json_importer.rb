@@ -13,7 +13,7 @@ module ReportCards
       @builder = {}
       @builder[:form] = @form
       @builder[:student] = Student.find_by(["import_details -> 'import_id' = ?", @data['student_id'].to_json])
-      @builder[:year] = ReportCard::GradingPeriod.school_year_for(DateTime.parse(@data['created_at']))
+      @builder[:year] = SchoolYear.year_for(DateTime.parse(@data['created_at']))
       @builder[:data] = {
         'comments' => extract_comments,
         'subjects' => extract_subjects,
