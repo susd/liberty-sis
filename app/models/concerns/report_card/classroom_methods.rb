@@ -22,7 +22,7 @@ module ReportCard::ClassroomMethods
   end
 
   def current_cards
-    @current_cards ||= report_cards.includes(:student).where(year: ReportCard::GradingPeriod.school_year).order("students.last_name")
+    @current_cards ||= report_cards.includes(:student).where(year: SchoolYear.this_year).order("students.last_name")
   end
 
   def latest_card_date

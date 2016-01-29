@@ -61,7 +61,7 @@ class ReportCard::Presenter < BasePresenter
   end
 
   def editable?
-    report_card.year == ReportCard::GradingPeriod.school_year
+    report_card.year == SchoolYear.this_year
   end
 
   def attendance_updated_at

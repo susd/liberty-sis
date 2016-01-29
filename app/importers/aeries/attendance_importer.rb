@@ -28,7 +28,7 @@ module Aeries
 
     def initialize(aeries_student, year: nil, range: nil)
       @student = aeries_student
-      @year  = year || ReportCard::GradingPeriod.school_year
+      @year  = year || SchoolYear.this_year
       @range = range || ReportCard::GradingPeriod.current_year_range
     end
 

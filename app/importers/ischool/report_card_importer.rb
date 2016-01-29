@@ -95,7 +95,7 @@ module Ischool
       # else
       #   y
       # end
-      ReportCard::GradingPeriod.school_year_for(form.attributes['CreationDate'])
+      SchoolYear.year_for(form.attributes['CreationDate'])
     end
 
   end
