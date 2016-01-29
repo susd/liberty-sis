@@ -11,6 +11,14 @@ module Aeries
       where(ld: nil) # => that's lima-delta
     end
 
+    def self.this_year
+      where(ed: ReportCard::GradingPeriod.current_year_range)
+    end
+
+    def self.current
+      active.order(ed: :desc).first
+    end
+
     def id
       attr_names = self.class.primary_keys
       attr_map = attr_names.map do |attr_name|

@@ -13,4 +13,8 @@ class SchoolYear
       date.year
     end
   end
+
+  def self.this_year_range
+    this_year..(this_year + 1)
+  end
 end
