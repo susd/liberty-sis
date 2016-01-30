@@ -15,25 +15,23 @@ module Aeries
     end
 
     def import!
-      event = SyncEvent.create(label: 'aeries:student')
+      if ever_enrolled_this_year?
+        SyncEvent.wrap(label: 'aeries:student') do
+          create_or_update_student
+          import_related
+          set_classrooms
+        end
 
-      attrs = student.to_student
-
-      if exists?
-        # update_if_active(attrs)
-        native.update(attrs)
+        return native
       else
-        @native = ::Student.create(attrs)
+        if exists?
+          # A student from previous years snuck in,
+          # leave all their stuff but remove from classrooms
+          native.classroom_memberships.destroy_all
+        end
+
+        return false
       end
-
-      import_enrollments!
-      import_attendance!
-      import_contacts!
-      reset_native_classrooms
-
-      event.update(state: 1, syncable: native)
-
-      native
     end
 
     def import_if_fresh!
@@ -44,7 +42,29 @@ module Aeries
       native
     end
 
-    def import_enrollments!
+    def create_or_update_student
+      attrs = student.to_student
+
+      if exists?
+        native.update(attrs)
+      else
+        @native = ::Student.create(attrs)
+      end
+    end
+
+    def import_related
+      import_enrollments
+      import_attendance
+      import_contacts
+    end
+
+    def set_classrooms
+      purge_imported_memberships
+      set_inactive_memberships
+      set_native_homeroom
+    end
+
+    def import_enrollments
       enrollments.each do |enr|
         Aeries::EnrollmentImporter.new(enr).import!
       end
@@ -52,11 +72,11 @@ module Aeries
       # set current enrollment active
     end
 
-    def import_attendance!
+    def import_attendance
       Aeries::AttendanceImporter.new(student).import!
     end
 
-    def import_contacts!
+    def import_contacts
       Aeries::HomeContactImporter.new(student).import!
       Aeries::ContactImporter.for_student(native)
     end
@@ -91,8 +111,15 @@ module Aeries
     end
 
     def set_native_homeroom
-      native.homeroom = native_homeroom
-      native.add_membership(native_homeroom, source: 1, state: 0)
+      if current_native_classroom
+        native.homeroom = current_native_classroom
+        native.add_membership(current_native_classroom, source: 1, state: 0)
+      elsif last_native_classroom
+        native.homeroom = last_native_classroom
+        native.add_membership(last_native_classroom, source: 1, state: 1)
+      else
+        native.homeroom = nil
+      end
     end
 
     def set_inactive_memberships
@@ -104,22 +131,16 @@ module Aeries
       end
     end
 
-    def reset_native_classrooms
-      purge_imported_memberships
-      set_inactive_memberships
-      set_native_homeroom
+    def current_native_classroom
+      @current_native_classroom ||= enrollments.current.try(:liberty_classroom)
     end
 
-    def native_homeroom
-      @native_homeroom ||= student.enrollments.current.try(:liberty_classroom)
+    def last_native_classroom
+      @last_native_classroom ||= enrollments.real.last.try(:liberty_classroom)
     end
 
-    private
-
-    def update_if_active(attrs)
-      if student.active?
-        native.update(attrs)
-      end
+    def ever_enrolled_this_year?
+      enrollments.real.this_year.any?
     end
 
   end

@@ -2,6 +2,10 @@
   margin-bottom: 2em;
 }
 
+.student_list{
+  margin-bottom: 2em;
+}
+
 .student_list-controls{
   margin-bottom: 1em;
   @include clearfix;
@@ -18,7 +22,7 @@
 .student_item-inactive{
   background-color: #eee;
   color: #ccc;
-  display: none;
+  // display: none;
 }
 
 .js-show-inactives{
