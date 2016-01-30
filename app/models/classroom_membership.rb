@@ -10,6 +10,9 @@
 #
 
 class ClassroomMembership < ActiveRecord::Base
+  enum state: {active: 0, inactive: 1}
+  enum source: {from_user: 0, imported: 1}
+
   belongs_to :student
   belongs_to :classroom
 end

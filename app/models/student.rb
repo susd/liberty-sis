@@ -123,6 +123,14 @@ class Student < ActiveRecord::Base
     end
   end
 
+  def add_membership(classroom, state: 0, source: 0)
+    if existing = classroom_memberships.find_by(classroom: classroom)
+      existing.update({state: state, source: source})
+    else
+      classroom_memberships.create(classroom: classroom, state: state, source: source)
+    end
+  end
+
   def reset_classrooms
     classroom_memberships.destroy_all
     add_classroom(homeroom)

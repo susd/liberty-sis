@@ -29,7 +29,7 @@ module Aeries
       import_enrollments!
       import_attendance!
       import_contacts!
-      set_native_membership
+      reset_native_classrooms
 
       event.update(state: 1, syncable: native)
 
@@ -48,6 +48,8 @@ module Aeries
       enrollments.each do |enr|
         Aeries::EnrollmentImporter.new(enr).import!
       end
+      # set all enrollments inactive
+      # set current enrollment active
     end
 
     def import_attendance!
@@ -84,15 +86,32 @@ module Aeries
       @enrollments ||= student.enrollments
     end
 
-    def reset_native_memberships
-      native.classroom_memberships.destroy_all
-      set_native_membership
+    def purge_imported_memberships
+      native.classroom_memberships.imported.destroy_all
     end
 
-    def set_native_membership
-      if classroom = enrollments.try(:active).try(:first).try(:liberty_classroom)
-        native.add_classroom(classroom)
+    def set_native_homeroom
+      native.homeroom = native_homeroom
+      native.add_membership(native_homeroom, source: 1, state: 0)
+    end
+
+    def set_inactive_memberships
+      enrollments.this_year.each do |enr|
+        if classroom = enr.liberty_classroom
+          # native.classroom_memberships.create(classroom: classroom, source: 1, state: 1)
+          native.add_membership(classroom, source: 1, state: 1)
+        end
       end
+    end
+
+    def reset_native_classrooms
+      purge_imported_memberships
+      set_inactive_memberships
+      set_native_homeroom
+    end
+
+    def native_homeroom
+      @native_homeroom ||= student.enrollments.current.try(:liberty_classroom)
     end
 
     private
