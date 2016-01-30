@@ -7,8 +7,16 @@ module Aeries
       where(id: aeries_student.attributes['id'])
     end
 
+    def self.real
+      where(del: false)
+    end
+
+    def self.regular
+      where(pr: '')
+    end
+
     def self.active
-      where(ld: nil) # => that's lima-delta
+      real.where(ld: nil) # => that's lima-delta
     end
 
     def self.this_year
@@ -16,7 +24,11 @@ module Aeries
     end
 
     def self.current
-      active.order(ed: :desc).first
+      real.active.this_year.order(ed: :desc).first
+    end
+
+    def self.last
+      order(ed: :desc).first
     end
 
     def id
