@@ -1,4 +1,7 @@
-
+<ol class="breadcrumb">
+  <li><%= link_to 'Home', root_path %></li>
+  <li><%= link_to @classroom.site.name, site_classrooms_path(@classroom.site) %></li>
+</ol>
 
 <header class="page-header">
   <div class="row">
@@ -29,23 +32,50 @@
 
 <% cache classroom_cache_key(@classroom, @students) do %>
 
-<section class="student_list" data-behavior="state_list">
-  <div class="student_list-controls">
-    <%= link_to 'Show inactives', '#', class: 'btn btn-link btn-sm', data:{behavior: 'toggle_state_visibility'} %>
-  </div>
-  <div class="student_list-items">
-    <div class="row">
-      <% @students.in_groups(3, false) do |grp| %>
-        <div class="col-md-4">
-          <div class="list-group">
-            <% grp.each do |student| %>
-            <%= student_item(student) %>
-            <% end %>
+  <section class="student_list">
+    <header class="student_list-header">
+      <h3 class="student_list-title"><%= pluralize(@students.count, 'Students') %></h3>
+    </header>
+    <div class="student_list-items">
+      <div class="row">
+        <% @students.in_groups(3, false) do |grp| %>
+          <div class="col-md-4">
+            <div class="list-group">
+              <% grp.each do |student| %>
+              <%= student_item(student) %>
+              <% end %>
+            </div>
           </div>
-        </div>
-      <% end %>
+        <% end %>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+
+<% end %>
+
+<% if @inactives.any? %>
+
+  <% cache classroom_cache_key(@classroom, @inactives) do %>
+
+    <section class="student_list">
+      <header class="student_list-header">
+        <h4 class="student_list-title"><%= pluralize(@inactives.count, 'Inactive Student') %></h4>
+      </header>
+      <div class="student_list-items">
+        <div class="row">
+          <% @inactives.in_groups(3, false) do |grp| %>
+            <div class="col-md-4">
+              <div class="list-group">
+                <% grp.each do |student| %>
+                <%= student_item(student) %>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </section>
+
+  <% end %>
 
 <% end %>

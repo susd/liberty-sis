@@ -21,7 +21,8 @@ class ClassroomsController < ApplicationController
 
   def show
     @classroom = Classroom.find(params[:id])
-    @students = @classroom.students.order(:last_name)
+    @students  = @classroom.active_students.order(:last_name)
+    @inactives = @classroom.inactive_students.order(:last_name)
     check_for_pdf
 
     authorize_to(:view, @classroom)

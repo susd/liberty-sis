@@ -19,7 +19,12 @@ class Classroom < ActiveRecord::Base
   has_many :teachers, through: :classroom_leaderships, source: :employee
 
   has_many :classroom_memberships, dependent: :destroy
-  has_many :students, through: :classroom_memberships
+  has_many :active_memberships,   -> {where(state: 0)}, class_name: 'ClassroomMembership'
+  has_many :inactive_memberships, -> {where(state: 1)}, class_name: 'ClassroomMembership'
+
+  has_many :students,           through: :classroom_memberships
+  has_many :active_students,    through: :active_memberships,   source: :student
+  has_many :inactive_students,  through: :inactive_memberships, source: :student
 
   has_many :home_students, class_name: 'Student', foreign_key: 'homeroom_id', inverse_of: :homeroom
 
