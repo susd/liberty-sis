@@ -20,7 +20,6 @@ module Aeries
       attrs = student.to_student
 
       if exists?
-        # update_if_active(attrs)
         native.update(attrs)
       else
         @native = ::Student.create(attrs)
@@ -112,14 +111,6 @@ module Aeries
 
     def native_homeroom
       @native_homeroom ||= student.enrollments.current.try(:liberty_classroom)
-    end
-
-    private
-
-    def update_if_active(attrs)
-      if student.active?
-        native.update(attrs)
-      end
     end
 
   end
