@@ -16,8 +16,8 @@ class ReportCardPdf
   def collate_data
     data = {
       'name'        => student.name,
-      'year'        => SchoolYear.this_year,
-      'school'      => student.site.name,
+      'year'        => school_year,
+      'school'      => school_name,
       'teacher'     => teacher_name,
       'principal'   => student.site.principal,
       'next_grade'  => next_grade,
@@ -160,6 +160,18 @@ class ReportCardPdf
       @report_card.fetch_data(['next_grade']) || (student.grade.simple + 1).to_s
     else
       ""
+    end
+  end
+
+  def school_name
+    @report_card.fetch_data(['school_name']) || student.site.name
+  end
+
+  def school_year
+    if @report_card.fetch_data(['school_year'])
+      @report_card.fetch_data(['school_year']).to_i
+    else
+      SchoolYear.this_year
     end
   end
 
