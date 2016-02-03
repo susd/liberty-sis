@@ -19,7 +19,7 @@ class ReportCardPdf
       'year'        => school_year,
       'school'      => school_name,
       'teacher'     => teacher_name,
-      'principal'   => student.site.principal,
+      'principal'   => principal_name,
       'next_grade'  => next_grade,
       'comments'    => {},
       'spanish_comments' => {}
@@ -173,6 +173,10 @@ class ReportCardPdf
     else
       SchoolYear.this_year
     end
+  end
+
+  def principal_name
+    @report_card.fetch_data(['principal_name']) || student.site.try(:principal)
   end
 
   def effort_cols
