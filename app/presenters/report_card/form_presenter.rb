@@ -88,6 +88,21 @@ class ReportCard::FormPresenter < BasePresenter
     builder.text_field("report_card[data][teacher_name]", label: 'Teacher Name', value: name)
   end
 
+  def principal_name_field(builder)
+    name = report_card.fetch_data(['principal_name']) || report_card.student.site.try(:principal)
+    builder.text_field("report_card[data][principal_name]", label: 'Principal', value: name)
+  end
+
+  def school_name_field(builder)
+    name = report_card.fetch_data(['school_name']) || report_card.student.site.try(:name)
+    builder.text_field("report_card[data][school_name]", label: 'School', value: name)
+  end
+
+  def year_field(builder)
+    year = report_card.fetch_data(['school_year']) || SchoolYear.this_year
+    builder.text_field("report_card[data][school_year]", label: 'Year', value: year)
+  end
+
   def subject_label_tag(subject, &block)
     classes = ['report_card-label']
     if subject.major?

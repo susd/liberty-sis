@@ -45,19 +45,20 @@
       <hr>
 
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-2">
           <%= presenter.next_grade_field(f) %>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-2">
           <%= presenter.teacher_name_field(f) %>
         </div>
+        <div class="col-md-2">
+          <%= presenter.principal_name_field(f) %>
+        </div>
         <div class="col-md-4">
-          <div class="form-group">
-            <label class="control-label">Principal</label>
-            <p class="form-control-static">
-              <%= @student.site.try(:principal) %>
-            </p>
-          </div>
+          <%= presenter.school_name_field(f) %>
+        </div>
+        <div class="col-md-2">
+          <%= presenter.year_field(f) %>
         </div>
       </div>
     </div>
