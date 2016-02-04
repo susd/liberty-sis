@@ -11,7 +11,11 @@ class EmployeeDispatcher
   end
 
   def path
-    sites_path
+    if employee.sites.count > 1
+      sites_path
+    else
+      classrooms_path
+    end
   end
 
   def dispatched_role?

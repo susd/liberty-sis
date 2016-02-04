@@ -35,8 +35,8 @@ admin:
     employees:
       manage: all
 
-rsp:
-  name: rsp
+sst:
+  name: sst-teacher
   permissions:
     classrooms:
       view: site
