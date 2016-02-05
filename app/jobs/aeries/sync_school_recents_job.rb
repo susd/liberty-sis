@@ -3,7 +3,7 @@ module Aeries
     queue_as :sync
 
     after_perform do |job|
-      SyncSchoolJob.set(wait: 2.hours).perform_later(*job.arguments)
+      SyncSchoolJob.set(wait_until: Date.tonight.midnight).perform_later(*job.arguments)
     end
 
     def perform(school_code)
