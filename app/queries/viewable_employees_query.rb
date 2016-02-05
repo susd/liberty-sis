@@ -11,7 +11,7 @@ class ViewableEmployeesQuery
     when user.can_generally?(:view, :all, :employees)
       Employee.all
     when user.can_generally?(:view, :site, :employees)
-      Employee.joins(:sites).where(sites: {id: @employee.sites.pluck(:id)})
+      Employee.joins(:sites).where(sites: {id: @employee.sites.pluck(:id)}).uniq
     else
       Employee.where(id: @employee.id)
     end

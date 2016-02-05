@@ -10,7 +10,7 @@ class PrincipalEvaluationTest < ActionDispatch::IntegrationTest
   test "View employee" do
     with_user(users(:principal)) do
       visit "/"
-      assert page.has_link? 'employees'
+      assert page.has_link? 'Employees'
     end
   end
 

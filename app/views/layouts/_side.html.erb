@@ -28,6 +28,10 @@
           <% if (current_employee && current_employee.multisite?) || current_user.admin? %>
             <li><%= link_to 'Classrooms', sites_path %></li>
           <% end %>
+
+          <% if current_user.can_generally?(:view, :site, :employees) %>
+            <li><%= link_to 'Employees', employees_path %></li>
+          <% end %>
         </ul>
 
         <% if current_user.admin? %>

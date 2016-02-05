@@ -25,7 +25,10 @@
 class EmployeesController < ApplicationController
   def search
     query = params[:term] || params[:query]
-    @employees = Employee.includes(:primary_site).admin_search(query).limit(50)
+
+    @employees = ViewableEmployeesQuery.new(current_user).employees
+                  .admin_search(query).with_pg_search_rank.limit(50)
+
     respond_to do |format|
       format.json do
         render json: @employees.map{|e| {id: e.id, value: "#{e.first_name} #{e.last_name}"}}
@@ -37,6 +40,9 @@ class EmployeesController < ApplicationController
   end
 
   def index
-    # @employees = ViewableEmployeesQuery.new(current_user).employees
+    @employees = ViewableEmployeesQuery.new(current_user).employees
+                 .order("employees.last_name").page(params[:page]).per(50)
+
+    authorize_general(:view, :site, :employees)
   end
 end

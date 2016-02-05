@@ -1,5 +1,5 @@
 <tr>
-  <td><%= link_to employee.name, admin_employee_path(employee) %></td>
+  <td><%= link_to employee.name, employee_path(employee) %></td>
   <td><%= employee.title %></td>
   <td><%= employee.primary_site.try(:name) %></td>
 </tr>
