@@ -21,7 +21,7 @@ class SyncEvent < ActiveRecord::Base
   def self.wrap(opts, &block)
     if block_given?
       event = create(opts)
-      if yield(self)
+      if yield(event)
         event.update(state: 1)
       else
         event.update(state: 2)

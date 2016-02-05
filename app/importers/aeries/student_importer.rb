@@ -16,10 +16,11 @@ module Aeries
 
     def import!
       if ever_enrolled_this_year?
-        SyncEvent.wrap(label: 'aeries:student') do
+        SyncEvent.wrap(label: 'aeries:student') do |event|
           create_or_update_student
           import_related
           set_classrooms
+          event.syncable = native
         end
 
         return native
