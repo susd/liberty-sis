@@ -45,7 +45,12 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'employees/search', to: 'employees#search', as: :search_employees
+  # get 'employees/search', to: 'employees#search', as: :search_employees
+  resources :employees do
+    collection do
+      get :search
+    end
+  end
 
   namespace :admin do
     resources :users, except: [:new, :create], concerns: [:searchable]

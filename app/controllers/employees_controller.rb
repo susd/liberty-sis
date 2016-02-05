@@ -35,4 +35,8 @@ class EmployeesController < ApplicationController
 
     authorize_general(:view, :site, :employees)
   end
+
+  def index
+    # @employees = ViewableEmployeesQuery.new(current_user).employees
+  end
 end

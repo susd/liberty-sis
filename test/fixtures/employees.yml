@@ -68,7 +68,7 @@ rsp_teacher:
   type: Teacher
   first_name: Wendy
   last_name: Wenderson
-  user: sst-teacher
+  user: rsp_teacher
   sites: west_creek, cedarcreek
   classrooms: multi_class_1
 

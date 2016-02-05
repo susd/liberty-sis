@@ -8,11 +8,10 @@ class PrincipalEvaluationTest < ActionDispatch::IntegrationTest
   # See a link for employees
 
   test "View employee" do
-    # with_user(users(:principal)) do
-    #   visit "/"
-    #   # assert page has link 'employees'
-    # end
-    skip
+    with_user(users(:principal)) do
+      visit "/"
+      assert page.has_link? 'employees'
+    end
   end
 
   test "Seeing a list of employees" do
