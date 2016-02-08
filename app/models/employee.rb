@@ -23,6 +23,8 @@
 #
 
 class Employee < ActiveRecord::Base
+  enum state: {active: 0, inactive: 1}
+  
   FILTER = /(\s|-|\'|\")/
 
   has_and_belongs_to_many :sites, -> { uniq }

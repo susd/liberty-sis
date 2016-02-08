@@ -33,5 +33,18 @@ namespace :bbconnect do
       end
     end
 
+    desc "Export Faculty"
+    task faculty: :environment do
+      CSV.open(Bbconnect::FacultyExporter::PATH, 'w') do |csv|
+        csv << Bbconnect::FacultyExporter.header
+
+        Employee.active.includes(:primary_site).order(:primary_site)
+        .find_each.with_index do |employee, idx|
+          csv << Bbconnect::FacultyExporter.new(employee).export
+          progress(idx)
+        end
+      end
+    end
+
   end
 end
