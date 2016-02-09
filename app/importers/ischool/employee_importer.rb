@@ -27,6 +27,8 @@ module Ischool
         @native = ::Employee.create(attrs)
       end
 
+      Ischool::EmployeeContactImporter.new(@employee).import
+
       native.clean_sites
 
       native
