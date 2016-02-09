@@ -22,9 +22,11 @@ class SyncEvent < ActiveRecord::Base
     if block_given?
       event = create(opts)
       if yield(event)
-        event.update(state: 1)
+        event.state = 1
+        event.save
       else
-        event.update(state: 2)
+        event.state = 2
+        event.save
       end
     end
   end
