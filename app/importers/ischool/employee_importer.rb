@@ -21,27 +21,38 @@ module Ischool
     end
 
     def import!
-      native_employee = ::Employee.find_by(["import_details -> 'import_id' = ?", employee.id.to_json])
-      if native_employee.nil?
-        native_employee = ::Employee.new
-      end
-      native_employee.assign_attributes(attrs)
-      native_employee.user = user if user
-      native_employee.save
-      native_employee.clean_sites
-      if native_employee.primary_site.nil?
-        native_employee.primary_site = native_employee.sites.first
+      if exists?
+        native.update(attrs)
+      else
+        @native = ::Employee.create(attrs)
       end
 
-      native_employee
+      native.clean_sites
+
+      native
+    end
+
+    def native
+      @native ||= ::Employee.find_by([
+        "import_details @> ?", employee.import_details.to_json
+        ])
+    end
+
+    def exists?
+      native.present?
     end
 
     def attrs
-      employee.to_employee
+      @attrs ||= begin
+        hsh = employee.to_employee
+        hsh.merge(user: user) if user.present?
+        hsh
+      end
     end
 
     def user
-      @user ||= User.find_by(email: attrs[:email])
+      @user ||= User.find_by(email: employee.email)
     end
+
   end
 end
