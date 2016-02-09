@@ -15,20 +15,21 @@ module Aeries
     end
 
     def import!
-      event = SyncEvent.create(label: 'teacher')
+      SyncEvent.wrap(label: "aeries:teacher") do |event|
+        if exists?
+          native.update(teacher_attrs)
+        else
+          @native = ::Teacher.create(teacher_attrs)
+        end
 
-      attrs = teacher.to_teacher
+        if native.user.present?
+          native.user.add_role(::Role.teacher)
+        end
 
-      if exists?
-        native.assign_attributes(attrs)
-      else
-        @native = ::Teacher.new(attrs)
+        Aeries::EmployeeContactImporter.new(teacher).import
+
+        event.syncable = native
       end
-
-      associate_user
-      native.save
-
-      event.update(state: 1, syncable: native)
 
       native
     end
@@ -58,17 +59,30 @@ module Aeries
       ::Teacher.find_by(["import_details @> ?", @teacher.import_ids.to_json])
     end
 
+    def teacher_attrs
+      @attrs ||= begin
+        hsh = teacher.to_teacher
+        hsh.merge(user: user) if user.present?
+
+        hsh
+      end
+    end
+
     def exists?
       native.present?
     end
 
-    def associate_user
-      if native.user.nil?
-        if user = User.find_by(email: native.email)
-          native.user = user
-          native.user.add_role ::Role.teacher
-        end
-      end
+    # def associate_user
+    #   if native.user.nil?
+    #     if user = User.find_by(email: native.email)
+    #       native.user = user
+    #       native.user.add_role ::Role.teacher
+    #     end
+    #   end
+    # end
+
+    def user
+      @user ||= User.find_by(email: native.email)
     end
 
   end
