@@ -3,7 +3,7 @@ module Aeries
     queue_as :sync
 
     def perform(student)
-      Aeries::ContactImporter.for_student(student)
+      Aeries::StudentContactsImporter.for_student(student)
       Aeries::HomeContactImporter.for_student(student)
     end
   end

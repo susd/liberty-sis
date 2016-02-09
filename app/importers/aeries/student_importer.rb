@@ -79,7 +79,7 @@ module Aeries
 
     def import_contacts
       Aeries::HomeContactImporter.new(student).import!
-      Aeries::ContactImporter.for_student(native)
+      Aeries::StudentContactsImporter.for_student(native)
     end
 
     def native
