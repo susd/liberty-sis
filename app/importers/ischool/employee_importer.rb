@@ -21,15 +21,19 @@ module Ischool
     end
 
     def import!
-      if exists?
-        native.update(attrs)
-      else
-        @native = ::Employee.create(attrs)
+      SyncEvent.wrap(label: "ischool:employee") do |event|
+        if exists?
+          native.update(attrs)
+        else
+          @native = ::Employee.create(attrs)
+        end
+
+        Ischool::EmployeeContactImporter.new(@employee).import
+
+        native.clean_sites
+        
+        event.syncable = native
       end
-
-      Ischool::EmployeeContactImporter.new(@employee).import
-
-      native.clean_sites
 
       native
     end
