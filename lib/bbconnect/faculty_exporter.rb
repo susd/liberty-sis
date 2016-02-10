@@ -36,7 +36,7 @@ module Bbconnect
         site_abbr,
         employee.first_name,
         employee.last_name,
-        '',
+        phone,
         employee.email,
         'faculty'
       ]
@@ -51,6 +51,18 @@ module Bbconnect
         employee.primary_site.abbr
       else
         'NA'
+      end
+    end
+
+    def home_contact
+      @contact ||= employee.contacts.find_by(label: "home")
+    end
+
+    def phone
+      if home_contact.present?
+        home_contact.phones.find_by(label: 'home').try(:normal)
+      else
+        ""
       end
     end
 
