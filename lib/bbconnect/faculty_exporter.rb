@@ -50,7 +50,7 @@ module Bbconnect
       if employee.primary_site.present?
         employee.primary_site.abbr
       else
-        'NA'
+        'DO'
       end
     end
 
