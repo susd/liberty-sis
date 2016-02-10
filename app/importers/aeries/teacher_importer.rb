@@ -72,15 +72,6 @@ module Aeries
       native.present?
     end
 
-    # def associate_user
-    #   if native.user.nil?
-    #     if user = User.find_by(email: native.email)
-    #       native.user = user
-    #       native.user.add_role ::Role.teacher
-    #     end
-    #   end
-    # end
-
     def user
       @user ||= User.find_by(email: native.email)
     end
