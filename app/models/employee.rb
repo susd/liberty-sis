@@ -23,12 +23,19 @@
 #
 
 class Employee < ActiveRecord::Base
+  enum state: {active: 0, inactive: 1}
+
   FILTER = /(\s|-|\'|\")/
 
   has_and_belongs_to_many :sites, -> { uniq }
   belongs_to :primary_site, foreign_key: 'primary_site_id', class_name: 'Site'
   belongs_to :user
+
   has_many :personas, as: :personable
+
+  has_many :contacts, as: :contactable, dependent: :destroy
+  has_many :addresses, -> { includes(:addressable) }, through: :contacts
+  has_many :phones, -> { includes(:callable) }, through: :contacts
 
   before_save :set_email
 

@@ -1,5 +1,5 @@
 module Aeries
-  class ContactImporter
+  class StudentContactsImporter
 
     def self.for_student(student)
       if a = student.aeries_student
