@@ -27,7 +27,7 @@ namespace :bbconnect do
       CSV.open(Bbconnect::CdpExporter::TARGET, 'w') do |csv|
         csv << Bbconnect::CdpExporter.header
         CSV.foreach(Bbconnect::CdpExporter::SOURCE, headers: true).with_index do |row, idx|
-          csv << Bbconnect::K12Exporter.new(row).export
+          csv << Bbconnect::CdpExporter.new(row).export
           progress(idx)
         end
       end
@@ -46,5 +46,35 @@ namespace :bbconnect do
       end
     end
 
+    desc "Export All"
+    task all: :environment do
+      Rake::Task["bbconnect:export:gen_ed"].execute
+      Rake::Task["bbconnect:export:ezcare"].execute
+      Rake::Task["bbconnect:export:faculty"].execute
+    end
+
   end
+
+  namespace :upload do
+    desc "Upload all files"
+    task all: :environment do
+
+      Bbconnect::Uploader.new(
+        Bbconnect::K12Exporter::PATH,
+        Rails.application.secrets[:bbconnect_k12].merge(type: "Student")
+        ).perform
+
+      Bbconnect::Uploader.new(
+        Bbconnect::FacultyExporter::PATH,
+        Rails.application.secrets[:bbconnect_k12].merge(type: "Faculty")
+        ).perform
+
+      Bbconnect::Uploader.new(
+        Bbconnect::CdpExporter::TARGET,
+        Rails.application.secrets[:bbconnect_cdp].merge(type: "Student")
+        ).perform
+
+    end
+  end
+
 end
