@@ -5,6 +5,6 @@ App.$orig.hide();
 App.$results.html('');
 App.$results.show();
 
-App.$results.append('<%= j render(partial: "user_row", collection: @users, as: :user) %>');
+App.$results.append('<%= j render(partial: "admin/users/user_row", collection: @users, as: :user) %>');
 
 $('.pagination').hide();
