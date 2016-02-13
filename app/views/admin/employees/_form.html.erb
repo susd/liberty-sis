@@ -20,7 +20,7 @@
     <div class="col-md-6">
       <%= f.text_field :title %>
       <%= f.text_field :email %>
-      <%= f.select :state, {'Active' => 1, 'Inactive' => 2} %>
+      <%= f.select :state, %w{active inactive} %>
     </div>
   </div>
 
