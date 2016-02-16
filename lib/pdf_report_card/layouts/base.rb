@@ -30,12 +30,13 @@ module PdfReportCard
       end
 
       def heading_items
-        [
-          'Requires Additional Support',
-          'Works Within Grade-Level Standards',
-          'Demonstrates Strengths',
-          'Effort'
-        ]
+        # [
+        #   'Requires Additional Support',
+        #   'Works Within Grade-Level Standards',
+        #   'Demonstrates Strengths',
+        #   'Effort'
+        # ]
+        I18n.t('report_card.defaults.heading_items')
       end
 
       def legend_title
@@ -236,12 +237,15 @@ module PdfReportCard
       end
 
       def spanish_heading_items
-        [
-          'Requiere Ayuda Adicional',
-          'Trabaja al Nivel del Grado',
-          'Demuestra Destreza',
-          'Esfuerzo'
-        ]
+        # [
+        #   'Requiere Ayuda Adicional',
+        #   'Trabaja al Nivel del Grado',
+        #   'Demuestra Destreza',
+        #   'Esfuerzo'
+        # ]
+        I18n.with_locale(:es) do
+          I18n.t('report_card.defaults.heading_items')
+        end
       end
 
       def render_spanish_footer(teacher_name = "", principal_name = "", grade = "", services = [])

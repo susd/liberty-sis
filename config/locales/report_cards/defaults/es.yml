@@ -1,0 +1,8 @@
+es:
+  report_card:
+    defaults:
+      heading_items:
+        - Requiere Ayuda Adicional
+        - Trabaja al Nivel del Grado
+        - Demuestra Destreza
+        - Esfuerzo

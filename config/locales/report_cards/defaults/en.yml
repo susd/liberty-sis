@@ -1,0 +1,8 @@
+en:
+  report_card:
+    defaults:
+      heading_items:
+        - Requires Additional Support
+        - Works Within Grade-Level Standards
+        - Demonstrates Strengths
+        - Effort
