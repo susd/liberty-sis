@@ -77,6 +77,7 @@ group :test do
   gem 'guard-minitest'
   gem 'minitest-reporters'
   gem 'timecop'
+  gem 'pdf-inspector', :require => "pdf/inspector"
 end
 
 group :development, :test do
@@ -89,6 +90,6 @@ group :development, :test do
   gem 'web-console', '~> 2.0'
 end
 
-source 'https://rails-assets.org' do
+source 'https://rails-assets.tenex.tech' do
   gem 'rails-assets-throttle-debounce'
 end
