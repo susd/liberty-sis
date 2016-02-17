@@ -31,3 +31,4 @@ long_names_card:
   student: long_name
   form: primary
   updated_at: <%= DateTime.new(2015, 10, 20, 12, 00) %>
+  data: {}
