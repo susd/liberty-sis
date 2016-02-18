@@ -21,10 +21,10 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  spanish_name: MyString
-  slug: MyString
-  report_card_form_id: 
+  name: Subject name
+  spanish_name: Spanish subject name
+  slug: subject-name
+  form: primary
   position: 1
   major: false
   show_score: false
@@ -34,10 +34,10 @@ one:
   positional_score: false
 
 two:
-  name: MyString
-  spanish_name: MyString
-  slug: MyString
-  report_card_form_id: 
+  name: Subject Two
+  spanish_name: Subject dos
+  slug: subject-two
+  form: primary
   position: 1
   major: false
   show_score: false
