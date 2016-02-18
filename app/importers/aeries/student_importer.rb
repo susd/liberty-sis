@@ -124,7 +124,7 @@ module Aeries
     end
 
     def set_inactive_memberships
-      enrollments.this_year.each do |enr|
+      enrollments.real.this_year.each do |enr|
         if classroom = enr.liberty_classroom
           # native.classroom_memberships.create(classroom: classroom, source: 1, state: 1)
           native.add_membership(classroom, source: 1, state: 1)
