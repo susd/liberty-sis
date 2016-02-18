@@ -8,7 +8,7 @@ class ReportCard::ClassroomGenerator
   def perform!
     prep_destination
 
-    @classroom.report_cards.where(year: SchoolYear.this_year).each do |card|
+    @classroom.latest_cards.each do |card|
 
       gen = ReportCard::CardGenerator.new(card)
 
