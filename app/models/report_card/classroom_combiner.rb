@@ -6,7 +6,7 @@ class ReportCard::ClassroomCombiner
   end
 
   def pdf_paths
-    @paths ||= @classroom.current_cards.map(&:cache_path)
+    @paths ||= @classroom.latest_cards.map(&:cache_path)
   end
 
   def perform!

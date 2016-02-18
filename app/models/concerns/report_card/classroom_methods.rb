@@ -2,7 +2,7 @@ module ReportCard::ClassroomMethods
   extend ActiveSupport::Concern
 
   included do
-    has_many :report_cards, through: :students
+    has_many :report_cards, through: :active_students
   end
 
   class_methods do
@@ -18,7 +18,7 @@ module ReportCard::ClassroomMethods
   end
 
   def latest_cards
-    @cards ||= students.map(&:latest_report_card).compact
+    @cards ||= active_students.order("students.last_name").map(&:latest_report_card).compact
   end
 
   def current_cards
@@ -26,7 +26,7 @@ module ReportCard::ClassroomMethods
   end
 
   def latest_card_date
-    ReportCard.where(student_id: students).maximum(:updated_at)
+    ReportCard.where(student_id: active_students).maximum(:updated_at)
   end
 
   def combined_pdf_name
