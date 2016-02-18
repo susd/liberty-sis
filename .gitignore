@@ -28,3 +28,5 @@ config/application_default_credentials.json
 
 /public/uploads
 /public/pdfs
+
+/test/pdf_output/*.pdf
