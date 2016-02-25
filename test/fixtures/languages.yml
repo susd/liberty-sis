@@ -18,9 +18,11 @@ en:
   calpads_name: English
   calpads_code: 0
   aeries_code: 0
+  locale: en
 
 es:
   name: Spanish
   calpads_name: Spanish
   calpads_code: 1
   aeries_code: 1
+  locale: es
