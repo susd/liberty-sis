@@ -7,15 +7,44 @@ class ReportCard::PdfData
   end
 
   def student_name
-    [
+    lazy_lookup [
       report_card.fetch_data(['student_name']),
       report_card.student.try(:name),
       "Name Unknown"
-    ].lazy.detect{|v| v.present? }
+    ]
   end
 
   def school_year
     report_card.fetch_data(['school_year']).try(:to_i) || SchoolYear.this_year
+  end
+
+  def school_name
+    lazy_lookup [
+      report_card.fetch_data(['school_name']),
+      report_card.student.try(:site).try(:name),
+      "School"
+    ]
+  end
+
+  def home_lang
+    @home_lang ||= begin
+      if name = report_card.fetch_data(['home_lang'])
+        Language.find_by(name: name)
+      else
+        lazy_lookup([
+          report_card.student.try(:home_lang),
+          Language.find_by(name: "English")
+          ])
+      end
+    end
+  end
+
+  def home_locale
+    home_lang.locale.to_sym || :en
+  end
+
+  def render_translated?
+    home_lang.name != "English"
   end
 
   def subject_array(subject, columns, lang = :english)
@@ -62,6 +91,10 @@ class ReportCard::PdfData
 
   def p_score(score)
     ReportCard::PositionalScore.new(score).to_a
+  end
+
+  def lazy_lookup(options = [])
+    options.lazy.detect{|v| v.present? }
   end
 
 end
