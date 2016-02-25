@@ -6,26 +6,6 @@ class ReportCard::PdfData
     @report_card = report_card
   end
 
-  def student_name
-    lazy_lookup [
-      report_card.fetch_data(['student_name']),
-      report_card.student.try(:name),
-      "Name Unknown"
-    ]
-  end
-
-  def school_year
-    report_card.fetch_data(['school_year']).try(:to_i) || SchoolYear.this_year
-  end
-
-  def school_name
-    lazy_lookup [
-      report_card.fetch_data(['school_name']),
-      report_card.student.try(:site).try(:name),
-      "School"
-    ]
-  end
-
   def home_lang
     @home_lang ||= begin
       if name = report_card.fetch_data(['home_lang'])

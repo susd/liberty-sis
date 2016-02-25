@@ -23,6 +23,10 @@ class ReportCardTest < ActiveSupport::TestCase
     @report_card = report_cards(:long_names_card)
   end
 
+  test "Default cache dir path" do
+    assert_equal Rails.root.join('tmp', 'data', 'pdfs'), ReportCard.cache_dir
+  end
+
   test "student id partition" do
     assert_equal %w{123 456 789}, @report_card.student_id_partition
   end

@@ -35,12 +35,20 @@ long_name:
   classrooms: std_classroom
   birthdate: <%= Time.now - 11.years %>
   import_details:
-    :import_id: 123456789
+    :import_id: 123_456_789
 
 sylvia:
   first_name: Sylvia
   last_name: McFakerton
+  grade: 4th_grade
+  classrooms: ashleys_class
+  homeroom: ashleys_class
+  birthdate: <%= Time.now - 10.years %>
+  home_lang: en
+  site: west_creek
   ssid: 1234567899
+  import_details:
+    :import_id: <%= rand(200_000_000) %>
 
 <% %w{alfred bobby cindy denise erin frank}.each do |name| %>
 <%= name %>:

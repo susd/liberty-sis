@@ -7,7 +7,9 @@ require 'capybara/rails'
 require 'minitest/reporters'
 Minitest::Reporters.use! Minitest::Reporters::ProgressReporter.new, ENV, Minitest.backtrace_filter
 
-
+# if defined? DidYouMean
+#   DidYouMean::SPELL_CHECKERS = {}
+# end
 
 module ActiveRecord
   class FixtureSet
