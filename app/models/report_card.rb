@@ -24,15 +24,11 @@ class ReportCard < ActiveRecord::Base
   has_many :comment_groups, through: :form
   has_and_belongs_to_many :report_card_comments, join_table: 'comments_report_cards'
 
+  include ReportCard::Pdf
+
   validates_presence_of :report_card_form_id
 
-  before_update :set_pdf_path
   before_update :update_attendance
-
-  def self.cache_dir
-    # Rails.root.join('tmp', 'data', 'pdfs')
-    Rails.configuration.pdf_path
-  end
 
   def self.this_period
     where("created_at > ?", Period.current.starts_on)
@@ -84,32 +80,6 @@ class ReportCard < ActiveRecord::Base
   def has_comments?(period)
     comments = fetch_data(['comments', period.to_s, 'comment_ids'])
     comments && comments.any?
-  end
-
-  def cache_path
-    "#{cache_dir}/#{cache_name}"
-  end
-
-  def cache_name
-    "#{student.name.parameterize}-progress_card_#{updated_at.strftime('%Y%m%d-%H%M')}.pdf"
-  end
-
-  def cache_dir
-    # File.expand_path("public/pdfs/students/#{student_id_partition}", Rails.root)
-    self.class.cache_dir.join('students', *student_id_partition).to_s
-  end
-
-  def cache_rel_dir
-    # "/students/#{student_id_partition.join('/')}"
-    self.class.cache_dir.relative_path_from(Rails.root).join('students', *student_id_partition).to_s
-  end
-
-  def cache_rel_path
-    "#{cache_rel_dir}/#{cache_name}"
-  end
-
-  def cache_exists?
-    File.exists? cache_path
   end
 
   def student_id_partition
