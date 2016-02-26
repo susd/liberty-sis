@@ -64,7 +64,15 @@ class ReportCard::DefaultDataTest < ActiveSupport::TestCase
     card = student.report_cards.new
     data = ReportCard::DefaultData.new(card)
 
-    assert_equal languages(:es), home_lang
+    assert_equal languages(:es), data.home_lang
+  end
+
+  test "Explicit home language" do
+    student = students(:sylvia)
+    card = student.report_cards.new(data: {'home_lang' => 'Spanish'})
+    data = ReportCard::DefaultData.new(card)
+
+    assert_equal languages(:es), data.home_lang
   end
 
   test "Setting default data without saving" do

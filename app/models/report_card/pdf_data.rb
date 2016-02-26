@@ -7,16 +7,7 @@ class ReportCard::PdfData
   end
 
   def home_lang
-    @home_lang ||= begin
-      if name = report_card.fetch_data(['home_lang'])
-        Language.find_by(name: name)
-      else
-        lazy_lookup([
-          report_card.student.try(:home_lang),
-          Language.find_by(name: "English")
-          ])
-      end
-    end
+    @home_lang ||= defaulted.home_lang
   end
 
   def home_locale
@@ -73,8 +64,8 @@ class ReportCard::PdfData
     ReportCard::PositionalScore.new(score).to_a
   end
 
-  def lazy_lookup(options = [])
-    options.lazy.detect{|v| v.present? }
+  def defaulted
+    @defaulted ||= ReportCard::DefaultData.new(report_card)
   end
 
 end
