@@ -2,12 +2,10 @@
 class ReportCard::PdfData
   attr_reader :report_card
 
+  delegate :teacher_name, :principal_name, :home_lang, :next_grade, to: :defaulted
+
   def initialize(report_card)
     @report_card = report_card
-  end
-
-  def home_lang
-    @home_lang ||= defaulted.home_lang
   end
 
   def home_locale

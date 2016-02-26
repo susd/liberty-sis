@@ -58,6 +58,27 @@ class ReportCard::DefaultDataTest < ActiveSupport::TestCase
     assert_equal "Ashley Doe", data.teacher_name
   end
 
+  test "Implicit principal_name" do
+    card = students(:sylvia).report_cards.new
+    data = ReportCard::DefaultData.new(card)
+
+    assert_equal "Elon Musk", data.principal_name
+  end
+
+  test "Explicit principal_name" do
+    card = ReportCard.new(data: {principal_name: "Basil Thromwatte"})
+    data = ReportCard::DefaultData.new(card)
+
+    assert_equal "Basil Thromwatte", data.principal_name
+  end
+
+  test "Next grade" do
+    card = students(:sylvia).report_cards.new
+    data = ReportCard::DefaultData.new(card)
+
+    assert_equal 5, data.next_grade
+  end
+
   test "Implicit home language" do
     student = students(:sylvia)
     student.home_lang = languages(:es)

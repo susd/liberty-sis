@@ -43,6 +43,22 @@ class ReportCard::DefaultData
     ]
   end
 
+  def principal_name
+    lazy_lookup [
+      report_card.fetch_data(['principal_name']),
+      report_card.student.try(:site).try(:principal),
+      "Principal Name"
+    ]
+  end
+
+  def next_grade
+    lazy_lookup [
+      report_card.fetch_data(['next_grade']),
+      report_card.student.try(:grade).try(:succ).try(:simple),
+      0
+    ]
+  end
+
   def home_lang
     lazy_lookup [
       Language.find_by(name: report_card.fetch_data(['home_lang'])),
