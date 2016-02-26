@@ -1,6 +1,6 @@
 require "test_helper"
 
-class PdfReportCard::Layouts::BaseTest < ActiveSupport::TestCase
+class PdfReportCard::Layouts::BaseTest < PdfTestCase
 
   def setup
 
@@ -16,7 +16,7 @@ class PdfReportCard::Layouts::BaseTest < ActiveSupport::TestCase
   test "Rendering student details" do
     @layout.render_details("John Doe", "Hogwarts", 2007)
     rendered = @layout.render
-    inspected = PDF::Inspector::Text.analyze(rendered)
+    inspected = analyze_text(rendered)
 
     assert_includes inspected.strings, "John Doe"
     assert_includes inspected.strings, "Hogwarts"
@@ -28,7 +28,7 @@ class PdfReportCard::Layouts::BaseTest < ActiveSupport::TestCase
   test "Rendering footer details" do
     @layout.render_footer
     rendered = @layout.render
-    inspected = PDF::Inspector::Text.analyze(rendered)
+    inspected = analyze_text(rendered)
 
     assert_includes inspected.strings, "Administrator"
 
@@ -38,7 +38,7 @@ class PdfReportCard::Layouts::BaseTest < ActiveSupport::TestCase
   test "Rendering title/address" do
     @layout.render_title_address
     rendered = @layout.render
-    inspected = PDF::Inspector::Text.analyze(rendered)
+    inspected = analyze_text(rendered)
 
     assert_includes inspected.strings, "Progress Report Card"
 
@@ -48,7 +48,7 @@ class PdfReportCard::Layouts::BaseTest < ActiveSupport::TestCase
   test "Render legend header in English" do
     @layout.render_header
     rendered = @layout.render
-    inspected = PDF::Inspector::Text.analyze(rendered)
+    inspected = analyze_text(rendered)
 
     assert_includes inspected.strings, "Requires Additional Support"
 
@@ -58,18 +58,11 @@ class PdfReportCard::Layouts::BaseTest < ActiveSupport::TestCase
   test "Renders legend / header en Espanol" do
     @layout.render_spanish_header
     rendered = @layout.render
-    inspected = PDF::Inspector::Text.analyze(rendered)
+    inspected = analyze_text(rendered)
 
     assert_includes inspected.strings, "Requiere Ayuda Adicional"
 
     output_pdf("base_es_header", rendered)
   end
 
-  private
-
-  def output_pdf(name, rendered_doc)
-    File.open(@path.join("#{name}.pdf"), 'wb') do |f|
-      f.puts rendered_doc
-    end
-  end
 end

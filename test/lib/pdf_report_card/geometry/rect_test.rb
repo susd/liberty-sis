@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class PdfReportCard::Geometry::RectTest < ActiveSupport::TestCase
+class PdfReportCard::Geometry::RectTest < PdfTestCase
 
   def setup
     @margin = 24.0
@@ -14,24 +14,20 @@ class PdfReportCard::Geometry::RectTest < ActiveSupport::TestCase
   test "Drawing a rectangle" do
     @rect.draw(@doc)
     rendered = @doc.render
-    inspected = PDF::Inspector::Graphics::Rectangle.analyze(rendered)
+    inspected = analyze_rect(rendered)
     rnd_rect = inspected.rectangles.first
 
     assert_equal [@margin, (744 + @margin - 15)], rnd_rect[:point]
     assert_equal 10, rnd_rect[:width]
     assert_equal 15, rnd_rect[:height]
 
-    File.open(@path.join('rect_draw.pdf'), 'wb') do |f|
-      f.puts rendered
-    end
+    output_pdf 'rect_draw.pdf', rendered
   end
 
   test "Filling rectangle" do
     @rect.fill(@doc)
 
-    File.open(@path.join('rect_fill.pdf'), 'wb') do |f|
-      f.puts @doc.render
-    end
+    output_pdf 'rect_fill.pdf', @doc.render
   end
 
   test "Finding the bottom" do
