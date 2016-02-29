@@ -32,20 +32,19 @@ module ReportCards
       end
 
       def render
-        # build_heading
+        # build_header
+        # build_legend
         # build_main
-        # build_footer
+        build_footer
         document.render
       end
 
-      def build_heading
-        # -- Name / School / Year
-        # -- Legend
-        # -- Title / address
+      def build_header
+        # name / school details
       end
 
       def build_footer
-        # Components::Footer.new(document, data).render
+        Components::Footer.new(self, data).render
       end
 
     end
