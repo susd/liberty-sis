@@ -8,6 +8,7 @@
 #  data       :jsonb            not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  taken_on   :date
 #
 
 class Assessment < ActiveRecord::Base
