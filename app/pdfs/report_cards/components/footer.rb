@@ -6,8 +6,8 @@ module ReportCards
 
       delegate :font, :text_box, :stroke_line, :gutter, :main_rect, :canvas_width, to: :doc
 
-      def initialize(document, data)
-        @doc  = document
+      def initialize(layout, data)
+        @doc  = layout
         @data = data
       end
 
