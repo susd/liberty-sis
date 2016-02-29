@@ -1,0 +1,24 @@
+# == Schema Information
+#
+# Table name: report_card_form_options
+#
+#  id                  :integer          not null, primary key
+#  field_name          :string
+#  field_type          :integer          default(0), not null
+#  data                :jsonb            not null
+#  report_card_form_id :integer
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# one:
+#   field: MyString
+#   options:
+#   report_card_form_id:
+#
+# two:
+#   field: MyString
+#   options:
+#   report_card_form_id:
