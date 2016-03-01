@@ -117,10 +117,22 @@ class ReportCard::FormPresenter < BasePresenter
   end
 
   def render_form_options
-    report_card.form.form_options.each do |form_option|
-      # determine appropriate partial
-      
+    # report_card.form.form_options.each do |form_option|
+    #   # determine appropriate partial
+    #   # tpl.render partial, locals: {presenter: ???}
+    # end
+  end
+
+  def additional_services(builder)
+    opt = report_card.form.form_options.find_by(field_name: 'additional services')
+    if opt.present?
+      tpl.render partial: 'additional_services',
+                 locals: {values: opt.values, f: builder, presenter: self}
     end
+  end
+
+  def services
+    report_card.fetch_data(['services']) || []
   end
 
   private

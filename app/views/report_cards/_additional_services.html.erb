@@ -1,0 +1,19 @@
+<div class="additional_services">
+  <h3>Additional Services</h3>
+
+  <% values.in_groups_of(4, false) do |grp| %>
+    <div class="row">
+      <% grp.each do |value| %>
+        <div class="col-md-3">
+          <%= check_box_tag "report_card[data][services][]", value,
+                              presenter.services.include?(value) %>
+          <label for="<%= value %>">
+            <%= value %>
+          </label>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <hr>
+</div>
