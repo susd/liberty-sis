@@ -116,6 +116,13 @@ class ReportCard::FormPresenter < BasePresenter
     tpl.content_tag(:td, options, &block)
   end
 
+  def render_form_options
+    report_card.form.form_options.each do |form_option|
+      # determine appropriate partial
+      
+    end
+  end
+
   private
 
   def position_radio_for(builder, subject, period, score)
