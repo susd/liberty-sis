@@ -92,7 +92,8 @@ class ReportCardsController < ApplicationController
   end
 
   def edit
-    set_report_card
+    # set_report_card
+    @report_card = @student.report_cards.includes(form: [:subjects, {comment_groups: :comments}]).find(params[:id])
     set_subjects
     set_comment_groups
   end
