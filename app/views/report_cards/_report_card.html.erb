@@ -1,8 +1,8 @@
-<% present(@report_card, ReportCard::Presenter) do |presenter| %>
+<% present(report_card, ReportCard::Presenter) do |presenter| %>
 
 <%= render 'legend' %>
 
-<% cache([@report_card, 'subjects']) do %>
+<% cache([report_card, 'subjects']) do %>
   <table class="table" id="report_card-subjects">
     <tr>
       <th></th>
@@ -71,5 +71,14 @@
   <% end %>
 
 </div>
+
+<% if report_card.fetch_data(['services']) %>
+<div class="report_card-services">
+  <h3>Additional Services</h3>
+  <p>
+    <%= report_card.fetch_data(['services']).join(', ') %>
+  </p>
+</div>
+<% end %>
 
 <% end %>
