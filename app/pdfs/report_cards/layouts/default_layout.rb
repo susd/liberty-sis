@@ -32,7 +32,7 @@ module ReportCards
       end
 
       def render
-        # build_header
+        build_header
         # build_legend
         # build_main
         build_footer
@@ -40,7 +40,7 @@ module ReportCards
       end
 
       def build_header
-        # name / school details
+        Components::Header.new(self, data).render
       end
 
       def build_footer
