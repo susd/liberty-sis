@@ -67,6 +67,10 @@ class ReportCard::DefaultData
     ]
   end
 
+  def services
+    report_card.fetch_data(['services']) || []
+  end
+
   def set_defaults
     report_card.data.merge!(defaulted_attributes)
   end

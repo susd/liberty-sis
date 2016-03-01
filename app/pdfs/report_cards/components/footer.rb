@@ -14,6 +14,7 @@ module ReportCards
       def render
         # text
         font(PdfReport::DEFAULT_BOLD_FONT) do
+          text_box data.services.join(', '), services_opts
           text_box data.teacher_name, teacher_name_opts
           text_box data.principal_name, principal_name_opts
           text_box data.next_grade.to_s, next_grade_opts
@@ -47,6 +48,14 @@ module ReportCards
           [[admin_box.x,     adjusted_y], [admin_box.right_top[0], adjusted_y]],
           [[next_grade_box.x,  adjusted_y], [next_grade_box.right_top[0], adjusted_y]]
         ]
+      end
+
+      def services_opts
+        {
+          at: [services_box.x, services_box.y + 12],
+          width: services_box.w,
+          height: services_box.h
+        }
       end
 
       def teacher_name_opts

@@ -3,7 +3,8 @@ class ReportCard::PdfData
   attr_reader :report_card
 
   delegate :student_name, :teacher_name, :principal_name,
-           :home_lang, :next_grade, :school_year, :school_name, to: :defaulted
+           :home_lang, :next_grade, :school_year, :school_name, :services,
+           to: :defaulted
 
   def initialize(report_card)
     @report_card = report_card
