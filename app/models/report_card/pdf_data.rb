@@ -18,6 +18,14 @@ class ReportCard::PdfData
     home_lang.name != "English"
   end
 
+  def title
+    report_card.form.name
+  end
+
+  def address
+    Rails.configuration.susd_address
+  end
+
   def subject_array(subject, columns, lang = :english)
     sub_arr = []
 

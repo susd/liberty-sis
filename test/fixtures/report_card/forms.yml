@@ -19,5 +19,5 @@
 #   name: MyString
 #   renderer: MyString
 primary:
-  name: 'Primary'
+  name: 'Primary Progress Report Card'
   renderer: primary

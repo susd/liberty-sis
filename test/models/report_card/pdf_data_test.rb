@@ -54,6 +54,13 @@ class ReportCard::PdfDataTest < ActiveSupport::TestCase
     assert data.render_translated?
   end
 
+  test "Pass-through title" do
+    card = report_cards(:sylvias_card)
+    data = ReportCard::PdfData.new(card)
+
+    assert_equal "Primary Progress Report Card", data.title
+  end
+
   private
 
   def card_with_subject(subj)
