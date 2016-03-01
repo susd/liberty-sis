@@ -48,5 +48,6 @@ class EmployeesController < ApplicationController
 
   def show
     @employee = ViewableEmployeesQuery.new(current_user).employees.find(params[:id])
+    authorize_to(:view, @employee)
   end
 end
