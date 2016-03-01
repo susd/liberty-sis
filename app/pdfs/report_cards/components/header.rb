@@ -1,4 +1,4 @@
-module ReportCard
+module ReportCards
   module Components
 
     class Header
