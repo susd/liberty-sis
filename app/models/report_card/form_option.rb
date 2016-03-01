@@ -12,14 +12,19 @@
 #
 
 class ReportCard::FormOption < ActiveRecord::Base
-  belongs_to :form, foreign_key: :report_card_form
+  enum field_type: {drop_down: 0, radio: 1, check_boxes: 2}
+  belongs_to :form, foreign_key: :report_card_form_id
 
   def user_values=(str)
-    data[:values] = str.split("\n").delete_if(&:blank?)
+    data[:values] = str.split("\n").delete_if(&:blank?).map(&:chomp)
+  end
+
+  def user_values
+    values.join("\n")
   end
 
   def values
-    fetch_data(['values'])
+    fetch_data(['values']) || []
   end
 
   def fetch_data(keys = [])

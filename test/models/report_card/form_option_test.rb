@@ -37,4 +37,16 @@ class ReportCard::FormOptionTest < ActiveSupport::TestCase
 
     assert_equal 2, opt.values.size
   end
+
+  test "Chomping returns" do
+    opt = ReportCard::FormOption.new({
+      field_name: "test_field",
+      user_values: "item1\r\nitem2\r\nitem3"
+      })
+
+    opt.save
+    opt.reload
+
+    refute_equal "item1\r", opt.values.first
+  end
 end

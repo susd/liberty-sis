@@ -1,0 +1,18 @@
+<%= render 'crumbs' %>
+
+<div class="page-header">
+  <h1><%= @form.name %> Options</h1>
+  <p><%= link_to 'New', new_report_cards_form_option_path(@form) %></p>
+</div>
+
+<table class="table">
+  <tbody>
+    <% @form_options.each do |form_option| %>
+    <tr>
+      <td><%= form_option.field_name %></td>
+      <td><%= form_option.field_type %></td>
+      <td><%= link_to 'Edit', edit_report_cards_form_option_path(@form, form_option)%></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

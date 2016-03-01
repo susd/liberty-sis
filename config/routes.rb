@@ -65,6 +65,7 @@ Rails.application.routes.draw do
     resources :forms do
       resources :subjects
       resources :comments
+      resources :options, controller: 'form_options'
     end
   end
 
