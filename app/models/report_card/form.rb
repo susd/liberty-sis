@@ -13,4 +13,5 @@ class ReportCard::Form < ActiveRecord::Base
   has_many :comment_groups, foreign_key: 'report_card_form_id'
   has_many :comments, through: :comment_groups
   has_many :subjects, foreign_key: 'report_card_form_id'
+  has_many :form_options, foreign_key: 'report_card_form_id'
 end

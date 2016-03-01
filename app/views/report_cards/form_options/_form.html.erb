@@ -1,0 +1,9 @@
+<%= bootstrap_form_for @form_option, url: submit_path_for(@form, @form_option) do |f| %>
+
+  <%= f.text_field :field_name %>
+  <%= f.text_area :user_values, help: "One value per line" %>
+  <%= f.select :field_type, ReportCard::FormOption.field_types.keys %>
+
+  <%= f.submit %>
+
+<% end %>

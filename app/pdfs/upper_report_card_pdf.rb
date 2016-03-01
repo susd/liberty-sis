@@ -15,7 +15,7 @@ class UpperReportCardPdf < ReportCardPdf
 
     format_side_section(@layout, data.slice('side_subjects', 'attendance'))
 
-    @layout.render_footer(data['teacher'], data['principal'], data['next_grade'])
+    @layout.render_footer(data['teacher'], data['principal'], data['next_grade'], data['services'])
 
     @layout.start_new_page
 
@@ -35,7 +35,7 @@ class UpperReportCardPdf < ReportCardPdf
       @layout.render_spanish_header
       format_main_section(@layout, data['spanish_main'], :spanish)
       format_side_section(@layout, {'side_subjects' => data['spanish_side'], 'attendance' => data['spanish_attendance']}, :spanish, 320, 385)
-      @layout.render_spanish_footer(data['teacher'], data['principal'], data['next_grade'])
+      @layout.render_spanish_footer(data['teacher'], data['principal'], data['next_grade'], data['services'])
       @layout.start_new_page
       @layout.render_details(data['name'], data['school'], data['year'])
       @layout.render_comments(data['spanish_comments'], :spanish)
@@ -64,7 +64,7 @@ class UpperReportCardPdf < ReportCardPdf
             {content: pdata['level'], colspan: 2}
           end
         end
-        
+
         result << level_arr
       end
 

@@ -13,7 +13,7 @@ class TkReportCardPdf < ReportCardPdf
     format_main_section(@layout, data['main_subjects'])
     format_side_section(@layout, data.slice('side_subjects', 'attendance'))
 
-    @layout.render_footer(data['teacher'], data['principal'], data['next_grade'])
+    @layout.render_footer(data['teacher'], data['principal'], data['next_grade'], data['services'])
 
     render_comments(data, :english)
 
@@ -26,7 +26,7 @@ class TkReportCardPdf < ReportCardPdf
       format_main_section(@layout, data['spanish_main'])
       format_side_section(@layout, {'side_subjects' => data['spanish_side'], 'attendance' => data['spanish_attendance']}, :spanish)
 
-      @layout.render_spanish_footer(data['teacher'], data['principal'], data['next_grade'])
+      @layout.render_spanish_footer(data['teacher'], data['principal'], data['next_grade'], data['services'])
 
       render_comments(data, :spanish)
 

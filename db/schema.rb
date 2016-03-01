@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160129053430) do
+ActiveRecord::Schema.define(version: 20160229223644) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -268,6 +268,18 @@ ActiveRecord::Schema.define(version: 20160129053430) do
 
   add_index "report_card_comments", ["report_card_comment_group_id"], name: "index_report_card_comments_on_report_card_comment_group_id", using: :btree
 
+  create_table "report_card_form_options", force: :cascade do |t|
+    t.string   "field_name"
+    t.integer  "field_type",          default: 0,  null: false
+    t.jsonb    "data",                default: {}, null: false
+    t.integer  "report_card_form_id"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+  end
+
+  add_index "report_card_form_options", ["data"], name: "index_report_card_form_options_on_data", using: :gin
+  add_index "report_card_form_options", ["report_card_form_id"], name: "index_report_card_form_options_on_report_card_form_id", using: :btree
+
   create_table "report_card_forms", force: :cascade do |t|
     t.string   "name"
     t.string   "renderer"
@@ -459,6 +471,7 @@ ActiveRecord::Schema.define(version: 20160129053430) do
   add_foreign_key "personas", "students"
   add_foreign_key "report_card_comment_groups", "report_card_forms"
   add_foreign_key "report_card_comments", "report_card_comment_groups"
+  add_foreign_key "report_card_form_options", "report_card_forms"
   add_foreign_key "report_card_subjects", "report_card_forms"
   add_foreign_key "report_cards", "employees"
   add_foreign_key "report_cards", "report_card_forms"
