@@ -21,6 +21,7 @@ class ReportCardPdf
       'teacher'     => teacher_name,
       'principal'   => principal_name,
       'next_grade'  => next_grade,
+      'services'    => services,
       'comments'    => {},
       'spanish_comments' => {}
     }
@@ -152,31 +153,35 @@ class ReportCardPdf
   end
 
   def teacher_name
-    @report_card.fetch_data(['teacher_name']) || student.homeroom.primary_teacher.name || ""
+    fetch(['teacher_name']) || student.homeroom.primary_teacher.name || ""
   end
 
   def next_grade
     if ReportCard::GradingPeriod.current && (ReportCard::GradingPeriod.current.position == 2)
-      @report_card.fetch_data(['next_grade']) || (student.grade.simple + 1).to_s
+      fetch(['next_grade']) || (student.grade.simple + 1).to_s
     else
       ""
     end
   end
 
   def school_name
-    @report_card.fetch_data(['school_name']) || student.site.name
+    fetch(['school_name']) || student.site.name
   end
 
   def school_year
-    if @report_card.fetch_data(['school_year'])
-      @report_card.fetch_data(['school_year']).to_i
+    if fetch(['school_year'])
+      fetch(['school_year']).to_i
     else
       SchoolYear.this_year
     end
   end
 
   def principal_name
-    @report_card.fetch_data(['principal_name']) || student.site.try(:principal)
+    fetch(['principal_name']) || student.site.try(:principal)
+  end
+
+  def services
+    fetch(['services']) || []
   end
 
   def effort_cols
