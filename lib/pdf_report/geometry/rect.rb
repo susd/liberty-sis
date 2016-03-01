@@ -38,8 +38,18 @@ module PdfReport
         [x, y]
       end
 
+      def dimensions
+        {width: width, height: height}
+      end
+
       def to_bb
-        [[x, y], {width: width, height: height}]
+        [[x, y], dimensions]
+      end
+
+      def to_textbox
+        {
+          at: [x, y]
+        }.merge(dimensions)
       end
 
       def padded_w(padding)

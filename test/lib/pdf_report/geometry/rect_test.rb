@@ -46,4 +46,8 @@ class PdfReport::Geometry::RectTest < ActiveSupport::TestCase
     assert_equal 6, @rect.padded_w(2)
     assert_equal 5, @rect.padded_h(5)
   end
+
+  test "Textbox values" do
+    assert_equal( {at: [0, 744], width: 10, height: 15}, @rect.to_textbox)
+  end
 end
