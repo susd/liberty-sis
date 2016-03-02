@@ -60,7 +60,10 @@ module ReportCards
         build_title
         build_address
         build_legend
+        # build_subject_header
         # build_main
+        # build_side
+        # build_attendance
         build_footer
         document.render
       end
@@ -90,7 +93,7 @@ module ReportCards
       end
 
       def build_legend
-
+        Components::Legend.new(self, data).render
       end
 
       def build_footer
