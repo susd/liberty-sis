@@ -12,6 +12,6 @@ class ReportCards::Components::PageHeaderTest < PdfTestCase
 
     rendered = @layout.document.render
 
-    output_pdf "header", rendered
+    output_pdf "rp_page_header", rendered
   end
 end

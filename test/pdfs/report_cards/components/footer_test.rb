@@ -20,7 +20,7 @@ class ReportCards::Components::FooterTest < PdfTestCase
     assert_includes inspected.strings, "Ashley Doe"
     assert_includes inspected.strings, "service1, service2, service3"
 
-    output_pdf "footer", rendered
+    output_pdf "rp_footer", rendered
   end
 
 end

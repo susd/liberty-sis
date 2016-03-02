@@ -8,7 +8,7 @@ class PdfReport::Components::LegendTest < PdfTestCase
 
     legend.draw_outer_border
 
-    output_pdf("legend_border", doc.render)
+    output_pdf "pdr_legend_border", doc.render
   end
 
   test "Writing title" do
@@ -18,7 +18,7 @@ class PdfReport::Components::LegendTest < PdfTestCase
     legend.draw_outer_border
     legend.write_title("My Legend Title")
 
-    output_pdf("legend_title", doc.render)
+    output_pdf("pdr_legend_title", doc.render)
   end
 
   test "Writing two-line title" do
@@ -28,7 +28,7 @@ class PdfReport::Components::LegendTest < PdfTestCase
     legend.draw_outer_border
     legend.write_title("My Long\nTwo-line Title")
 
-    output_pdf("legend_title2", doc.render)
+    output_pdf("pdr_legend_title2", doc.render)
   end
 
   test "Writing list" do
@@ -38,7 +38,7 @@ class PdfReport::Components::LegendTest < PdfTestCase
     legend.draw_outer_border
     legend.write_list(%w{✓item1 ✓item2 ✓item3})
 
-    output_pdf("legend_list", doc.render)
+    output_pdf("pdr_legend_list", doc.render)
   end
 
   private
