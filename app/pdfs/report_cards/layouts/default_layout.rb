@@ -56,17 +56,17 @@ module ReportCards
       end
 
       def render
-        build_header
+        build_page_header
         build_title
         build_address
-        # build_legend
+        build_legend
         # build_main
         build_footer
         document.render
       end
 
-      def build_header
-        Components::Header.new(self, data).render
+      def build_page_header
+        Components::PageHeader.new(self, data).render
       end
 
       def build_title
@@ -87,6 +87,10 @@ module ReportCards
           leading: 2,
           size: 10
         }
+      end
+
+      def build_legend
+
       end
 
       def build_footer

@@ -1,10 +1,10 @@
 require "test_helper"
 
-class ReportCards::Components::HeaderTest < PdfTestCase
+class ReportCards::Components::PageHeaderTest < PdfTestCase
   def setup
     @data = ReportCard::PdfData.new(report_cards(:sylvias_card))
     @layout  = ReportCards::Layouts::DefaultLayout.new(@data)
-    @header = ReportCards::Components::Header.new(@layout, @data)
+    @header = ReportCards::Components::PageHeader.new(@layout, @data)
   end
 
   test "Rendering header" do

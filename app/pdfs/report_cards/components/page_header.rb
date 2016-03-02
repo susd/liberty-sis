@@ -1,7 +1,7 @@
 module ReportCards
   module Components
 
-    class Header
+    class PageHeader
       attr_reader :doc, :data
 
       def initialize(layout, data)
