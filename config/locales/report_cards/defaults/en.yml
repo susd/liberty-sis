@@ -6,3 +6,10 @@ en:
         - Works Within Grade-Level Standards
         - Demonstrates Strengths
         - Effort
+      legend_title: "Effort Grades\nWork and Study Habits"
+      legend_items:
+        - "O - Outstanding"
+        - "G - Good"
+        - "S - Satisfactory"
+        - "N - Needs Improvement"
+        - "✓ - Quality of Work"

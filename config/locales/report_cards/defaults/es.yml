@@ -6,3 +6,10 @@ es:
         - Trabaja al Nivel del Grado
         - Demuestra Destreza
         - Esfuerzo
+      legend_title: "Calificacion del Esfuerzo\nHabitos de Trabajo y Estudio"
+      legend_items:
+        - "O - Sobresaliente"
+        - "G - Bueno"
+        - "S - Satisfactorio"
+        - "N - Necesita Mejorar"
+        - "✓ - Calidad Del Trabajo"
