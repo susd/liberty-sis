@@ -9,9 +9,9 @@ Minitest::Reporters.use! Minitest::Reporters::ProgressReporter.new, ENV, Minites
 
 require Rails.root.join('test', 'support', 'pdf_test_case.rb')
 
-# if defined? DidYouMean
-#   DidYouMean::SPELL_CHECKERS = {}
-# end
+if defined? DidYouMean
+  DidYouMean::SPELL_CHECKERS = {}
+end
 
 module ActiveRecord
   class FixtureSet
