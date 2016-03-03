@@ -3,7 +3,7 @@ module ReportCards
     queue_as :report_cards
 
     after_perform do |job|
-      UpdateAttendanceJob.set(wait: 12.hours).perform_later(*job.arguments)
+      UpdateAttendanceJob.set(wait_until: Date.tomorrow.midnight.utc).perform_later(*job.arguments)
     end
 
     def perform(school_code)
@@ -15,6 +15,6 @@ module ReportCards
         end
       end
     end
-    
+
   end
 end
