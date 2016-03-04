@@ -25,6 +25,7 @@ std_classroom:
   name: 'Standard Classroom'
   import_details: '{}'
   site: west_creek
+  primary_teacher: multi_teacher
 
 ashleys_class:
   name: "Ashley Doe's Class"

@@ -62,7 +62,7 @@ multi_teacher:
   last_name: McFakerton
   user: multi_teacher
   sites: west_creek
-  classrooms: multi_class_1, multi_class_2, multi_class_3
+  classrooms: std_classroom, multi_class_1, multi_class_2, multi_class_3
 
 rsp_teacher:
   type: Teacher
