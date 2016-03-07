@@ -23,7 +23,7 @@ class UpperReportCardPdf < ReportCardPdf
     @layout.render_details(data['name'], data['school'], data['year'])
     @layout.render_comments(data['comments'])
 
-    if data['comments'].values.flatten.count > 34
+    if data['comments'].values.flatten.count > COMMENT_BREAK
       @layout.start_new_page
     end
 
@@ -40,7 +40,7 @@ class UpperReportCardPdf < ReportCardPdf
       @layout.render_details(data['name'], data['school'], data['year'])
       @layout.render_comments(data['spanish_comments'], :spanish)
 
-      if data['comments'].values.flatten.count > 34
+      if data['comments'].values.flatten.count > COMMENT_BREAK
         @layout.start_new_page
       end
     end

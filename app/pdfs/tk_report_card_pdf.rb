@@ -17,6 +17,10 @@ class TkReportCardPdf < ReportCardPdf
 
     render_comments(data, :english)
 
+    if data['comments'].values.flatten.count > COMMENT_BREAK
+      @layout.start_new_page
+    end
+
     if @report_card.student.home_lang.name == 'Spanish'
       @layout.start_new_page
       @layout.render_details(data['name'], data['school'], data['year'])
@@ -29,6 +33,10 @@ class TkReportCardPdf < ReportCardPdf
       @layout.render_spanish_footer(data['teacher'], data['principal'], data['next_grade'], data['services'])
 
       render_comments(data, :spanish)
+
+      if data['comments'].values.flatten.count > COMMENT_BREAK
+        @layout.start_new_page
+      end
 
     end
 
