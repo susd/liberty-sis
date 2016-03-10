@@ -10,7 +10,7 @@ class CleanGappsPersonaJob < ActiveJob::Base
       old_email << "@#{student.persona_domain}"
       old_email = old_email.downcase.gsub(/(\s|-|\'|\")/,'')
 
-      if user = Gapps::Student.find(old_email)
+      if user = Gapps::Api::Student.find(old_email)
         Gapps::Base.service.delete_user(user.id)
       end
 

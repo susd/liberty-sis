@@ -3,9 +3,9 @@ class VerifyGappsPersonaJob < ActiveJob::Base
 
   def perform(student)
     begin
-      Gapps::Student.find(student.persona_email)
+      Gapps::Api::Student.find(student.persona_email)
     rescue Google::Apis::ClientError
-      Gapps::Student.new(student).insert!
+      Gapps::Api::Student.new(student).insert!
     end
   end
 end
