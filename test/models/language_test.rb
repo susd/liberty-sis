@@ -9,6 +9,7 @@
 #  aeries_code  :integer
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#  locale       :string
 #
 
 require 'test_helper'
