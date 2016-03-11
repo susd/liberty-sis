@@ -13,6 +13,7 @@
 #  synced_at         :datetime
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
+#  state             :integer          default(0), not null
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

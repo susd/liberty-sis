@@ -13,7 +13,9 @@
 #  synced_at         :datetime
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
+#  state             :integer          default(0), not null
 #
 
 class Gapps::OrgUnit < ActiveRecord::Base
+  enum state: {pending: 0, active: 1, errored: 2, disabled: 3}
 end

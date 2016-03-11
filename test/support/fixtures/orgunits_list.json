@@ -1,0 +1,50 @@
+{
+  "kind": "admin#directory#orgUnits",
+  "etag": "\"iwpzoDgSq9BJw-XzORg0bILYPVc/CnBN1bma0fS2ROPD8EQd69CjRB0\"",
+  "organizationUnits": [
+    {
+      "kind": "admin#directory#orgUnit",
+      "parentOrgUnitPath": "/",
+      "name": "Rio Vista",
+      "etag": "\"iwpzoDgSq9BJw-XzORg0bILYPVc/FL10nHXq_36-mTDxIe42-YdVCsU\"",
+      "orgUnitPath": "/Rio Vista",
+      "parentOrgUnitId": "id:03b1oz102r4mjp5",
+      "blockInheritance": false,
+      "orgUnitId": "id:03b1oz1025eumsk",
+      "description": ""
+    },
+    {
+      "kind": "admin#directory#orgUnit",
+      "parentOrgUnitPath": "/",
+      "name": "West Creek",
+      "etag": "\"iwpzoDgSq9BJw-XzORg0bILYPVc/SYKZlIAyIrmeHaxV_Ou-gYEGAPY\"",
+      "orgUnitPath": "/West Creek",
+      "parentOrgUnitId": "id:03b1oz102r4mjp5",
+      "blockInheritance": false,
+      "orgUnitId": "id:03b1oz101jp2pvz",
+      "description": ""
+    },
+    {
+      "kind": "admin#directory#orgUnit",
+      "parentOrgUnitPath": "/",
+      "name": "Students",
+      "etag": "\"iwpzoDgSq9BJw-XzORg0bILYPVc/0U6rtONS0cIca1zuMNAc_PFwBmc\"",
+      "orgUnitPath": "/Students",
+      "parentOrgUnitId": "id:03b1oz102r4mjp5",
+      "blockInheritance": false,
+      "orgUnitId": "id:03b1oz101x48lv0",
+      "description": "Org with restricted access"
+    },
+    {
+      "kind": "admin#directory#orgUnit",
+      "parentOrgUnitPath": "/",
+      "name": "devices",
+      "etag": "\"iwpzoDgSq9BJw-XzORg0bILYPVc/G9-NKb9YSZ9_EE8KaUKjdtHvWSs\"",
+      "orgUnitPath": "/devices",
+      "parentOrgUnitId": "id:03b1oz102r4mjp5",
+      "blockInheritance": false,
+      "orgUnitId": "id:03b1oz104h3w4it",
+      "description": ""
+    }
+  ]
+}

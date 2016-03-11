@@ -78,6 +78,8 @@ group :test do
   gem 'minitest-reporters'
   gem 'timecop'
   gem 'webmock'
+  gem 'mocha'
+  gem 'sinatra'
 end
 
 group :development, :test do
