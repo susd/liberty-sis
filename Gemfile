@@ -77,6 +77,7 @@ group :test do
   gem 'guard-minitest'
   gem 'minitest-reporters'
   gem 'timecop'
+  gem 'webmock'
 end
 
 group :development, :test do
