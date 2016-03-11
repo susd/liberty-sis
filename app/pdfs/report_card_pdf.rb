@@ -7,7 +7,7 @@ class ReportCardPdf
   DGREY = 'A'  * 6
   GREY  = 'E1' * 3
 
-  COMMENT_BREAK = 36
+  COMMENT_BREAK = 35
 
   def data
     @data ||= collate_data
