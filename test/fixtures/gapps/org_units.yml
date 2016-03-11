@@ -1,0 +1,38 @@
+# == Schema Information
+#
+# Table name: gapps_org_units
+#
+#  id                :integer          not null, primary key
+#  name              :string
+#  description       :text
+#  parent_id         :integer
+#  gapps_id          :string
+#  gapps_path        :string
+#  gapps_parent_id   :string
+#  gapps_parent_path :string
+#  synced_at         :datetime
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyText
+  parent_id: 1
+  gapps_id: MyString
+  gapps_path: MyString
+  gapps_parent_id: MyString
+  gapps_parent_path: MyString
+  synced_at: 2016-03-10 14:40:22
+
+two:
+  name: MyString
+  description: MyText
+  parent_id: 1
+  gapps_id: MyString
+  gapps_path: MyString
+  gapps_parent_id: MyString
+  gapps_parent_path: MyString
+  synced_at: 2016-03-10 14:40:22
