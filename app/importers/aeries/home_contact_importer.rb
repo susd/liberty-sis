@@ -1,5 +1,5 @@
 module Aeries
-  class HomeContactImporter
+  class HomeContactImporter < ::ContactImporter
     def self.for_student(native_student)
       if a = native_student.aeries_student
         new(a).import!
@@ -12,55 +12,16 @@ module Aeries
       @student = aeries_student
     end
 
-    def import!
-      SyncEvent.wrap(label: 'aeries:contact', syncable: native) do
-        create_or_update_native_records
-      end
-    end
-
-    def native
-      @native ||= find_native
-    end
-
     def native_student
       ::Student.find_by(["import_details @> ?", student.import_ids.to_json])
     end
 
-    def find_native
-      ::Contact.find_by([
-        "import_details @> ?", {
-          import_ids: [
-            [student.attributes['id'], 'home']
-          ]
-        }.to_json
-      ])
+    def sync_label
+      'aeries/contact'
     end
 
-    def exists?
-      native.present?
-    end
-
-    def create_or_update_native_records
-      if exists?
-        native.update(contact_attrs)
-      else
-        @native = ::Contact.create(contact_attrs)
-      end
-
-      create_or_update_addresses
-      create_or_update_phones
-    end
-
-    def create_or_update_addresses
-      address_attrs.each do |addr_hsh|
-        Aeries::AddressImporter.new(self, addr_hsh).import
-      end
-    end
-
-    def create_or_update_phones
-      phone_attrs.each do |ph_hsh|
-        Aeries::PhoneImporter.new(self, ph_hsh).import
-      end
+    def import_details
+      {import_id: student.attributes['id'], import_class: self.class.to_s}
     end
 
     def contact_attrs

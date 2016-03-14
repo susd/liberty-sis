@@ -10,7 +10,7 @@ class ContactImporter
   end
 
   def import
-    SyncEvent.wrap(label: sync_label) do |evnt|
+    SyncEvent.wrap(label: sync_label, syncable: native) do |evnt|
       create_or_update_native_records
     end
   end
