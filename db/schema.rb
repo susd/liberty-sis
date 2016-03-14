@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160311220016) do
+ActiveRecord::Schema.define(version: 20160314212248) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -214,6 +214,15 @@ ActiveRecord::Schema.define(version: 20160311220016) do
   add_index "evaluations", ["data"], name: "index_evaluations_on_data", using: :btree
   add_index "evaluations", ["employee_id"], name: "index_evaluations_on_employee_id", using: :btree
   add_index "evaluations", ["taken_at"], name: "index_evaluations_on_taken_at", using: :btree
+
+  create_table "gapps_org_unit_hierarchies", id: false, force: :cascade do |t|
+    t.integer "ancestor_id",   null: false
+    t.integer "descendant_id", null: false
+    t.integer "generations",   null: false
+  end
+
+  add_index "gapps_org_unit_hierarchies", ["ancestor_id", "descendant_id", "generations"], name: "org_unit_anc_desc_idx", unique: true, using: :btree
+  add_index "gapps_org_unit_hierarchies", ["descendant_id"], name: "org_unit_desc_idx", using: :btree
 
   create_table "gapps_org_units", force: :cascade do |t|
     t.string   "name"

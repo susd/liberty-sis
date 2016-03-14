@@ -19,6 +19,8 @@
 class Gapps::OrgUnit < ActiveRecord::Base
   enum state: {pending: 0, active: 1, errored: 2, disabled: 3}
 
+  has_closure_tree
+
   def self.new_from_api(api_obj)
     new({
       name:         api_obj.name,
