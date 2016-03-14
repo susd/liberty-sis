@@ -33,7 +33,7 @@ gem 'puma'
 
 
 # For Aeries
-gem 'tiny_tds', '~> 0.6.3.rc1'
+gem 'tiny_tds'
 gem 'composite_primary_keys'
 gem 'activerecord-sqlserver-adapter'
 
