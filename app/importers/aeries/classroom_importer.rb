@@ -83,7 +83,7 @@ module Aeries
 
     def last_import
       if native.sync_events.any?
-        native.sync_events.maximum(:created_at)
+        native.sync_events.where(label: "classroom:students").maximum(:created_at)
       else
         aeries_students.minimum("DTS")
       end
