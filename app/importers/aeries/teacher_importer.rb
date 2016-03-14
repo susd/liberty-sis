@@ -62,7 +62,10 @@ module Aeries
     def teacher_attrs
       @attrs ||= begin
         hsh = teacher.to_teacher
-        hsh.merge(user: user) if user.present?
+
+        if exists? && user.present?
+          hsh.merge(user: user)
+        end
 
         hsh
       end
