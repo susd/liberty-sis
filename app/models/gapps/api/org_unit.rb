@@ -1,6 +1,21 @@
 module Gapps
   module Api
 
+    # == Google Directory API
+    # OrgUnit
+    #
+    # {
+    #   "kind": "admin#directory#orgUnit",
+    #   "etag": etag,
+    #   "name": string,
+    #   "description": string,
+    #   "orgUnitPath": string,
+    #   "orgUnitId": string,
+    #   "parentOrgUnitPath": string,
+    #   "parentOrgUnitId": string,
+    #   "blockInheritance": boolean
+    # }
+
     class OrgUnit < Base
       CUSTOMER = "my_customer"
 

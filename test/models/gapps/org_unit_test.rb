@@ -19,7 +19,13 @@
 require 'test_helper'
 
 class Gapps::OrgUnitTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "Create from api" do
+    api_obj = GAdmin::OrgUnit.new(name: "3rd_grade")
+
+    assert_difference("Gapps::OrgUnit.count") do
+      Gapps::OrgUnit.create_from_api(api_obj)
+    end
+  end
+
+
 end

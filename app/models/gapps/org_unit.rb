@@ -18,4 +18,20 @@
 
 class Gapps::OrgUnit < ActiveRecord::Base
   enum state: {pending: 0, active: 1, errored: 2, disabled: 3}
+
+  def self.new_from_api(api_obj)
+    new({
+      name:         api_obj.name,
+      description:  api_obj.description,
+      gapps_id:     api_obj.org_unit_id,
+      gapps_path:   api_obj.org_unit_path,
+      gapps_parent_id: api_obj.parent_org_unit_id,
+      gapps_parent_path: api_obj.parent_org_unit_path
+      })
+  end
+
+  def self.create_from_api(api_obj)
+    new_from_api(api_obj).save!
+  end
+
 end
