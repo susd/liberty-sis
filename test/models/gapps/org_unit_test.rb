@@ -27,5 +27,39 @@ class Gapps::OrgUnitTest < ActiveSupport::TestCase
     end
   end
 
+  test "Update from api" do
+    api_obj = GAdmin::OrgUnit.new({
+      name: "students",
+      description: "Updated description",
+      org_unit_id: "id:03b1oz101x48lv0"
+      })
+
+    ou = gapps_org_units(:students)
+    ou.update_from_api(api_obj)
+
+    ou.reload
+
+    assert_equal "Updated description", ou.description
+  end
+
+  test "Create or update from API" do
+    api1 = GAdmin::OrgUnit.new({
+      name: "students",
+      description: "Lorem ipsum",
+      org_unit_id: "id:03b1oz101x48lv0"
+      })
+
+    api2 = GAdmin::OrgUnit.new({
+      name: "other",
+      description: "Testing",
+      org_unit_id: "not_an_id"
+      })
+
+    assert_difference("Gapps::OrgUnit.count", 1) do
+      Gapps::OrgUnit.create_or_update_from_api(api1)
+      Gapps::OrgUnit.create_or_update_from_api(api2)
+    end
+  end
+
 
 end

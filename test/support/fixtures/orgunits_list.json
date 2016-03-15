@@ -27,9 +27,9 @@
     {
       "kind": "admin#directory#orgUnit",
       "parentOrgUnitPath": "/",
-      "name": "Students",
+      "name": "students",
       "etag": "\"iwpzoDgSq9BJw-XzORg0bILYPVc/0U6rtONS0cIca1zuMNAc_PFwBmc\"",
-      "orgUnitPath": "/Students",
+      "orgUnitPath": "/students",
       "parentOrgUnitId": "id:03b1oz102r4mjp5",
       "blockInheritance": false,
       "orgUnitId": "id:03b1oz101x48lv0",

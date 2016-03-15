@@ -17,23 +17,44 @@
 #
 
 class Gapps::OrgUnit < ActiveRecord::Base
+  API_ATTRS = %i{
+    name
+    description
+    org_unit_id
+    org_unit_path
+    parent_org_unit_id
+    parent_org_unit_path
+  }
+
   enum state: {pending: 0, active: 1, errored: 2, disabled: 3}
 
   has_closure_tree
 
+  alias_attribute :org_unit_id, :gapps_id
+  alias_attribute :org_unit_path, :gapps_path
+  alias_attribute :parent_org_unit_id, :gapps_parent_id
+  alias_attribute :parent_org_unit_path, :gapps_parent_path
+
   def self.new_from_api(api_obj)
-    new({
-      name:         api_obj.name,
-      description:  api_obj.description,
-      gapps_id:     api_obj.org_unit_id,
-      gapps_path:   api_obj.org_unit_path,
-      gapps_parent_id: api_obj.parent_org_unit_id,
-      gapps_parent_path: api_obj.parent_org_unit_path
-      })
+    attrs = api_obj.to_h.slice(*API_ATTRS)
+    new(attrs)
   end
 
   def self.create_from_api(api_obj)
     new_from_api(api_obj).save!
   end
+
+  def self.create_or_update_from_api(api_obj)
+    if ou = find_by(gapps_id: api_obj.org_unit_id)
+      ou.update_from_api(api_obj)
+    else
+      create_from_api(api_obj)
+    end
+  end
+
+  def update_from_api(api_obj)
+    self.update(api_obj.to_h.slice(*API_ATTRS))
+  end
+
 
 end

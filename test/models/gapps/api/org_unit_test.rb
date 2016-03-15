@@ -3,9 +3,6 @@ require "test_helper"
 class Gapps::Api::OrgUnitTest < ActiveSupport::TestCase
 
   def setup
-    # stub_request(:post, "https://www.googleapis.com/oauth2/v3/token")
-    #   .with(body: hash_including("assertion" => /.*/))
-    #   .to_return(:status => 200, :body => "", :headers => {})
     stub_request(:any, /googleapis.com/).to_rack(FakeGoogle)
   end
 
@@ -27,6 +24,17 @@ class Gapps::Api::OrgUnitTest < ActiveSupport::TestCase
     api_ou.insert
 
     assert_requested(:post, "#{url_base}", body: {name: "test_ou"}.to_json)
+  end
+
+  test "importing OUs" do
+    Gapps::Api::OrgUnit.import
+
+    # assert that non-existent OUs are created
+    assert_includes Gapps::OrgUnit.pluck(:name), "West Creek"
+
+    # assert that existing OUs are updated
+    assert_equal 4, Gapps::OrgUnit.count
+    assert_equal 1, Gapps::OrgUnit.where(name: "students").count
   end
 
   private

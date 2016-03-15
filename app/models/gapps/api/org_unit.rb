@@ -27,6 +27,20 @@ module Gapps
         service.get_org_unit(CUSTOMER, path, options)
       end
 
+      def self.import
+        list.organization_units.each do |ou|
+          create_or_update_from_api(ou)
+        end
+      end
+
+      def self.create_or_update_from_api(api_obj)
+        if org_unit = Gapps::OrgUnit.find_by(gapps_id: api_obj.org_unit_id)
+          org_unit.update_from_api(api_obj)
+        else
+          Gapps::OrgUnit.create_from_api(api_obj)
+        end
+      end
+
       attr_reader :org_unit
 
       def initialize(org_unit)
