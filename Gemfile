@@ -57,6 +57,7 @@ gem 'skylight'
 
 group :development do
   gem 'capistrano-rails'
+  gem 'web-console', '~> 2.0'
 end
 
 group :test do
@@ -77,7 +78,6 @@ group :development, :test do
   gem 'quiet_assets'
   gem 'pry-rails'
   gem 'spring'
-  gem 'web-console', '~> 2.0'
 end
 
 source 'https://rails-assets.org' do
