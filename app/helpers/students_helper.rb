@@ -27,7 +27,7 @@
 
 module StudentsHelper
   def personas_cache_key(student)
-    latest = student.personas.maximum(:updated_at)
-    "student/personas/#{latest}"
+    latest = (student.personas.maximum(:updated_at) || student.updated_at).try(:to_i)
+    "#{student.cache_key}/personas/#{latest}"
   end
 end

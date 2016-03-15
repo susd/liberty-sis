@@ -6,6 +6,7 @@
 
 <hr>
 
+<% cache(classroom_personas_cache_key(@classroom, @students)) do %>
 <table class="table table-striped">
   <tr>
     <th>Name</th>
@@ -19,3 +20,4 @@
   <%= render partial: 'personas_row', collection: @students, as: :student %>
 
 </table>
+<% end %>

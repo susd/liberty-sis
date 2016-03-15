@@ -18,4 +18,9 @@ module ClassroomHelper
     max = students_relation.maximum(:updated_at).try(:to_i)
     ['classrooms', classroom.id, classroom.updated_at.to_i, max].join('/')
   end
+
+  def classroom_personas_cache_key(classroom, students_relation)
+    max = students_relation.maximum(:updated_at).try(:to_i)
+    ['classrooms', classroom.id, classroom.updated_at.to_i, 'personas', max].join('/')
+  end
 end

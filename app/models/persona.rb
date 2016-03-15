@@ -21,7 +21,7 @@ class Persona < ActiveRecord::Base
   enum state: {pending: 0, active: 1, errored: 2, disabled: 3}
   include AASM
 
-  belongs_to :personable, polymorphic: true
+  belongs_to :personable, polymorphic: true, touch: true
   has_many :sync_events, as: :syncable, dependent: :nullify
 
   validate :must_be_unique_username_and_handler
