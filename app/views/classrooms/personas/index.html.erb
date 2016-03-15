@@ -1,0 +1,21 @@
+<div class="page-header">
+  <h1>Internet Accounts</h1>
+</div>
+
+<%= link_to "Download spreadsheet", classroom_personas_path(@classroom, format: :csv), class: 'btn btn-primary' %>
+
+<hr>
+
+<table class="table table-striped">
+  <tr>
+    <th>Name</th>
+    <th>Google Apps</th>
+    <th>ConnectEd</th>
+    <th>Typing Club</th>
+    <th>Reading Counts</th>
+    <th>Renaissance Place</th>
+  </tr>
+
+  <%= render partial: 'personas_row', collection: @students, as: :student %>
+
+</table>

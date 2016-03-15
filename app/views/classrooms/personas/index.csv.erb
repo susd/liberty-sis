@@ -1,0 +1,6 @@
+Name,Google Apps,ConnectEd,Typing Club,Reading Counts,Renaissance Place
+<% @students.each do |student| -%>
+<%= student.name  -%>,<%= %w{gapps mcgraw typing_club scholastic renplace}.map do |h|
+    student.personas.find_by(handler: h).try(:username)
+   end.join(',') %>
+<% end -%>
