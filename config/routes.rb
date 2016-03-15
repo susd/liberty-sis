@@ -71,6 +71,10 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :gapps do
+    resources :org_units
+  end
+
   root to: 'dashboard#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
