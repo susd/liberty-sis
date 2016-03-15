@@ -1,0 +1,8 @@
+<% cache(personas_cache_key(student)) do %>
+<tr>
+  <td><%= student.name %></td>
+  <% %w{gapps mcgraw typing_club scholastic renplace}.each do |handler| %>
+  <td><%= student.personas.find_by(handler: handler).try(:username) %></td>
+  <% end %>
+</tr>
+<% end %>

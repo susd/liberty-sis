@@ -1,0 +1,15 @@
+<% cache classroom_cache_key(classroom, students) do %>
+  <div class="student_list-items">
+    <div class="row">
+      <% students.in_groups(3, false) do |grp| %>
+        <div class="col-md-4">
+          <div class="list-group">
+            <% grp.each do |student| %>
+            <%= student_item(student) %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>

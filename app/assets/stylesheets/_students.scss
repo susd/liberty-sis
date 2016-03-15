@@ -18,15 +18,3 @@
 .student_list-items{
   @include clearfix;
 }
-
-.student_item-inactive{
-  background-color: #eee;
-  color: #ccc;
-  // display: none;
-}
-
-.js-show-inactives{
-  .student_item-inactive{
-    display: block;
-  }
-}

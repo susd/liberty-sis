@@ -26,4 +26,8 @@
 #
 
 module StudentsHelper
+  def personas_cache_key(student)
+    latest = student.personas.maximum(:updated_at)
+    "student/personas/#{latest}"
+  end
 end

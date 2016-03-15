@@ -30,18 +30,20 @@ Rails.application.routes.draw do
     scope module: 'classrooms' do
       resources :memberships, only: [:index, :destroy]
       resources :leaderships, only: [:index, :create, :destroy]
+      resources :personas, only: [:index]
     end
   end
 
   resources :students, concerns: :searchable do
-    resources :personas do
-      patch :sync, on: :member
-    end
+
     resources :report_cards, concerns: :pdfs
 
     scope module: 'students' do
       resources :classrooms, only: [:index, :destroy]
       resources :contacts, only: [:index]
+      resources :personas do
+        patch :sync, on: :member
+      end
     end
   end
 
