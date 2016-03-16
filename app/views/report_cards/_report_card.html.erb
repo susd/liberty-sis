@@ -64,9 +64,11 @@
   <% presenter.comment_periods.each do |p, comments| %>
     <div class="comment-period">
       <h4><%= "#{p}#{p.ordinal}" %> Period</h4>
-      <% comments.each do |comment| %>
-      <span><%= comment.english %></span>
-      <% end %>
+      <ul>
+        <% comments.each do |comment| %>
+        <li><%= comment.english %></li>
+        <% end %>
+      </ul>
     </div>
   <% end %>
 
