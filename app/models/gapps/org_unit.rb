@@ -35,6 +35,8 @@ class Gapps::OrgUnit < ActiveRecord::Base
   alias_attribute :parent_org_unit_id, :gapps_parent_id
   alias_attribute :parent_org_unit_path, :gapps_parent_path
 
+  after_validation :update_parent
+
   def self.new_from_api(api_obj)
     attrs = api_obj.to_h.slice(*API_ATTRS)
     new(attrs)
@@ -54,6 +56,13 @@ class Gapps::OrgUnit < ActiveRecord::Base
 
   def update_from_api(api_obj)
     self.update(api_obj.to_h.slice(*API_ATTRS))
+  end
+
+  def update_parent
+    prnt = Gapps::OrgUnit.find_by(gapps_id: self.gapps_parent_id)
+    if prnt
+      self.parent = prnt
+    end
   end
 
 

@@ -28,13 +28,18 @@ class Gapps::Api::OrgUnitTest < ActiveSupport::TestCase
 
   test "importing OUs" do
     Gapps::Api::OrgUnit.import
+    Gapps::Api::OrgUnit.import
 
-    # assert that non-existent OUs are created
+    # non-existent OUs are created
     assert_includes Gapps::OrgUnit.pluck(:name), "West Creek"
 
-    # assert that existing OUs are updated
-    assert_equal 4, Gapps::OrgUnit.count
+    # existing OUs are updated
+    assert_equal 8, Gapps::OrgUnit.count
     assert_equal 1, Gapps::OrgUnit.where(name: "students").count
+
+    # OUs are put in hierarchy
+    dev = Gapps::OrgUnit.find_by(name: "devices")
+    assert_includes dev.children.pluck(:name), "kiosk"
   end
 
   private
