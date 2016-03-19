@@ -1,0 +1,10 @@
+<%= bootstrap_form_for @org_unit do |f| %>
+  <%= f.text_field :name %>
+  <%= f.text_area :description %>
+
+  <%= f.text_field :gapps_id %>
+  <%= f.text_field :gapps_path %>
+
+  <%= f.text_field :gapps_parent_id %>
+  <%= f.text_field :gapps_parent_path %>
+<% end %>
