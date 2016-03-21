@@ -20,7 +20,7 @@ module Gapps
       CUSTOMER = "my_customer"
 
       def self.list
-        service.list_org_units(CUSTOMER)
+        service.list_org_units(CUSTOMER, type: "all")
       end
 
       def self.find(path, options = {})
