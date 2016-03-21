@@ -1,6 +1,6 @@
 <span class="org_unit-parent"><%= org_unit.name %></span>
 <ul class="org_unit-children">
   <% org_unit.children.each do |org_unit| %>
-  <li><% render partial: "org_node", locals: {org_unit: org_unit} %></li>
+  <li><%= render partial: "org_node", locals: {org_unit: org_unit} %></li>
   <% end %>
 </ul>

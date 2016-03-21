@@ -7,6 +7,6 @@
 
 <ul class="org_unit-roots">
   <% @org_units.each do |org_unit| %>
-  <li class="org_unit-root"><% render partial: "org_node", locals: {org_unit: org_unit} %></li>
+  <li class="org_unit-root"><%= render partial: "org_node", locals: {org_unit: org_unit} %></li>
   <% end %>
 </ul>
