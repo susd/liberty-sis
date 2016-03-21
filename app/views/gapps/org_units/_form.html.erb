@@ -2,9 +2,5 @@
   <%= f.text_field :name %>
   <%= f.text_area :description %>
 
-  <%= f.text_field :gapps_id %>
-  <%= f.text_field :gapps_path %>
-
-  <%= f.text_field :gapps_parent_id %>
-  <%= f.text_field :gapps_parent_path %>
+  <%= f.select :parent, Gapps::OrgUnit.select_options, include_blank: true %>
 <% end %>

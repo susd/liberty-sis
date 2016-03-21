@@ -54,6 +54,10 @@ class Gapps::OrgUnit < ActiveRecord::Base
     end
   end
 
+  def self.select_options
+    self.order(:gapps_path).pluck(:gapps_path, :id)
+  end
+
   def update_from_api(api_obj)
     self.update(api_obj.to_h.slice(*API_ATTRS))
   end
