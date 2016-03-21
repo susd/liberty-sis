@@ -7,7 +7,14 @@ class FakeGoogle < Sinatra::Base
   end
 
   post "/admin/directory/v1/customer/my_customer/orgunits" do
-    json_response(200, "orgunits_insert.json")
+    request.body.rewind
+    pbody = JSON.parse request.body.read
+
+    if pbody.has_key? "parentOrgUnitPath"
+      json_response(200, "orgunits_insert_child.json")
+    else
+      json_response(200, "orgunits_insert_top.json")
+    end
   end
 
   get "/admin/directory/v1/customer/my_customer/orgunits/students" do

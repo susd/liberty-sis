@@ -7,7 +7,7 @@ class Gapps::Api::OrgUnitTest < ActiveSupport::TestCase
   end
 
   test "listing OUs" do
-    GAdmin::DirectoryService.any_instance.expects(:list_org_units).with("my_customer")
+    GAdmin::DirectoryService.any_instance.expects(:list_org_units).with("my_customer", type: "all")
     Gapps::Api::OrgUnit.list
   end
 
@@ -18,15 +18,36 @@ class Gapps::Api::OrgUnitTest < ActiveSupport::TestCase
     assert_equal "students", result.name
   end
 
-  test "inserting an OU" do
-    ou = Gapps::OrgUnit.new(name: 'test_ou')
+  test "inserting a top level OU" do
+    ou = Gapps::OrgUnit.create(name: 'test_ou')
+
+    assert_nil ou.gapps_id
+
     api_ou = Gapps::Api::OrgUnit.new(ou)
     api_ou.insert
 
-    assert_requested(:post, "#{url_base}", body: {name: "test_ou"}.to_json)
+    assert_requested(:post, "#{url_base}", body: {"name" => "test_ou"})
+    assert_equal "id:03b1oz101begoyf", ou.gapps_id
+  end
+
+  test "inserting a child OU" do
+    ou = Gapps::OrgUnit.create(name: "test_child", parent: gapps_org_units(:test))
+    api_ou = Gapps::Api::OrgUnit.new(ou)
+    api_ou.insert
+
+    expected_body = {
+      "name" => "test_child",
+      "parentOrgUnitPath" => "/test_stub",
+      "parentOrgUnitId" => "id:03b1oz101x48lv1"
+    }
+
+    assert_requested(:post, "#{url_base}", body: expected_body)
+    assert_equal "id:03b1oz101x48lv1", ou.gapps_parent_id
+    assert_equal "/test_stub", ou.gapps_parent_path
   end
 
   test "importing OUs" do
+    start_count = (Gapps::OrgUnit.count + 6)
     Gapps::Api::OrgUnit.import
     Gapps::Api::OrgUnit.import
 
@@ -34,7 +55,7 @@ class Gapps::Api::OrgUnitTest < ActiveSupport::TestCase
     assert_includes Gapps::OrgUnit.pluck(:name), "West Creek"
 
     # existing OUs are updated
-    assert_equal 8, Gapps::OrgUnit.count
+    assert_equal start_count, Gapps::OrgUnit.count
     assert_equal 1, Gapps::OrgUnit.where(name: "students").count
 
     # OUs are put in hierarchy

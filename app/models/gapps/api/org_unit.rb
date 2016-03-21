@@ -54,22 +54,28 @@ module Gapps
             org_unit.update(state: 2)
             false
           else
-            org_unit.update(state: 1, gapps_id: resp.id)
+            # update info
+            # set native parent
+            org_unit.update(
+              state: 1,
+              gapps_id: resp.org_unit_id,
+              gapps_path: resp.org_unit_path,
+              gapps_parent_id: resp.parent_org_unit_id,
+              gapps_parent_path: resp.parent_org_unit_path
+              )
           end
         end
       end
 
       private
 
-      def native_to_api(obj)
+      def native_to_api(native)
         Google::Apis::AdminDirectoryV1::OrgUnit.new({
-          org_unit_id: obj.gapps_id,
-          org_unit_path: obj.gapps_path,
-          parent_org_unit_id: obj.gapps_parent_id,
-          parent_org_unit_path: obj.gapps_parent_path,
-          name: obj.name,
-          description: obj.description
-          })
+          org_unit_id: native.gapps_id,
+          org_unit_path: native.gapps_path,
+          name: native.name,
+          description: native.description
+        }.merge(native.api_attrs_from_parent))
       end
 
     end

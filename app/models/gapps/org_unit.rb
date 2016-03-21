@@ -69,5 +69,12 @@ class Gapps::OrgUnit < ActiveRecord::Base
     end
   end
 
+  def api_attrs_from_parent
+    {
+      parent_org_unit_id: parent.try(:gapps_id),
+      parent_org_unit_path: parent.try(:gapps_path)
+    }
+  end
+
 
 end
