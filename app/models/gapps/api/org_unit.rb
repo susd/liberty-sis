@@ -72,7 +72,7 @@ module Gapps
       def native_to_api(native)
         Google::Apis::AdminDirectoryV1::OrgUnit.new({
           org_unit_id: native.gapps_id,
-          org_unit_path: native.gapps_path,
+          org_unit_path: nil,
           name: native.name,
           description: native.description
         }.merge(native.api_attrs_from_parent))

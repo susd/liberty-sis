@@ -37,7 +37,6 @@ class Gapps::Api::OrgUnitTest < ActiveSupport::TestCase
 
     expected_body = {
       "name" => "test_child",
-      "orgUnitPath" => "/test_stub/test_child",
       "parentOrgUnitPath" => "/test_stub",
       "parentOrgUnitId" => "id:03b1oz101x48lv1"
     }
@@ -74,7 +73,6 @@ class Gapps::Api::OrgUnitTest < ActiveSupport::TestCase
     expected_body = {
       "name" => "test_child2",
       "description" => "patch test",
-      "orgUnitPath" => "/test_stub/test_child2",
       "parentOrgUnitPath" => "/test_stub",
       "parentOrgUnitId" => "id:03b1oz101x48lv1"
     }
