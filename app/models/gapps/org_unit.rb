@@ -44,7 +44,10 @@ class Gapps::OrgUnit < ActiveRecord::Base
   end
 
   def self.create_from_api(api_obj)
-    new_from_api(api_obj).save!
+    ou = new_from_api(api_obj)
+    ou.synced_at = Time.now
+    ou.state = 1
+    ou.save!
   end
 
   def self.create_or_update_from_api(api_obj)
@@ -60,12 +63,16 @@ class Gapps::OrgUnit < ActiveRecord::Base
   end
 
   def update_from_api(api_obj)
-    self.update(api_obj.to_h.slice(*API_ATTRS))
+    self.assign_attributes(api_obj.to_h.slice(*API_ATTRS))
+    self.synced_at = Time.now
+    self.state = 1
+    self.save
   end
 
   def update_parent
     if self.changed.include?("gapps_parent_id") && !self.changed.include?("parent_id")
       set_parent_by_gapps_parent_id
+      set_path_from_parent
     end
   end
 
@@ -73,6 +80,7 @@ class Gapps::OrgUnit < ActiveRecord::Base
     if parent.present? && self.changed.include?("parent_id")
       self.gapps_parent_id = parent.gapps_id
       self.gapps_parent_path = parent.gapps_parent_path
+      set_path_from_parent
     end
   end
 
@@ -80,6 +88,13 @@ class Gapps::OrgUnit < ActiveRecord::Base
     prnt = Gapps::OrgUnit.find_by(gapps_id: self.gapps_parent_id)
     if prnt
       self.parent = prnt
+    end
+  end
+
+  def set_path_from_parent
+    if parent.present?
+      self.gapps_path = "#{parent.gapps_path}/#{name}"
+      self.gapps_parent_path = parent.gapps_path
     end
   end
 

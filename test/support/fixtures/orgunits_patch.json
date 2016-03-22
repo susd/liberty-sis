@@ -1,0 +1,9 @@
+{
+ "kind": "admin#directory#orgUnit",
+ "etag": "\"iwpzoDgSq9BJw-XzORg0bILYPVc/Ce-aSLUtsjHaFm10tZIiJIX1yWA\"",
+ "name": "test_child2",
+ "description": "patch test",
+ "orgUnitPath": "/test_stub/test_child2",
+ "parentOrgUnitPath": "/test_stub",
+ "parentOrgUnitId": "id:03b1oz101x48lv1"
+}

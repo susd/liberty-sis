@@ -2,5 +2,9 @@
   <%= f.text_field :name %>
   <%= f.text_area :description %>
 
-  <%= f.select :parent, Gapps::OrgUnit.select_options, include_blank: true %>
+  <%= f.select :parent_id, Gapps::OrgUnit.select_options, include_blank: true %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
 <% end %>

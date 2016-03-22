@@ -37,6 +37,7 @@ class Gapps::Api::OrgUnitTest < ActiveSupport::TestCase
 
     expected_body = {
       "name" => "test_child",
+      "orgUnitPath" => "/test_stub/test_child",
       "parentOrgUnitPath" => "/test_stub",
       "parentOrgUnitId" => "id:03b1oz101x48lv1"
     }
@@ -53,6 +54,7 @@ class Gapps::Api::OrgUnitTest < ActiveSupport::TestCase
 
     # non-existent OUs are created
     assert_includes Gapps::OrgUnit.pluck(:name), "West Creek"
+    assert_not_nil Gapps::OrgUnit.find_by(name: "West Creek").synced_at
 
     # existing OUs are updated
     assert_equal start_count, Gapps::OrgUnit.count
@@ -63,6 +65,23 @@ class Gapps::Api::OrgUnitTest < ActiveSupport::TestCase
     assert_includes dev.children.pluck(:name), "kiosk"
   end
 
+  test "Upsert an OU" do
+    ou = gapps_org_units(:child2)
+    ou.update(description: "patch test", parent: gapps_org_units(:test))
+
+    Gapps::Api::OrgUnit.new(ou).upsert
+
+    expected_body = {
+      "name" => "test_child2",
+      "description" => "patch test",
+      "orgUnitPath" => "/test_stub/test_child2",
+      "parentOrgUnitPath" => "/test_stub",
+      "parentOrgUnitId" => "id:03b1oz101x48lv1"
+    }
+
+    assert_requested(:patch, "#{url_base}", body: expected_body)
+  end
+
   private
 
   def read_fixture(name)
@@ -71,6 +90,10 @@ class Gapps::Api::OrgUnitTest < ActiveSupport::TestCase
 
   def url_base
     "https://www.googleapis.com/admin/directory/v1/customer/my_customer/orgunits"
+  end
+
+  def escaped_path(path)
+    ERB::Util.url_encode(path)
   end
 
 end

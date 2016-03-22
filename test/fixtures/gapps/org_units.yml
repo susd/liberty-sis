@@ -47,3 +47,13 @@ test:
   gapps_parent_id: "id:03b1oz102r4mjp5"
   gapps_parent_path: "/"
   synced_at: 2016-03-10 14:40:22
+
+child:
+  name: test_child
+  parent: test
+  state: 0
+
+child2:
+  name: test_child2
+  parent_id:
+  state: 1

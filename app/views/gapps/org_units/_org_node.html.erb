@@ -1,4 +1,4 @@
-<span class="org_unit-parent"><%= org_unit.name %></span>
+<span class="org_unit-parent"><%= link_to org_unit.name, org_unit %></span>
 <ul class="org_unit-children">
   <% org_unit.children.each do |org_unit| %>
   <li><%= render partial: "org_node", locals: {org_unit: org_unit} %></li>

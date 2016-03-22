@@ -21,16 +21,23 @@ class FakeGoogle < Sinatra::Base
     json_response(200, "orgunits_find.json")
   end
 
-  post '/oauth2/v3/token' do
+  post "/oauth2/v3/token" do
     json_response(200, "oauth2.json")
   end
 
-  get '/*' do
-    # json_response 200, 'contributors.json'
+  patch "/admin/directory/v1/customer/my_customer/orgunits" do
+    json_response 200, 'orgunits_patch'
+  end
+
+  get "/*" do
     binding.pry
   end
 
   post "/*" do
+    binding.pry
+  end
+
+  patch "/*" do
     binding.pry
   end
 

@@ -1,0 +1,70 @@
+
+<div class="page-header">
+  <h1><%= @org_unit.name %></h1>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+
+    <table class="table table-striped">
+      <tr>
+        <td>Name</td>
+        <td><%= @org_unit.name %></td>
+      </tr>
+
+      <tr>
+        <td>Description</td>
+        <td><%= @org_unit.description %></td>
+      </tr>
+
+      <tr>
+        <td>Parent</td>
+        <td><%= link_to @org_unit.parent.name, @org_unit if @org_unit.parent %></td>
+      </tr>
+
+      <tr>
+        <td>Google Org Unit ID</td>
+        <td><%= @org_unit.gapps_id %></td>
+      </tr>
+
+      <tr>
+        <td>Google Org Unit Path</td>
+        <td><%= @org_unit.gapps_path %></td>
+      </tr>
+
+      <tr>
+        <td>Google Parent ID</td>
+        <td><%= @org_unit.gapps_parent_id %></td>
+      </tr>
+
+      <tr>
+        <td>Google Parent Path</td>
+        <td><%= @org_unit.gapps_parent_path %></td>
+      </tr>
+
+      <tr>
+        <td>Created (locally)</td>
+        <td><%= @org_unit.created_at %></td>
+      </tr>
+
+      <tr>
+        <td>Updated (locally)</td>
+        <td><%= @org_unit.updated_at %></td>
+      </tr>
+
+      <tr>
+        <td>Synced at</td>
+        <td><%= @org_unit.synced_at %></td>
+      </tr>
+    </table>
+
+  </div>
+  <div class="col-md-6">
+
+    <ul>
+      <li><%= link_to "Edit", edit_gapps_org_unit_path(@org_unit) %></li>
+      <li><%= link_to "Sync", gapps_api_org_unit_path(@org_unit), method: :patch %></li>
+    </ul>
+
+  </div>
+</div>
