@@ -61,5 +61,17 @@ class Gapps::OrgUnitTest < ActiveSupport::TestCase
     end
   end
 
+  test "Parent api info is updated with native parent info on save" do
+    parent = gapps_org_units(:test)
+    ou = Gapps::OrgUnit.create(name: "test_child", parent: parent)
+
+    assert_equal parent.gapps_id, ou.gapps_parent_id
+
+    new_parent = gapps_org_units(:devices)
+    ou.update(parent_id: new_parent.id)
+    ou.reload
+
+    assert_equal new_parent.gapps_id, ou.gapps_parent_id
+  end
 
 end
