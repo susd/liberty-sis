@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160314212248) do
+ActiveRecord::Schema.define(version: 20160322215334) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -144,16 +144,17 @@ ActiveRecord::Schema.define(version: 20160314212248) do
     t.string   "email"
     t.date     "birthdate"
     t.date     "hired_on"
-    t.integer  "years_edu",       default: 0,  null: false
-    t.integer  "years_district",  default: 0,  null: false
+    t.integer  "years_edu",         default: 0,  null: false
+    t.integer  "years_district",    default: 0,  null: false
     t.string   "title"
-    t.integer  "state",           default: 0,  null: false
+    t.integer  "state",             default: 0,  null: false
     t.integer  "legacy_id"
     t.integer  "user_id"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
-    t.jsonb    "import_details",  default: {}, null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.jsonb    "import_details",    default: {}, null: false
     t.integer  "primary_site_id"
+    t.integer  "gapps_org_unit_id"
   end
 
   add_index "employees", ["birthdate"], name: "index_employees_on_birthdate", using: :btree
@@ -439,6 +440,7 @@ ActiveRecord::Schema.define(version: 20160314212248) do
     t.jsonb    "import_details",              default: {}, null: false
     t.integer  "state",                       default: 0,  null: false
     t.integer  "ssid",              limit: 8
+    t.integer  "gapps_org_unit_id"
   end
 
   add_index "students", ["birthdate"], name: "index_students_on_birthdate", using: :btree
@@ -514,6 +516,7 @@ ActiveRecord::Schema.define(version: 20160314212248) do
   add_foreign_key "classroom_memberships", "classrooms"
   add_foreign_key "classroom_memberships", "students"
   add_foreign_key "classrooms", "sites"
+  add_foreign_key "employees", "gapps_org_units"
   add_foreign_key "enrollments", "classrooms"
   add_foreign_key "enrollments", "grades"
   add_foreign_key "enrollments", "sites"
@@ -528,6 +531,7 @@ ActiveRecord::Schema.define(version: 20160314212248) do
   add_foreign_key "report_cards", "employees"
   add_foreign_key "report_cards", "report_card_forms"
   add_foreign_key "report_cards", "students"
+  add_foreign_key "students", "gapps_org_units"
   add_foreign_key "students", "grades"
   add_foreign_key "students", "sites"
 end
