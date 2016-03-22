@@ -26,7 +26,7 @@ class FakeGoogle < Sinatra::Base
   end
 
   patch "/admin/directory/v1/customer/my_customer/orgunits" do
-    json_response 200, 'orgunits_patch'
+    json_response 200, 'orgunits_patch.json'
   end
 
   get "/*" do
