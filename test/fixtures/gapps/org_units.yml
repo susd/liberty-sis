@@ -1,0 +1,59 @@
+# == Schema Information
+#
+# Table name: gapps_org_units
+#
+#  id                :integer          not null, primary key
+#  name              :string
+#  description       :text
+#  parent_id         :integer
+#  gapps_id          :string
+#  gapps_path        :string
+#  gapps_parent_id   :string
+#  gapps_parent_path :string
+#  synced_at         :datetime
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  state             :integer          default(0), not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+devices:
+  name: devices
+  description: MyText
+  parent_id:
+  gapps_id: "id:03b1oz104h3w4it"
+  gapps_path: "/devices"
+  gapps_parent_id: "id:03b1oz102r4mjp5"
+  gapps_parent_path: "/"
+  synced_at: 2016-03-10 14:40:22
+
+students:
+  name: students
+  description: MyText
+  parent_id:
+  gapps_id: "id:03b1oz101x48lv0"
+  gapps_path: "/students"
+  gapps_parent_id: "id:03b1oz102r4mjp5"
+  gapps_parent_path: "/"
+  synced_at: 2016-03-10 14:40:22
+
+test:
+  name: test_stub
+  description: Root test ou
+  parent_id:
+  gapps_id: "id:03b1oz101x48lv1"
+  gapps_path: "/test_stub"
+  gapps_parent_id: "id:03b1oz102r4mjp5"
+  gapps_parent_path: "/"
+  synced_at: 2016-03-10 14:40:22
+
+child:
+  name: test_child
+  parent: test
+  state: 0
+
+child2:
+  name: test_child2
+  parent_id:
+  state: 1

@@ -1,13 +1,16 @@
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
-
 require 'capybara/rails'
-
+require 'mocha/mini_test'
 require 'minitest/reporters'
+require 'webmock/minitest'
+
 Minitest::Reporters.use! Minitest::Reporters::ProgressReporter.new, ENV, Minitest.backtrace_filter
 
-
+Dir["#{Rails.root.join('test', 'support')}/**/*.rb"].each do |file|
+  require file
+end
 
 module ActiveRecord
   class FixtureSet

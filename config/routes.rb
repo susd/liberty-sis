@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: { omniauth_callbacks: "omniauth_callbacks", sessions: 'sessions' }
 
-  authenticated :user, -> user { user.admin? } do
+  authenticated :user, -> (user) { user.admin? } do
     mount Delayed::Web::Engine, at: '/jobs'
   end
 
@@ -69,6 +69,20 @@ Rails.application.routes.draw do
       resources :comments
       resources :options, controller: 'form_options'
     end
+  end
+
+  namespace :gapps do
+    resources :org_units
+
+    namespace :api do
+      resources :org_units, only: [:update, :destroy]
+      resources :users, only: [:update, :destroy] do
+        member do
+          patch :suspend
+        end
+      end
+    end
+
   end
 
   root to: 'dashboard#index'

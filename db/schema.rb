@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160229223644) do
+ActiveRecord::Schema.define(version: 20160314212248) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -189,6 +189,55 @@ ActiveRecord::Schema.define(version: 20160229223644) do
   add_index "enrollments", ["site_id"], name: "index_enrollments_on_site_id", using: :btree
   add_index "enrollments", ["student_id"], name: "index_enrollments_on_student_id", using: :btree
 
+  create_table "eval_notes", force: :cascade do |t|
+    t.integer  "evaluation_id"
+    t.text     "label"
+    t.text     "body"
+    t.jsonb    "data",          default: {}
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "eval_notes", ["data"], name: "index_eval_notes_on_data", using: :btree
+  add_index "eval_notes", ["evaluation_id"], name: "index_eval_notes_on_evaluation_id", using: :btree
+  add_index "eval_notes", ["label"], name: "index_eval_notes_on_label", using: :btree
+
+  create_table "evaluations", force: :cascade do |t|
+    t.integer  "employee_id"
+    t.datetime "taken_at"
+    t.jsonb    "data",         default: {}
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.integer  "evaluator_id"
+  end
+
+  add_index "evaluations", ["data"], name: "index_evaluations_on_data", using: :btree
+  add_index "evaluations", ["employee_id"], name: "index_evaluations_on_employee_id", using: :btree
+  add_index "evaluations", ["taken_at"], name: "index_evaluations_on_taken_at", using: :btree
+
+  create_table "gapps_org_unit_hierarchies", id: false, force: :cascade do |t|
+    t.integer "ancestor_id",   null: false
+    t.integer "descendant_id", null: false
+    t.integer "generations",   null: false
+  end
+
+  add_index "gapps_org_unit_hierarchies", ["ancestor_id", "descendant_id", "generations"], name: "org_unit_anc_desc_idx", unique: true, using: :btree
+  add_index "gapps_org_unit_hierarchies", ["descendant_id"], name: "org_unit_desc_idx", using: :btree
+
+  create_table "gapps_org_units", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "parent_id"
+    t.string   "gapps_id"
+    t.string   "gapps_path"
+    t.string   "gapps_parent_id"
+    t.string   "gapps_parent_path"
+    t.datetime "synced_at"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.integer  "state",             default: 0, null: false
+  end
+
   create_table "grades", force: :cascade do |t|
     t.text     "name"
     t.float    "position"
@@ -213,6 +262,7 @@ ActiveRecord::Schema.define(version: 20160229223644) do
     t.integer  "aeries_code"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.string   "locale"
   end
 
   create_table "personas", force: :cascade do |t|
@@ -468,6 +518,8 @@ ActiveRecord::Schema.define(version: 20160229223644) do
   add_foreign_key "enrollments", "grades"
   add_foreign_key "enrollments", "sites"
   add_foreign_key "enrollments", "students"
+  add_foreign_key "eval_notes", "evaluations"
+  add_foreign_key "evaluations", "employees"
   add_foreign_key "personas", "students"
   add_foreign_key "report_card_comment_groups", "report_card_forms"
   add_foreign_key "report_card_comments", "report_card_comment_groups"

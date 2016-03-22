@@ -1,0 +1,10 @@
+{
+ "kind": "admin#directory#orgUnit",
+ "etag": "\"iwpzoDgSq9BJw-XzORg0bILYPVc/aAtt_0bkmBlvsvBRv1bn2ahZ5fI\"",
+ "name": "test_ou",
+ "description": "testing - ignore",
+ "orgUnitPath": "/test_ou",
+ "orgUnitId": "id:03b1oz101begoyf",
+ "parentOrgUnitPath": "/",
+ "parentOrgUnitId": "id:03b1oz102r4mjp5"
+}

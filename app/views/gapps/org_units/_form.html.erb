@@ -1,0 +1,10 @@
+<%= bootstrap_form_for @org_unit do |f| %>
+  <%= f.text_field :name %>
+  <%= f.text_area :description %>
+
+  <%= f.select :parent_id, Gapps::OrgUnit.select_options, include_blank: true %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

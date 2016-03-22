@@ -51,8 +51,10 @@ class Admin::RolesController < AdminController
     arr
   end
 
+  #TODO: Allow modules to add to these
+
   def permission_resources
-    %w{roles sites employees classrooms students}
+    %w{roles sites employees classrooms students gapps_org_units}
   end
 
   def permission_abilities
