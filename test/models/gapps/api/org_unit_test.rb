@@ -26,7 +26,7 @@ class Gapps::Api::OrgUnitTest < ActiveSupport::TestCase
     api_ou = Gapps::Api::OrgUnit.new(ou)
     api_ou.insert
 
-    assert_requested(:post, "#{url_base}", body: {"name" => "test_ou"})
+    assert_requested(:post, url_base, body: {"name" => "test_ou"})
     assert_equal "id:03b1oz101begoyf", ou.gapps_id
   end
 
@@ -41,7 +41,7 @@ class Gapps::Api::OrgUnitTest < ActiveSupport::TestCase
       "parentOrgUnitId" => "id:03b1oz101x48lv1"
     }
 
-    assert_requested(:post, "#{url_base}", body: expected_body)
+    assert_requested(:post, url_base, body: expected_body)
     assert_equal "id:03b1oz101x48lv1", ou.gapps_parent_id
     assert_equal "/test_stub", ou.gapps_parent_path
   end
