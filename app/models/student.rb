@@ -42,7 +42,7 @@ class Student < ActiveRecord::Base
   belongs_to :home_lang, foreign_key: 'home_lang_id', class_name: 'Language'
   belongs_to :homeroom, foreign_key: 'homeroom_id', class_name: 'Classroom'
 
-  belongs_to :org_unit, class_name: "Gapps:OrgUnit"
+  belongs_to :org_unit, class_name: "Gapps::OrgUnit", foreign_key: "gapps_org_unit_id"
 
   has_many :attendances
 
