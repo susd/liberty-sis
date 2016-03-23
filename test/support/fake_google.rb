@@ -10,7 +10,7 @@ class FakeGoogle < Sinatra::Base
     request.body.rewind
     pbody = JSON.parse request.body.read
 
-    if pbody.has_key? "parentOrgUnitPath"
+    if pbody["parentOrgUnitPath"] != "/"
       json_response(200, "orgunits_insert_child.json")
     else
       json_response(200, "orgunits_insert_top.json")

@@ -101,7 +101,7 @@ class Gapps::OrgUnit < ActiveRecord::Base
   def api_attrs_from_parent
     {
       parent_org_unit_id: parent.try(:gapps_id),
-      parent_org_unit_path: parent.try(:gapps_path)
+      parent_org_unit_path: (parent.try(:gapps_path) || "/")
     }
   end
 

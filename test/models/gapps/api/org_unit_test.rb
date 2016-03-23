@@ -20,13 +20,17 @@ class Gapps::Api::OrgUnitTest < ActiveSupport::TestCase
 
   test "inserting a top level OU" do
     ou = Gapps::OrgUnit.create(name: 'test_ou')
+    expected_body = {
+      "name" => "test_ou",
+      "parentOrgUnitPath" => "/"
+    }
 
     assert_nil ou.gapps_id
 
     api_ou = Gapps::Api::OrgUnit.new(ou)
     api_ou.insert
 
-    assert_requested(:post, url_base, body: {"name" => "test_ou"})
+    assert_requested(:post, url_base, body: expected_body)
     assert_equal "id:03b1oz101begoyf", ou.gapps_id
   end
 
