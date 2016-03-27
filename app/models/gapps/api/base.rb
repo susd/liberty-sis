@@ -2,6 +2,8 @@ module Gapps
   module Api
 
     class Base
+      include ActiveModel::Validations
+      
       def self.service
         GAdmin::DirectoryService.new
       end

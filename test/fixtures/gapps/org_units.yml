@@ -38,6 +38,20 @@ students:
   gapps_parent_path: "/"
   synced_at: 2016-03-10 14:40:22
 
+grade_4:
+  name: grade_4
+  parent: students
+  gapps_path: "/students/grade_4"
+  gapps_parent_id: "id:03b1oz102r4mjp5"
+  gapps_parent_path: "/students"
+
+employees:
+  name: employees
+  parent_id:
+  gapps_path: "/employees"
+  gapps_parent_id: "id:03b1oz102r4mjp5"
+  gapps_parent_path: "/"
+
 test:
   name: test_stub
   description: Root test ou

@@ -24,9 +24,3 @@ one:
   handler: gapps
   username: dood23@example.com
   password: MyString
-
-# two:
-#   student_id:
-#   handler: MyString
-#   username: MyString
-#   password: MyString

@@ -11,19 +11,76 @@ class Gapps::Api::UserTest < ActiveSupport::TestCase
     assert_requested :get, "#{url_base}/jane@example.org"
   end
 
+  test "finding the persona for a student" do
+    student = students(:cindy)
+    persona = student.personas.create({
+      handler: "gapps", username: student.persona_email,
+      password: student.persona_init_password
+      })
+
+    api_student = Gapps::Api::User.new(persona)
+
+    assert_kind_of Persona, api_student.persona
+    assert_equal student.persona_email, api_student.persona.username
+  end
+
   test "inserting a user account for a student" do
     student = students(:cindy)
-    api_student = Gapps::Api::User.new(student)
-    expected_body = {
-      primary_email: student.persona_email,
-      password: student.persona_init_password,
-      name: {
-        family_name: student.last_name,
-        given_name: student.first_name,
-        full_name: student.name
+    persona = student.personas.create({
+      handler: "gapps", username: student.persona_email,
+      password: student.persona_init_password
+      })
+
+    api_user = Gapps::Api::User.new(persona)
+
+    api_user.insert
+    assert_requested :post, url_base, body: expected_student_body(student, persona)
+  end
+
+  test "inserting a user account for an employee" do
+    employee = employees(:ashley_doe)
+    persona = employee.personas.create({
+      handler: "gapps",
+      username: employee.email,
+      password: employee.persona_init_password
+      })
+
+    api_user = Gapps::Api::User.new(persona)
+
+    api_user.insert
+    assert_requested :post, url_base, body: expected_employee_body(employee, persona)
+  end
+
+  test "inserting an employee fails if email missing" do
+    employee = employees(:teacher)
+    persona = employee.personas.create({
+      handler: "gapps",
+      username: employee.email,
+      password: employee.persona_init_password
+      })
+
+    api_user = Gapps::Api::User.new(persona)
+
+    refute api_user.insert
+  end
+
+  private
+
+  def url_base
+    "https://www.googleapis.com/admin/directory/v1/users"
+  end
+
+  def expected_student_body(student, persona)
+    {
+      "primaryEmail" => student.persona_email,
+      "password" => student.persona_init_password,
+      "name" => {
+        "familyName" => student.last_name,
+        "givenName" => student.first_name,
+        "fullName" => student.name
       },
-      org_unit_path: "/students",
-      external_ids: [
+      "orgUnitPath" => "/students/grade_4",
+      "externalIds" => [
         {
           "type" => "custom",
           "customType" => "person_id",
@@ -40,16 +97,33 @@ class Gapps::Api::UserTest < ActiveSupport::TestCase
           "value" => student.grade.simple
         }
       ],
-      include_in_global_address_list: false
+      "includeInGlobalAddressList" => false
     }
-
-    api_student.insert
-    # assert_requested :post, "#{url_base}/jane@example.org"
   end
 
-  private
-
-  def url_base
-    "https://www.googleapis.com/admin/directory/v1/users"
+  def expected_employee_body(employee, persona)
+    {
+      "primaryEmail" => employee.email,
+      "password" => employee.persona_init_password,
+      "name" => {
+        "familyName" => employee.last_name,
+        "givenName" => employee.first_name,
+        "fullName" => employee.name
+      },
+      "orgUnitPath" => "/employees",
+      "externalIds" => [
+        {
+          "type" => "custom",
+          "customType" => "person_id",
+          "value" => employee.id
+        },
+        {
+          "type" => "custom",
+          "customType" => "school_id",
+          "value" => employee.primary_site.code
+        }
+      ],
+      "includeInGlobalAddressList" => true
+    }
   end
 end

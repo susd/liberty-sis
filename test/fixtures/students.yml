@@ -54,6 +54,7 @@ sylvia:
   homeroom: ashleys_class
   birthdate: <%= Time.now - 10.years %>
   home_lang: en
+  org_unit: grade_4
   site: west_creek
 <% end %>
 

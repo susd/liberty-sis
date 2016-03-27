@@ -52,8 +52,11 @@ ashley_doe:
   type: Teacher
   first_name: Ashley
   last_name: Doe
+  email: adoe@example.com
   user: ashley_doe
   sites: west_creek
+  primary_site: west_creek
+  org_unit: employees
   classrooms: ashleys_class
 
 multi_teacher:

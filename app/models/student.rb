@@ -29,6 +29,7 @@ class Student < ActiveRecord::Base
   include ReportCard::StudentMethods
   include ReportCard::AttendanceQueries
   include Aeries::StudentConvenience
+  include Gapps::CustomStudentFields
   include PgSearch
 
   enum state: {pending: 0, active: 1, inactive: 2}

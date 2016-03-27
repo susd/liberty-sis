@@ -62,6 +62,18 @@ class Gapps::OrgUnit < ActiveRecord::Base
     self.order(:gapps_path).pluck(:gapps_path, :id)
   end
 
+  def self.unassigned
+    self.find_by(name: "unassigned")
+  end
+
+  def self.fallback_path
+    if u = unassigned
+      u.gapps_path
+    else
+      "/"
+    end
+  end
+
   def update_from_api(api_obj)
     self.assign_attributes(api_obj.to_h.slice(*API_ATTRS))
     self.synced_at = Time.now

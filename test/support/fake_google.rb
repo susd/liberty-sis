@@ -38,7 +38,7 @@ class FakeGoogle < Sinatra::Base
   end
 
   post "/admin/directory/v1/users" do
-    binding.pry
+    json_response 200, 'users_insert.json'
   end
 
   # -- Catch-alls

@@ -25,6 +25,8 @@
 class Employee < ActiveRecord::Base
   enum state: {active: 0, inactive: 1}
 
+  include Gapps::CustomEmployeeFields
+
   FILTER = /(\s|-|\'|\")/
 
   has_and_belongs_to_many :sites, -> { uniq }
