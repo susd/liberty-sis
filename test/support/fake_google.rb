@@ -2,6 +2,8 @@ require 'sinatra/base'
 
 class FakeGoogle < Sinatra::Base
 
+  # -- Org Units
+
   get "/admin/directory/v1/customer/my_customer/orgunits" do
     json_response(200, "orgunits_list.json")
   end
@@ -28,6 +30,18 @@ class FakeGoogle < Sinatra::Base
   patch "/admin/directory/v1/customer/my_customer/orgunits" do
     json_response 200, 'orgunits_patch.json'
   end
+
+  # -- User
+
+  get "/admin/directory/v1/users/jane@example.org" do
+    json_response 200, 'users_get.json'
+  end
+
+  post "/admin/directory/v1/users" do
+    json_response 200, 'users_insert.json'
+  end
+
+  # -- Catch-alls
 
   get "/*" do
     binding.pry

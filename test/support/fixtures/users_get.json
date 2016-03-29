@@ -1,0 +1,53 @@
+{
+
+   "kind": "admin#directory#user",
+   "id": "104195576920023581928",
+   "etag": "\"iwpzoDgSq9BJw-XzORg0bILYPVc/pIDCxUsH9JEXg7ODp7YhVwT3bII\"",
+   "primaryEmail": "jane@example.org",
+   "name": {
+    "givenName": "Jane",
+    "familyName": "Doe",
+    "fullName": "Jane Doe"
+   },
+   "isAdmin": false,
+   "isDelegatedAdmin": false,
+   "lastLoginTime": "2016-03-23T18:21:07.000Z",
+   "creationTime": "2016-03-23T17:32:11.000Z",
+   "agreedToTerms": true,
+   "suspended": false,
+   "changePasswordAtNextLogin": false,
+   "ipWhitelisted": false,
+   "emails": [
+    {
+     "address": "jane.doe@example.com"
+    },
+    {
+     "address": "jane@example.org",
+     "primary": true
+    }
+   ],
+   "externalIds": [
+    {
+     "value": "10673",
+     "type": "custom",
+     "customType": "person_id"
+    },
+    {
+     "value": "80",
+     "type": "custom",
+     "customType": "school_id"
+    },
+    {
+     "value": "1",
+     "type": "custom",
+     "customType": "grade"
+    }
+   ],
+   "nonEditableAliases": [
+    "jane.doe@example.com"
+   ],
+   "customerId": "C03tx5gt0",
+   "orgUnitPath": "/students",
+   "isMailboxSetup": false,
+   "includeInGlobalAddressList": false
+  }

@@ -25,11 +25,15 @@
 class Employee < ActiveRecord::Base
   enum state: {active: 0, inactive: 1}
 
+  include Gapps::CustomEmployeeFields
+
   FILTER = /(\s|-|\'|\")/
 
   has_and_belongs_to_many :sites, -> { uniq }
   belongs_to :primary_site, foreign_key: 'primary_site_id', class_name: 'Site'
   belongs_to :user
+
+  belongs_to :org_unit, class_name: "Gapps::OrgUnit", foreign_key: "gapps_org_unit_id"
 
   has_many :personas, as: :personable
 

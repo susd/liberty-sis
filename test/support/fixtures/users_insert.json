@@ -1,0 +1,32 @@
+{
+ "kind": "admin#directory#user",
+ "id": "100126458551022695526",
+ "etag": "\"iwpzoDgSq9BJw-XzORg0bILYPVc/dYytBp0uhoodD-CF1XUcmNo-sUA\"",
+ "primaryEmail": "delete-me@saugususd.org",
+ "name": {
+  "givenName": "Delete",
+  "familyName": "Me"
+ },
+ "isAdmin": false,
+ "isDelegatedAdmin": false,
+ "externalIds": [
+   {
+     "type":"custom",
+     "customType":"person_id",
+     "value":0
+   },
+   {
+     "type":"custom",
+     "customType":"school_id",
+     "value":0
+   },
+   {
+     "type":"custom",
+     "customType":"grade",
+     "value":99
+   }
+ ],
+ "customerId": "C03tx5gt0",
+ "orgUnitPath": "/unassigned",
+ "isMailboxSetup": false
+}

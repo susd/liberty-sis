@@ -94,8 +94,4 @@ class Gapps::Api::OrgUnitTest < ActiveSupport::TestCase
     "https://www.googleapis.com/admin/directory/v1/customer/my_customer/orgunits"
   end
 
-  def escaped_path(path)
-    ERB::Util.url_encode(path)
-  end
-
 end
