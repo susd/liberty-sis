@@ -64,6 +64,34 @@ class Gapps::Api::UserTest < ActiveSupport::TestCase
     refute api_user.insert
   end
 
+  test "patching an existing user" do
+    student = students(:cindy)
+    persona = student.personas.create({
+      handler: "gapps", username: student.persona_email,
+      password: student.persona_init_password,
+      state: 1
+      })
+
+    api_user = Gapps::Api::User.new(persona)
+
+    api_user.update
+    assert_requested :patch, "#{url_base}/", body: expected_student_body(student, persona)
+  end
+
+  test "upserting" do
+    student = students(:cindy)
+    persona = student.personas.create({
+      handler: "gapps", username: student.persona_email,
+      password: student.persona_init_password,
+      state: 1
+      })
+
+    api_user = Gapps::Api::User.new(persona)
+
+    api_user.upsert
+    assert_requested :patch, "#{url_base}/", body: expected_student_body(student, persona)
+  end
+
   private
 
   def url_base

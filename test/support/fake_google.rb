@@ -41,6 +41,10 @@ class FakeGoogle < Sinatra::Base
     json_response 200, 'users_insert.json'
   end
 
+  patch "/admin/directory/v1/users/" do
+    json_response 200, 'users_patch.json'
+  end
+
   # -- Catch-alls
 
   get "/*" do

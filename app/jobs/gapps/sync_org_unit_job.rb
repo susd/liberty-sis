@@ -1,8 +1,9 @@
 module Gapps
   class SyncOrgUnitJob < ActiveJob::Base
+    queue_as :gapps
 
-    def perform(native_org_unit)
-      Gapps::Api::OrgUnit.new(native_org_unit).upsert
+    def perform(persona)
+      Gapps::Api::OrgUnit.new(persona).upsert
     end
   end
 end

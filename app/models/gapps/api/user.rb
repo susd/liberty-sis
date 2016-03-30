@@ -16,10 +16,28 @@ module Gapps
         @record = persona.personable
       end
 
+      def upsert
+        if persona.active?
+          update
+        else
+          insert
+        end
+      end
+
       def insert
         if valid?
           SyncEvent.wrap(label: "gapps:user", action: 1, syncable: persona) do
             service_insert
+          end
+        else
+          false
+        end
+      end
+
+      def update
+        if valid?
+          SyncEvent.wrap(label: "gapps:user", action: 1, syncable: persona) do
+            service_update
           end
         else
           false
@@ -34,7 +52,18 @@ module Gapps
             Rails.logger.error err
             false
           else
-            persona.update(state: 1, service_id: resp.id)
+            persona.update(state: 1, service_id: resp.id, synced_at: Time.now.utc)
+          end
+        end
+      end
+
+      def service_update
+        service.patch_user(persona.service_id, native_to_api) do |resp, err|
+          if err
+            Rails.logger.error err
+            false
+          else
+            persona.update(state: 1, synced_at: Time.now.utc)
           end
         end
       end

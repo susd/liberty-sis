@@ -1,0 +1,35 @@
+{
+ "kind": "admin#directory#user",
+ "id": "107339764595741997272",
+ "etag": "\"iwpzoDgSq9BJw-XzORg0bILYPVc/26yLdN7tUm1kg0G8DO-Z6WkGPlc\"",
+ "primaryEmail": "jdoe@saugususd.org",
+ "name": {
+  "givenName": "Jane",
+  "familyName": "Doe",
+  "fullName": "Jane Doe"
+ },
+ "isAdmin": false,
+ "isDelegatedAdmin": false,
+ "lastLoginTime": "2016-02-11T20:14:20.000Z",
+ "creationTime": "2012-06-01T14:33:08.000Z",
+ "agreedToTerms": true,
+ "suspended": false,
+ "changePasswordAtNextLogin": false,
+ "ipWhitelisted": false,
+ "emails": [
+  {
+   "address": "jdoe@saugususd.org",
+   "primary": true
+  },
+  {
+   "address": "jdoe@saugus.k12.ca.us"
+  }
+ ],
+ "nonEditableAliases": [
+  "jdoe@saugus.k12.ca.us"
+ ],
+ "customerId": "C03tx5gt0",
+ "orgUnitPath": "/",
+ "isMailboxSetup": true,
+ "includeInGlobalAddressList": true
+}
