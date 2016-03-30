@@ -27,7 +27,13 @@
 
 class StudentsController < ApplicationController
   def show
-    load_student
+    @student = Student.includes(
+      :homeroom,
+      :org_unit,
+      :home_lang,
+      :grade
+      ).find(params[:id])
+
     authorize_to(:view, @student)
   end
 
@@ -43,13 +49,13 @@ class StudentsController < ApplicationController
   end
 
   def edit
-    load_student
+    @student = Student.find(params[:id])
     load_languages
     authorize_to(:edit, @student)
   end
 
   def update
-    load_student
+    @student = Student.find(params[:id])
     authorize_to(:edit, @student)
     if @student.update(student_params)
       redirect_to @student, notice: 'Student updated'
@@ -60,10 +66,6 @@ class StudentsController < ApplicationController
   end
 
   private
-
-  def load_student
-    @student = Student.includes(:classrooms).find(params[:id])
-  end
 
   def load_languages
     @langs = Language.where(name: %w{English Spanish}).pluck(:name, :id)

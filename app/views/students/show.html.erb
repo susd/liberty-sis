@@ -20,9 +20,13 @@
 
     <p><strong>Birthdate:</strong> <%= @student.birthdate.strftime('%B %d, %Y') %></p>
 
-    <p><strong>Home language:</strong> <%= @student.home_lang.try(:name) %></p>
+    <p><strong>Home language:</strong>
+      <%= @student.home_lang.try(:name) %> <br>
+      <%= link_to 'Edit home language', edit_student_path(@student) %>
+    </p>
 
-    <p><%= link_to 'Edit home language', edit_student_path(@student), class: 'btn btn-primary' %></p>
+    <p><strong>Google Apps Org Unit:</strong> <%= @student.org_unit.try(:name) %></p>
+
   </div>
   <div class="col-md-4">
 
