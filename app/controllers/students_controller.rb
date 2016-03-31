@@ -23,6 +23,7 @@
 #  import_details    :jsonb            not null
 #  state             :integer          default(0), not null
 #  ssid              :integer
+#  gapps_org_unit_id :integer
 #
 
 class StudentsController < ApplicationController
