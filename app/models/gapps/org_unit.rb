@@ -59,7 +59,7 @@ class Gapps::OrgUnit < ActiveRecord::Base
   end
 
   def self.select_options
-    self.order(:gapps_path).pluck(:gapps_path, :id)
+    self.active.order(:gapps_path).pluck(:gapps_path, :id)
   end
 
   def self.unassigned

@@ -33,7 +33,9 @@ $nav_area-padding: $font-size-base + 1;
 @import 'autocomplete';
 @import 'user';
 @import 'nav_area';
+@import 'forms';
 @import 'contact';
+@import 'attribute';
 
 
 body{

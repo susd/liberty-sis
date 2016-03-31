@@ -13,7 +13,7 @@ class Admin::EmployeesController < AdminController
   end
 
   def show
-    set_employee
+    @employee = Employee.includes(:user, :org_unit).find(params[:id])
   end
 
   def new
@@ -22,7 +22,7 @@ class Admin::EmployeesController < AdminController
   end
 
   def edit
-    set_employee
+    @employee = Employee.includes(:user, :org_unit).find(params[:id])
     set_sites
   end
 
@@ -37,9 +37,9 @@ class Admin::EmployeesController < AdminController
   end
 
   def update
-    set_employee
+    @employee = Employee.find(params[:id])
     if @employee.update(employee_params)
-      redirect_to admin_employees_path, notice: "Employee updated"
+      redirect_to admin_employee_path(@employee), notice: "Employee updated"
     else
       set_sites
       render :edit
@@ -47,10 +47,6 @@ class Admin::EmployeesController < AdminController
   end
 
   private
-
-  def set_employee
-    @employee = Employee.find params[:id]
-  end
 
   def set_sites
     @sites = Site.order(:code)
