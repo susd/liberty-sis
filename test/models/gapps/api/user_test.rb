@@ -92,6 +92,38 @@ class Gapps::Api::UserTest < ActiveSupport::TestCase
     assert_requested :patch, "#{url_base}/", body: expected_student_body(student, persona)
   end
 
+  test "suspending a user" do
+    employee = employees(:teacher)
+    persona = employee.personas.create({
+      handler: "gapps",
+      username: employee.email,
+      password: employee.persona_init_password,
+      state: 1,
+      service_id: "115914797955553398130"
+      })
+
+    api_user = Gapps::Api::User.new(persona)
+
+    api_user.suspend
+    assert_requested :patch, "#{url_base}/#{persona.service_id}", body: {suspended: true}
+  end
+
+  test "deleting a user" do
+    employee = employees(:teacher)
+    persona = employee.personas.create({
+      handler: "gapps",
+      username: employee.email,
+      password: employee.persona_init_password,
+      state: 1,
+      service_id: "114686473565321826812"
+      })
+
+    api_user = Gapps::Api::User.new(persona)
+
+    api_user.delete
+    assert_requested :delete, "#{url_base}/#{persona.service_id}", body: {}
+  end
+
   private
 
   def url_base

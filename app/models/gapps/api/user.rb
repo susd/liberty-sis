@@ -26,7 +26,7 @@ module Gapps
 
       def insert
         if valid?
-          SyncEvent.wrap(label: "gapps:user", action: 1, syncable: persona) do
+          SyncEvent.wrap(sync_wrap_options) do
             service_insert
           end
         else
@@ -36,8 +36,18 @@ module Gapps
 
       def update
         if valid?
-          SyncEvent.wrap(label: "gapps:user", action: 1, syncable: persona) do
+          SyncEvent.wrap(sync_wrap_options) do
             service_update
+          end
+        else
+          false
+        end
+      end
+
+      def suspend
+        if persona.active?
+          SyncEvent.wrap(sync_wrap_options) do
+            service_suspend
           end
         else
           false
@@ -66,6 +76,22 @@ module Gapps
             persona.update(state: 1, synced_at: Time.now.utc)
           end
         end
+      end
+
+      def service_suspend
+        api_obj = GAdmin::User.new(suspended: true)
+        service.patch_user(persona.service_id, api_obj) do |resp, err|
+          if err
+            Rails.logger.error err
+            false
+          else
+            persona.update(state: 1, synced_at: Time.now.utc)
+          end
+        end
+      end
+
+      def service_delete
+        # delete_user
       end
 
       def native_to_api
@@ -105,6 +131,14 @@ module Gapps
         if record.org_unit.nil?
           errors.add :base, "record needs to be assigned to an OrgUnit"
         end
+      end
+
+      def sync_wrap_options
+        {
+          label: "gapps:user",
+          action: 1,
+          syncable: persona
+        }
       end
 
     end

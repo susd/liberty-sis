@@ -45,6 +45,10 @@ class FakeGoogle < Sinatra::Base
     json_response 200, 'users_patch.json'
   end
 
+  patch "/admin/directory/v1/users/:service_id" do
+    json_response 200, 'users_patch.json'
+  end
+
   # -- Catch-alls
 
   get "/*" do
@@ -56,6 +60,10 @@ class FakeGoogle < Sinatra::Base
   end
 
   patch "/*" do
+    binding.pry
+  end
+
+  delete "/*" do
     binding.pry
   end
 
