@@ -148,6 +148,7 @@ Devise.setup do |config|
   # one (and only one) @ exists in the given string. This is mainly
   # to give user feedback and not to assert the e-mail validity.
   # config.email_regexp = /\A[^@]+@[^@]+\z/
+  config.email_regexp = /\A[^@\s]+@[^@\s]+\z/
 
   # ==> Configuration for :timeoutable
   # The time you want to timeout the user session without activity. After this
@@ -239,8 +240,8 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
-  config.omniauth :google_oauth2, 
-    Rails.application.secrets.google_client_id, Rails.application.secrets.google_client_secret, 
+  config.omniauth :google_oauth2,
+    Rails.application.secrets.google_client_id, Rails.application.secrets.google_client_secret,
     { name: 'google', hd: Rails.application.secrets.google_domain, image_aspect_ratio: "square" }
 
   # ==> Warden configuration
