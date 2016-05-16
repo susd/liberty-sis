@@ -17,6 +17,10 @@ Dir["#{Rails.root.join('test', 'support')}/**/*.rb"].each do |file|
   require file
 end
 
+
+# Monkey patch fix for non-null timestamps in hm:t
+# https://github.com/rails/rails/pull/21337
+
 module ActiveRecord
   class FixtureSet
 
