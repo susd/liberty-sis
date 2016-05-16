@@ -9,9 +9,9 @@ require 'webmock/minitest'
 Minitest::Reporters.use! Minitest::Reporters::ProgressReporter.new, ENV, Minitest.backtrace_filter
 
 
-if defined? DidYouMean
-  DidYouMean::SPELL_CHECKERS = {}
-end
+# if defined? DidYouMean
+#   DidYouMean::SPELL_CHECKERS = {}
+# end
 
 Dir["#{Rails.root.join('test', 'support')}/**/*.rb"].each do |file|
   require file
