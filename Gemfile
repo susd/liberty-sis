@@ -81,5 +81,5 @@ group :development, :test do
 end
 
 source 'https://rails-assets.org' do
-  gem 'rails-assets-throttle-debounce'
+  gem 'rails-assets-throttle-debounce', '~> 0.1.1'
 end
