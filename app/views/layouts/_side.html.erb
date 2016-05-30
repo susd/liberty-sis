@@ -29,7 +29,7 @@
             <li><%= link_to 'Classrooms', sites_path %></li>
           <% end %>
 
-          <% if current_user.can_generally?(:view, :site, :employees) %>
+          <% if show_employees_link? %>
             <li><%= link_to 'Employees', employees_path %></li>
           <% end %>
         </ul>

@@ -32,4 +32,8 @@ module ApplicationHelper
     }.merge!(opts)
     link_to name, start_path, options
   end
+
+  def show_employees_link?
+    current_user.can_generally?(:view, :site, :employees) && !current_user.admin?
+  end
 end
