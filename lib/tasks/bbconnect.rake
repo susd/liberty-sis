@@ -59,20 +59,20 @@ namespace :bbconnect do
     desc "Upload all files"
     task all: :environment do
 
-      Bbconnect::Uploader.new(
-        Bbconnect::K12Exporter::PATH,
-        Rails.application.secrets[:bbconnect_k12].merge(type: "Student")
-        ).perform
+    Bbconnect::Uploader.new(
+      Bbconnect::K12Exporter::PATH,
+      Rails.application.secrets[:bbconnect_k12].merge(type: "Student")
+      ).perform
 
-      Bbconnect::Uploader.new(
-        Bbconnect::FacultyExporter::PATH,
-        Rails.application.secrets[:bbconnect_k12].merge(type: "Faculty")
-        ).perform
+    Bbconnect::Uploader.new(
+      Bbconnect::FacultyExporter::PATH,
+      Rails.application.secrets[:bbconnect_k12].merge(type: "Faculty")
+      ).perform
 
-      Bbconnect::Uploader.new(
-        Bbconnect::CdpExporter::TARGET,
-        Rails.application.secrets[:bbconnect_cdp].merge(type: "Student")
-        ).perform
+    Bbconnect::Uploader.new(
+      Bbconnect::CdpExporter::TARGET,
+      Rails.application.secrets[:bbconnect_cdp].merge(type: "Student")
+      ).perform
 
     end
   end
