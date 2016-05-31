@@ -23,7 +23,6 @@ module Bbconnect
         csv << Bbconnect::K12Exporter.header
         Student.includes(:contacts, :site, :grade).order(:site, :grade).find_each.with_index do |student, idx|
           csv << Bbconnect::K12Exporter.new(student).export
-          progress(idx)
         end
       end
     end
@@ -33,7 +32,6 @@ module Bbconnect
         csv << Bbconnect::CdpExporter.header
         CSV.foreach(Bbconnect::CdpExporter::SOURCE, headers: true).with_index do |row, idx|
           csv << Bbconnect::CdpExporter.new(row).export
-          progress(idx)
         end
       end
     end
@@ -45,7 +43,6 @@ module Bbconnect
         Employee.active.includes(:primary_site).order(:primary_site)
         .find_each.with_index do |employee, idx|
           csv << Bbconnect::FacultyExporter.new(employee).export
-          progress(idx)
         end
       end
     end
