@@ -70,7 +70,12 @@ module Bbconnect
     end
 
     def site
-      abbr = Site.find_by(code: data[6].to_i).abbr
+      if site = Site.find_by(code: data[6].to_i)
+        abbr = site.abbr
+      else
+        abbr = "do"
+      end
+      
       "cdp-#{abbr}"
     end
   end
