@@ -1,5 +1,12 @@
+require "csv"
+
 module Bbconnect
   class ExportAllJob < ActiveJob::Base
+    queue_as :export
+
+    after_perform do
+      Bbconnect::ExportAllJob.set(wait: 3.days).perform_later
+    end
 
     def perform
       export_k12
