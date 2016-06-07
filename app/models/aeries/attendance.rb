@@ -49,7 +49,7 @@ module Aeries
     end
 
     def self.confirmed
-      where(al: absence_codes + tardy_codes).where.not(al: '')
+      where(al: absence_codes + tardy_codes).where.not(al: '', del: true)
     end
 
     def self.by_student(aeries_student)
