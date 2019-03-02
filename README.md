@@ -20,6 +20,3 @@ passwords.
 
 This repo is heavily geared to how we use Liberty at the Saugus Union School District
 and contains code that would be useless other districts; it's mostly for show-and-tell.
-I will be extracting useful parts into a more general project here:
-
-https://github.com/hayesr/liberty
